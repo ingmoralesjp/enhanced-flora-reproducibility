@@ -1,0 +1,9 @@
+{
+  "accepted": 92,
+  "coverage_sha256": "e73ec81abefcc3be91b0c5a8f72af678afece981417ff235c35ab9d571f8005d",
+  "failed": 8,
+  "failed_run_pdr_imputed": false,
+  "official_failure_map_sha256": "d19ab8706adcc0b75c3862117152a1ce54ad5303c13574b6dd8ffc59f58d7db6",
+  "official_manifest_sha256": "f47ec9b319b88fd1ab2205f08f4e32261f3fd1e62b554dd41d9e10aa39ad2684",
+  "official_run_level_sha256": "9743fc4f47a31442c32244d9902b8f339f33f35cdb953fbe0395930477685f11"
+}

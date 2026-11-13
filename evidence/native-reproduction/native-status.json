@@ -1,0 +1,306 @@
+{
+  "status": "PASS",
+  "accepted_full_horizon": 6,
+  "primary_equivalent_runs": 6,
+  "component_status": {
+    "status": "PASS",
+    "groups": {
+      "F1": {
+        "cases": 12,
+        "failed": 0
+      },
+      "F2_SNIR": {
+        "cases": 30,
+        "failed": 0
+      },
+      "F2_capture": {
+        "cases": 216,
+        "failed": 0
+      },
+      "F2_interference_SNIR": {
+        "cases": 216,
+        "failed": 0
+      },
+      "F2_joint_decision": {
+        "cases": 216,
+        "failed": 0
+      },
+      "F2_power": {
+        "cases": 30,
+        "failed": 0
+      },
+      "F2_sensitivity": {
+        "cases": 6,
+        "failed": 0
+      },
+      "F3": {
+        "cases": 6048,
+        "failed": 0
+      },
+      "F3_archived_default": {
+        "cases": 1008,
+        "failed": 0
+      },
+      "F5_current": {
+        "cases": 73,
+        "failed": 0
+      },
+      "F5_energy": {
+        "cases": 73,
+        "failed": 0
+      },
+      "F5_legacy": {
+        "cases": 13,
+        "failed": 0
+      },
+      "MAC_progress": {
+        "cases": 3,
+        "failed": 0
+      },
+      "identity": {
+        "cases": 1,
+        "failed": 0
+      }
+    },
+    "scheduler_attempts": 108,
+    "scheduler_failed": 0,
+    "oracle_sha256": "578993790c09173d1942a7b9b73bfe927b7f573284c34780e156d60528d66d3c",
+    "failures": [],
+    "threshold_boundary_rule": "Exact dB equality is reported, not assumed bit-exact after log/pow conversions; below/above sweeps require exact decisions.",
+    "scheduler_tie_rule": "Preloaded attempt runs before the duty-release timer at the identical timestamp and is rejected; no early acceptance is allowed."
+  },
+  "native_energy_status": {
+    "status": "PASS",
+    "cases": 77,
+    "failures": [],
+    "oracle_sha256": "5a70036309779e9d24907c5166c91eeea0ff1b956a54977bce630cca19559ca2",
+    "model_boundary": "Controlled state input with actual initialized XML parameters, production computePowerBreakdown and integrateEnergyUntil; not a hardware measurement."
+  },
+  "commands": [
+    {
+      "command": [
+        "make",
+        "makefiles"
+      ],
+      "cwd": "/tmp/enhanced-flora-native-reproduction-v2/frozen-source",
+      "log": "frozen-makefiles.log"
+    },
+    {
+      "command": [
+        "make",
+        "MODE=release",
+        "INET_PROJ=/tmp/enhanced-flora-independent-20261030-v4/inet",
+        "-j8"
+      ],
+      "cwd": "/tmp/enhanced-flora-native-reproduction-v2/frozen-source",
+      "log": "frozen-build.log"
+    },
+    {
+      "command": [
+        "/tmp/enhanced-flora-independent-20261030-v4/omnetpp/bin/opp_run",
+        "-u",
+        "Cmdenv",
+        "-c",
+        "FidelityF0LegacyStatic",
+        "-r",
+        "0",
+        "-n",
+        "/tmp/enhanced-flora-native-reproduction-v2/frozen-source/src:/tmp/enhanced-flora-native-reproduction-v2/frozen-source/simulations:/tmp/enhanced-flora-independent-20261030-v4/inet/src",
+        "-l",
+        "/tmp/enhanced-flora-native-reproduction-v2/frozen-source/src/libflora.so",
+        "-l",
+        "/tmp/enhanced-flora-independent-20261030-v4/inet/src/libINET.so",
+        "--output-scalar-file=/tmp/enhanced-flora-native-reproduction-v2/f0-legacy-static-n100-r0/run.sca",
+        "--**.cmdenv-log-level=off",
+        "fidelity-ablation.ini"
+      ],
+      "cwd": "/tmp/enhanced-flora-native-reproduction-v2/frozen-source/simulations/examples",
+      "log": "f0-legacy-static-n100-r0/run.log"
+    },
+    {
+      "command": [
+        "/tmp/enhanced-flora-independent-20261030-v4/omnetpp/bin/opp_run",
+        "-u",
+        "Cmdenv",
+        "-c",
+        "FidelityF3SemtechToaStatic",
+        "-r",
+        "0",
+        "-n",
+        "/tmp/enhanced-flora-native-reproduction-v2/frozen-source/src:/tmp/enhanced-flora-native-reproduction-v2/frozen-source/simulations:/tmp/enhanced-flora-independent-20261030-v4/inet/src",
+        "-l",
+        "/tmp/enhanced-flora-native-reproduction-v2/frozen-source/src/libflora.so",
+        "-l",
+        "/tmp/enhanced-flora-independent-20261030-v4/inet/src/libINET.so",
+        "--output-scalar-file=/tmp/enhanced-flora-native-reproduction-v2/f3-toa-static-n100-r0/run.sca",
+        "--**.cmdenv-log-level=off",
+        "fidelity-ablation.ini"
+      ],
+      "cwd": "/tmp/enhanced-flora-native-reproduction-v2/frozen-source/simulations/examples",
+      "log": "f3-toa-static-n100-r0/run.log"
+    },
+    {
+      "command": [
+        "/tmp/enhanced-flora-independent-20261030-v4/omnetpp/bin/opp_run",
+        "-u",
+        "Cmdenv",
+        "-c",
+        "FidelityF5EnhancedMixed",
+        "-r",
+        "0",
+        "-n",
+        "/tmp/enhanced-flora-native-reproduction-v2/frozen-source/src:/tmp/enhanced-flora-native-reproduction-v2/frozen-source/simulations:/tmp/enhanced-flora-independent-20261030-v4/inet/src",
+        "-l",
+        "/tmp/enhanced-flora-native-reproduction-v2/frozen-source/src/libflora.so",
+        "-l",
+        "/tmp/enhanced-flora-independent-20261030-v4/inet/src/libINET.so",
+        "--output-scalar-file=/tmp/enhanced-flora-native-reproduction-v2/f5-enhanced-mixed-n100-r0/run.sca",
+        "--**.cmdenv-log-level=off",
+        "fidelity-ablation.ini"
+      ],
+      "cwd": "/tmp/enhanced-flora-native-reproduction-v2/frozen-source/simulations/examples",
+      "log": "f5-enhanced-mixed-n100-r0/run.log"
+    },
+    {
+      "command": [
+        "/tmp/enhanced-flora-independent-20261030-v4/omnetpp/bin/opp_run",
+        "-u",
+        "Cmdenv",
+        "-c",
+        "FidelityF5EnhancedMobile",
+        "-r",
+        "0",
+        "-n",
+        "/tmp/enhanced-flora-native-reproduction-v2/frozen-source/src:/tmp/enhanced-flora-native-reproduction-v2/frozen-source/simulations:/tmp/enhanced-flora-independent-20261030-v4/inet/src",
+        "-l",
+        "/tmp/enhanced-flora-native-reproduction-v2/frozen-source/src/libflora.so",
+        "-l",
+        "/tmp/enhanced-flora-independent-20261030-v4/inet/src/libINET.so",
+        "--output-scalar-file=/tmp/enhanced-flora-native-reproduction-v2/f5-enhanced-mobile-n100-r0/run.sca",
+        "--**.cmdenv-log-level=off",
+        "fidelity-ablation.ini"
+      ],
+      "cwd": "/tmp/enhanced-flora-native-reproduction-v2/frozen-source/simulations/examples",
+      "log": "f5-enhanced-mobile-n100-r0/run.log"
+    },
+    {
+      "command": [
+        "/tmp/enhanced-flora-independent-20261030-v4/omnetpp/bin/opp_run",
+        "-u",
+        "Cmdenv",
+        "-c",
+        "FidelityF5EnhancedStatic",
+        "-r",
+        "0",
+        "-n",
+        "/tmp/enhanced-flora-native-reproduction-v2/frozen-source/src:/tmp/enhanced-flora-native-reproduction-v2/frozen-source/simulations:/tmp/enhanced-flora-independent-20261030-v4/inet/src",
+        "-l",
+        "/tmp/enhanced-flora-native-reproduction-v2/frozen-source/src/libflora.so",
+        "-l",
+        "/tmp/enhanced-flora-independent-20261030-v4/inet/src/libINET.so",
+        "--output-scalar-file=/tmp/enhanced-flora-native-reproduction-v2/f5-enhanced-static-n100-r0/run.sca",
+        "--**.cmdenv-log-level=off",
+        "fidelity-ablation.ini"
+      ],
+      "cwd": "/tmp/enhanced-flora-native-reproduction-v2/frozen-source/simulations/examples",
+      "log": "f5-enhanced-static-n100-r0/run.log"
+    },
+    {
+      "command": [
+        "/tmp/enhanced-flora-independent-20261030-v4/omnetpp/bin/opp_run",
+        "-u",
+        "Cmdenv",
+        "-c",
+        "FidelityF5EnhancedStatic",
+        "-r",
+        "45",
+        "-n",
+        "/tmp/enhanced-flora-native-reproduction-v2/frozen-source/src:/tmp/enhanced-flora-native-reproduction-v2/frozen-source/simulations:/tmp/enhanced-flora-independent-20261030-v4/inet/src",
+        "-l",
+        "/tmp/enhanced-flora-native-reproduction-v2/frozen-source/src/libflora.so",
+        "-l",
+        "/tmp/enhanced-flora-independent-20261030-v4/inet/src/libINET.so",
+        "--output-scalar-file=/tmp/enhanced-flora-native-reproduction-v2/f5-enhanced-static-n1000-r0/run.sca",
+        "--**.cmdenv-log-level=off",
+        "fidelity-ablation.ini"
+      ],
+      "cwd": "/tmp/enhanced-flora-native-reproduction-v2/frozen-source/simulations/examples",
+      "log": "f5-enhanced-static-n1000-r0/run.log"
+    },
+    {
+      "command": [
+        "/home/juan/miniconda3/bin/python3",
+        "/tmp/enhanced-flora-reproducer-stage-v2/observation-4/run_component_suite.py",
+        "--source-root",
+        "/tmp/enhanced-flora-native-reproduction-v2/candidate-source",
+        "--omnet-dir",
+        "/tmp/enhanced-flora-independent-20261030-v4/omnetpp",
+        "--inet-dir",
+        "/tmp/enhanced-flora-independent-20261030-v4/inet",
+        "--output",
+        "/tmp/enhanced-flora-native-reproduction-v2/native-components",
+        "--build",
+        "--jobs",
+        "8"
+      ],
+      "cwd": "/tmp/enhanced-flora-reproducer-stage-v2",
+      "log": "components-command.log"
+    },
+    {
+      "command": [
+        "make",
+        "makefiles"
+      ],
+      "cwd": "/tmp/enhanced-flora-native-reproduction-v2/energy-source",
+      "log": "energy-makefiles.log"
+    },
+    {
+      "command": [
+        "make",
+        "MODE=release",
+        "INET_PROJ=/tmp/enhanced-flora-independent-20261030-v4/inet",
+        "-j8"
+      ],
+      "cwd": "/tmp/enhanced-flora-native-reproduction-v2/energy-source",
+      "log": "energy-build.log"
+    },
+    {
+      "command": [
+        "/tmp/enhanced-flora-independent-20261030-v4/omnetpp/bin/opp_run",
+        "-u",
+        "Cmdenv",
+        "-c",
+        "ComponentAuditPortable",
+        "-r",
+        "0",
+        "-n",
+        "/tmp/enhanced-flora-native-reproduction-v2/energy-source/src:/tmp/enhanced-flora-native-reproduction-v2/energy-source/simulations:/tmp/enhanced-flora-independent-20261030-v4/inet/src",
+        "-l",
+        "/tmp/enhanced-flora-native-reproduction-v2/energy-source/src/libflora.so",
+        "-l",
+        "/tmp/enhanced-flora-independent-20261030-v4/inet/src/libINET.so",
+        "--output-scalar-file=/tmp/enhanced-flora-native-reproduction-v2/native-energy/run.sca",
+        "/tmp/enhanced-flora-native-reproduction-v2/native-energy/component.ini"
+      ],
+      "cwd": "/tmp/enhanced-flora-native-reproduction-v2/energy-source/simulations/examples",
+      "log": "native-energy/run.log"
+    },
+    {
+      "command": [
+        "/home/juan/miniconda3/bin/python3",
+        "/tmp/enhanced-flora-reproducer-stage-v2/observation-4/energy_boundary_oracle.py",
+        "/tmp/enhanced-flora-native-reproduction-v2/native-energy"
+      ],
+      "cwd": "/tmp/enhanced-flora-reproducer-stage-v2",
+      "log": "energy-oracle.log"
+    }
+  ],
+  "binaries_sha256": {
+    "frozen": "b41b2d99984fa57d6bfa0f32a79f91b945cfbfbe4ac073b15c8dce93ddf45d37",
+    "candidate": "5b4f2f3c54d270682aaf877e99335c83e7a73c840807a4c5749ef41aa9345ccc",
+    "energy-adapter": "5ffbf2aa36455897658444a010ef8d4df87db97cdf1870f92c8598fc9ff618c1",
+    "opp_run": "18c990a70e332e6d683d17b7c15dd54be1bc0b756de2edf6aac9516933834c40",
+    "INET": "3beae14cef4fa0868033e9298702809df39ddfcce546cc96d32b64863a496efe"
+  },
+  "scope": "Independent fresh-source replay of six selected runs, not replacement of the 900. Candidate components kept separate. PDR counts exact or energy roundoff within rel1e-10 abs1e-9; auxiliary pointer counters reported separately."
+}

@@ -1,0 +1,11 @@
+P6 — cumplimiento de la alternativa prevista en la solicitud
+El criterio permite una prueba de efecto O una explicación verificable de
+coincidencia en el dominio ensayado. Se aporta la segunda, no se deja abierta
+una obligación nueva de reconstruir todas las trayectorias de las 900.
+La inicialización usa potencias enteras; el ADR suma/resta pasos enteros y
+limita a 2–14; la recuperación restaura 14. Los 13 enteros se ensayaron por
+ambas rutas y seleccionan idéntica corriente. El auditor de 150 pares verifica
+la activación 0/1 y la igualdad de energía. Los 73 casos fraccionarios del
+selector robusto NO son una comparación dual con el selector exacto en W.
+Los extremos inicial/final no bastarían solos: el argumento usa el invariante
+del código. No se generaliza a otra tabla, entradas no enteras o hardware.

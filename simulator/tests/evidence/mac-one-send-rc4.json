@@ -1,0 +1,20 @@
+{
+  "assertion_patch_sha256": "71b7b334331363387302ddf75e8a523a6a685a21847c13d7fd90ca1d321eeb34",
+  "checked_at_utc": "2026-10-12T15:16:50.955377+00:00",
+  "configurations": [
+    "FidelityValidateF0",
+    "FidelityValidateF1",
+    "FidelityValidateF2",
+    "FidelityValidateF3",
+    "FidelityValidateF4",
+    "FidelityValidateF5",
+    "FidelityValidateLegacyDuty",
+    "FidelityValidateToaDuty",
+    "FidelityValidateF5Mobile",
+    "FidelityValidateF5Mixed"
+  ],
+  "inet_library_sha256": "d381b7f7fb1c58e966de9f330050548cc3b4bd70817ef2d9498baef678646f23",
+  "scope": "ten short instrumented paths; not a full-horizon proof",
+  "source_mac_sha256": "d636bf12cfedde9f76805255b456a52ff03fd061a054fe33c26866787cc49a73",
+  "status": "PASS"
+}

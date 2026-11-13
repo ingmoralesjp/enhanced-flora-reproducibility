@@ -1,0 +1,4081 @@
+--- flora-1.1/src/LoRa/LoRaGWMac.cc
++++ enhanced-rc11/src/LoRa/LoRaGWMac.cc
+@@ -16,6 +16,7 @@
+ #include "LoRaGWMac.h"
+ #include "inet/common/ModuleAccess.h"
+ #include "../LoRaPhy/LoRaPhyPreamble_m.h"
++#include "../LoRaPhy/LoRaAirtimeCalculator.h"
+ #include "inet/common/ProtocolTag_m.h"
+ 
+ 
+@@ -40,6 +41,18 @@
+         const char *addressString = par("address");
+         GW_forwardedDown = 0;
+         GW_droppedDC = 0;
++        enforceDutyCycle = par("enforceDutyCycle").boolValue();
++        gatewayDutyCycle = par("gatewayDutyCycle").doubleValue();
++        airtimeModel = par("airtimeModel").stdstringValue();
++        dutyCycleModel = par("dutyCycleModel").stdstringValue();
++        if (gatewayDutyCycle <= 0.0 || gatewayDutyCycle > 1.0)
++            throw cRuntimeError("gatewayDutyCycle must be in (0,1], got %g", gatewayDutyCycle);
++        if (airtimeModel != "semtech" && airtimeModel != "legacyFixedPayload")
++            throw cRuntimeError("airtimeModel must be semtech or legacyFixedPayload");
++        if (dutyCycleModel != "toa" && dutyCycleModel != "legacySfConstants")
++            throw cRuntimeError("dutyCycleModel must be toa or legacySfConstants");
++        GW_downlinkTimeOnAir = 0.0;
++        GW_dutyCycleHoldoff = 0.0;
+         if (!strcmp(addressString, "auto")) {
+             // assign automatic address
+             address = MacAddress::generateAutoAddress();
+@@ -58,7 +71,13 @@
+ {
+     recordScalar("GW_forwardedDown", GW_forwardedDown);
+     recordScalar("GW_droppedDC", GW_droppedDC);
++    recordScalar("GW_configuredDutyCycle", gatewayDutyCycle);
++    recordScalar("GW_airtimeModelCode", airtimeModel == "semtech" ? 1 : 0);
++    recordScalar("GW_dutyCycleModelCode", dutyCycleModel == "toa" ? 1 : 0);
++    recordScalar("GW_downlinkTimeOnAir", GW_downlinkTimeOnAir);
++    recordScalar("GW_dutyCycleHoldoff", GW_dutyCycleHoldoff);
+     cancelAndDelete(dutyCycleTimer);
++
+ }
+ 
+ 
+@@ -117,15 +136,32 @@
+ //        sendDown(frame);
+ 
+ 
++        // The complete MAC frame is the LoRa PHY payload at this point.  Use
++        // the same Semtech-compatible calculator as the physical transmitter
++        // instead of the former SF-only constants.  For duty-cycle fraction D,
++        // two transmission starts must be separated by ToA/D; equivalently,
++        // the post-transmission off-time is ToA*(1/D-1).
++        const int payloadBytes = (pkt->getDataLength().get() + 7) / 8;
++        const LoRaAirtime airtime = airtimeModel == "semtech" ?
++                calculateLoRaAirtime(frame->getLoRaSF(), frame->getLoRaBW().get(),
++                        payloadBytes, frame->getLoRaCR(), true) :
++                calculateLegacyLoRaAirtime(frame->getLoRaSF(), frame->getLoRaBW().get(),
++                        15, frame->getLoRaCR());
++        const double timeOnAir = airtime.total().dbl();
++        static const double legacyHoldoffSeconds[] = {
++            0.61696, 1.23392, 2.14016, 4.28032, 7.24992, 14.49984
++        };
++        const int sfIndex = frame->getLoRaSF() - 7;
++        if (sfIndex < 0 || sfIndex >= 6)
++            throw cRuntimeError("Invalid LoRa spreading factor %d", frame->getLoRaSF());
++        const double holdoff = !enforceDutyCycle ? timeOnAir :
++                dutyCycleModel == "toa" ? timeOnAir / gatewayDutyCycle :
++                legacyHoldoffSeconds[sfIndex];
++
+         waitingForDC = true;
+-        double delta;
+-        if(frame->getLoRaSF() == 7) delta = 0.61696;
+-        if(frame->getLoRaSF() == 8) delta = 1.23392;
+-        if(frame->getLoRaSF() == 9) delta = 2.14016;
+-        if(frame->getLoRaSF() == 10) delta = 4.28032;
+-        if(frame->getLoRaSF() == 11) delta = 7.24992;
+-        if(frame->getLoRaSF() == 12) delta = 14.49984;
+-        scheduleAt(simTime() + delta, dutyCycleTimer);
++        scheduleAt(simTime() + holdoff, dutyCycleTimer);
++        GW_downlinkTimeOnAir += timeOnAir;
++        GW_dutyCycleHoldoff += holdoff;
+         GW_forwardedDown++;
+         pkt->addTagIfAbsent<PacketProtocolTag>()->setProtocol(&Protocol::apskPhy);
+         sendDown(pkt);
+@@ -137,13 +173,17 @@
+     }
+ }
+ 
+-void LoRaGWMac::handleLowerMessage(cMessage *msg)
++void LoRaGWMac::handleLowerMessage(cMessage *msg)//---------------/////////////-----------------------------------------
+ {
+     auto pkt = check_and_cast<Packet *>(msg);
+     auto header = pkt->popAtFront<LoRaPhyPreamble>();
+     const auto &frame = pkt->peekAtFront<LoRaMacFrame>();
++
+     if(frame->getReceiverAddress() == MacAddress::BROADCAST_ADDRESS)
+-        sendUp(pkt);
++    {
++                sendUp(pkt);
++    }
++
+     else
+         delete pkt;
+ }
+--- flora-1.1/src/LoRa/LoRaMac.cc
++++ enhanced-rc11/src/LoRa/LoRaMac.cc
+@@ -90,7 +90,7 @@
+         mediumStateChange = new cMessage("MediumStateChange");
+ 
+         // set up internal queue
+-        txQueue = getQueue(gate(upperLayerInGateId));//check_and_cast<queueing::IPacketQueue *>(getSubmodule("queue"));
++        txQueue = check_and_cast<queueing::IPacketQueue *>(getSubmodule("queue"));
+ 
+         // state variables
+         fsm.setName("LoRaMac State Machine");
+@@ -107,6 +107,8 @@
+         numCollision = 0;
+         numSent = 0;
+         numReceived = 0;
++        numReceived_1 = 0;
++        numReceived_2 = 0;
+         numSentBroadcast = 0;
+         numReceivedBroadcast = 0;
+ 
+@@ -135,6 +137,8 @@
+     //recordScalar("numCollision", numCollision);
+     recordScalar("numSent", numSent);
+     recordScalar("numReceived", numReceived);
++    recordScalar("numReceived_1", numReceived_1);
++    recordScalar("numReceived_2", numReceived_2);
+     recordScalar("numSentBroadcast", numSentBroadcast);
+     recordScalar("numReceivedBroadcast", numReceivedBroadcast);
+ }
+@@ -163,23 +167,30 @@
+     EV << "received self message: " << msg << endl;
+     handleWithFsm(msg);
+ }
+-#if 0
+-void LoRaMac::handleUpperPacket(cMessage *msg)
+-{
++
++void LoRaMac::handleUpperMessage(cMessage *msg)
++{
++    /*
++     //cancelare estas lineas que llevan al error
++
++    EV << "handleUpperMessage called in state: " << fsm.getStateName() << endl;//linea mia para identificar el estado
++
+     if(fsm.getState() != IDLE) {
+-            error("Wrong, it should not happen erroneous state: %s", fsm.getStateName());
+-    }
++        EV << "Error: FSM state is not IDLE, it is " << fsm.getStateName() << endl;//linea mia para identificar el estado
++            error(fsm.getStateName());
++            error("Wrong, it should not happen");
++    }
++    //fin de las lineas que llevan al error
++    */
+     auto pkt = check_and_cast<Packet *>(msg);
+-
+-    pkt->addTagIfAbsent<PacketProtocolTag>()->setProtocol(&Protocol::lora);
++    pkt->addTagIfAbsent<PacketProtocolTag>()->setProtocol(&Protocol::apskPhy);
+ //    LoRaMacControlInfo *cInfo = check_and_cast<LoRaMacControlInfo *>(msg->getControlInfo());
+     auto pktEncap = encapsulate(pkt);
+ 
+-    const auto &frame = pktEncap->peekAtFront<LoRaMacFrame>();
+-
++    const auto &frame = pktEncap->peekAtFront<LoRaMacFrame>(); //poner breakpoint
+     EV << "frame " << pktEncap << " received from higher layer, receiver = " << frame->getReceiverAddress() << endl;
+-
+     txQueue->enqueuePacket(pktEncap);
++
+     if (fsm.getState() != IDLE)
+         EV << "deferring upper message transmission in " << fsm.getStateName() << " state\n";
+     else {
+@@ -187,65 +198,22 @@
+         handleWithFsm(currentTxFrame);
+     }
+ }
+-#endif
+-void LoRaMac::handleUpperPacket(Packet *packet)
+-{
+-    if(fsm.getState() != IDLE) {
+-         error("Wrong, it should not happen erroneous state: %s", fsm.getStateName());
+-    }
+-    packet->addTagIfAbsent<PacketProtocolTag>()->setProtocol(&Protocol::apskPhy);
+-
+-    EV << "frame " << packet << " received from higher layer " << endl;
+-    auto pktEncap = encapsulate(packet);
+-    const auto &frame = pktEncap->peekAtFront<LoRaMacFrame>();
+-    if (frame == nullptr)
+-        throw cRuntimeError("Header LoRaMacFrame not found");
+-
+-    if (currentTxFrame != nullptr)
+-        throw cRuntimeError("Model error: incomplete transmission exists");
+-    currentTxFrame = pktEncap;
+-    handleWithFsm(currentTxFrame);
+-}
+-
+-
+-void LoRaMac::handleLowerPacket(Packet *msg)
++
++void LoRaMac::handleLowerMessage(cMessage *msg)
+ {
+     if( (fsm.getState() == RECEIVING_1) || (fsm.getState() == RECEIVING_2)) handleWithFsm(msg);
+     else delete msg;
+ }
+ 
+-void LoRaMac::processUpperPacket()
+-{
+-    Packet *packet = dequeuePacket();
+-    handleUpperMessage(packet);
+-}
+-
+-queueing::IPassivePacketSource *LoRaMac::getProvider(cGate *gate)
+-{
+-    return (gate->getId() == upperLayerInGateId) ? txQueue.get() : nullptr;
+-}
+-
+-void LoRaMac::handleCanPullPacketChanged(cGate *gate)
+-{
+-    Enter_Method("handleCanPullPacketChanged");
+-    if (fsm.getState() == IDLE && !txQueue->isEmpty()) {
+-        processUpperPacket();
+-    }
+-}
+-
+-void LoRaMac::handlePullPacketProcessed(Packet *packet, cGate *gate, bool successful)
+-{
+-    Enter_Method("handlePullPacketProcessed");
+-    throw cRuntimeError("Not supported callback");
+-}
+-
+ void LoRaMac::handleWithFsm(cMessage *msg)
+ {
++    EV << "handleWithFsm called with message: " << msg->getName() << " in state: " << fsm.getStateName() << endl;
++
+     Ptr<LoRaMacFrame>frame = nullptr;
+ 
+     auto pkt = dynamic_cast<Packet *>(msg);
+     if (pkt) {
+-        const auto &chunk = pkt->peekAtFront<Chunk>();
++        const auto &chunk = pkt->peekAtFront<Chunk>(); ///poner breakpoint aqui
+         frame = dynamicPtrCast<LoRaMacFrame>(constPtrCast<Chunk>(chunk));
+     }
+     FSMA_Switch(fsm)
+@@ -290,6 +258,7 @@
+         }
+         FSMA_State(RECEIVING_1)
+         {
++            FSMA_Enter(EV << "Entering RECEIVING_1 state" << endl;);//linea mia para identificar el estado
+             FSMA_Event_Transition(Receive-Unicast-Not-For,
+                                   isLowerMessage(msg) && !isForUs(frame),
+                                   LISTENING_1,
+@@ -297,8 +266,10 @@
+             FSMA_Event_Transition(Receive-Unicast,
+                                   isLowerMessage(msg) && isForUs(frame),
+                                   IDLE,
++                EV << "Packet received in RECEIVING_1 state" << endl;     //linea mia para identificar el estado
+                 sendUp(decapsulate(pkt));
+                 numReceived++;
++                numReceived_1++;
+                 cancelEvent(endListening_1);
+                 cancelEvent(endDelay_2);
+                 cancelEvent(endListening_2);
+@@ -331,6 +302,7 @@
+         }
+         FSMA_State(RECEIVING_2)
+         {
++            FSMA_Enter(EV << "Entering RECEIVING_2 state" << endl;);//linea mia para identificar el estado
+             FSMA_Event_Transition(Receive2-Unicast-Not-For,
+                                   isLowerMessage(msg) && !isForUs(frame),
+                                   LISTENING_2,
+@@ -338,27 +310,21 @@
+             FSMA_Event_Transition(Receive2-Unicast,
+                                   isLowerMessage(msg) && isForUs(frame),
+                                   IDLE,
+-                sendUp(pkt);
++                EV << "Packet received in RECEIVING_2 state" << endl;     //linea mia para identificar el estado
++                //sendUp(pkt);//linea original
++                //linea siguiente igual al receiving_1
++                sendUp(decapsulate(pkt));
+                 numReceived++;
++                numReceived_2++;
+                 cancelEvent(endListening_2);
+             );
+             FSMA_Event_Transition(Receive2-BelowSensitivity,
+                                   msg == droppedPacket,
+                                   LISTENING_2,
+             );
+-        }
+-    }
+-
+-//    if (fsm.getState() == IDLE) {
+-//        if (isReceiving())
+-//            handleWithFsm(mediumStateChange);
+-//        else if (currentTxFrame != nullptr)
+-//            handleWithFsm(currentTxFrame);
+-//        else if (!txQueue->isEmpty()) {
+-//            popTxQueue();
+-//            handleWithFsm(currentTxFrame);
+-//        }
+-//    }
++
++        }
++    }
+ 
+     if (fsm.getState() == IDLE) {
+         if (isReceiving())
+@@ -366,10 +332,10 @@
+         else if (currentTxFrame != nullptr)
+             handleWithFsm(currentTxFrame);
+         else if (!txQueue->isEmpty()) {
+-            processUpperPacket();
+-        }
+-    }
+-
++            popTxQueue();
++            handleWithFsm(currentTxFrame);
++        }
++    }
+     if (endSifs) {
+         if (isLowerMessage(msg) && pkt->getOwner() == this && (endSifs->getContextPointer() != pkt))
+             delete pkt;
+@@ -390,7 +356,9 @@
+             radio->setRadioMode(IRadio::RADIO_MODE_SLEEP);
+         }
+         receptionState = newRadioReceptionState;
+-        handleWithFsm(mediumStateChange);
++        if ((fsm.getState() == LISTENING_1 || fsm.getState() == LISTENING_2) &&
++                newRadioReceptionState == IRadio::RECEPTION_STATE_RECEIVING)
++            handleWithFsm(mediumStateChange);
+     }
+     else if (signalID == LoRaRadio::droppedPacket) {
+         radio->setRadioMode(IRadio::RADIO_MODE_SLEEP);
+@@ -502,7 +470,6 @@
+     scheduleAt(simTime() + waitDelay1Time + listening1Time + waitDelay2Time, endDelay_2);
+     scheduleAt(simTime() + waitDelay1Time + listening1Time + waitDelay2Time + listening2Time, endListening_2);
+     deleteCurrentTxFrame();
+-    //popTxQueue();
+ }
+ 
+ Packet *LoRaMac::getCurrentTransmission()
+--- flora-1.1/src/LoRa/NetworkServerApp.cc
++++ enhanced-rc11/src/LoRa/NetworkServerApp.cc
+@@ -1,446 +1,1129 @@
+-//
+-// This program is free software: you can redistribute it and/or modify
+-// it under the terms of the GNU Lesser General Public License as published by
+-// the Free Software Foundation, either version 3 of the License, or
+-// (at your option) any later version.
+-// 
+-// This program is distributed in the hope that it will be useful,
+-// but WITHOUT ANY WARRANTY; without even the implied warranty of
+-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-// GNU Lesser General Public License for more details.
+-// 
+-// You should have received a copy of the GNU Lesser General Public License
+-// along with this program.  If not, see http://www.gnu.org/licenses/.
+-// 
+-
+ #include "NetworkServerApp.h"
+-//#include "inet/networklayer/ipv4/IPv4Datagram.h"
+-//#include "inet/networklayer/contract/ipv4/IPv4ControlInfo.h"
+-#include "inet/networklayer/common/L3AddressTag_m.h"
+-#include "inet/transportlayer/common/L4PortTag_m.h"
+-#include "inet/transportlayer/contract/udp/UdpControlInfo_m.h"
++
++#include <algorithm>
++#include <cmath>
++#include <cstdlib>
++#include <limits>
++#include <memory>
++#include <numeric>
++
++#include "inet/common/INETMath.h"
++#include "inet/common/ModuleAccess.h"
+ #include "inet/networklayer/common/L3AddressResolver.h"
+-#include "inet/common/ModuleAccess.h"
+-#include "inet/applications/base/ApplicationPacket_m.h"
+-
+ #include "inet/networklayer/common/L3Tools.h"
+-#include "inet/networklayer/ipv4/Ipv4Header_m.h"
++
++#include "../LoRaPhy/LoRaAirtimeCalculator.h"
+ 
+ namespace flora {
+ 
+ Define_Module(NetworkServerApp);
+ 
++namespace {
++
++double clampValue(double value, double minimum, double maximum)
++{
++    return std::max(minimum, std::min(maximum, value));
++}
++
++int clampInt(int value, int minimum, int maximum)
++{
++    return std::max(minimum, std::min(maximum, value));
++}
++
++} // namespace
++
++NetworkServerApp::~NetworkServerApp()
++{
++    clearPendingUplinks();
++    if (getSimulation() != nullptr && getSimulation()->getSystemModule() != nullptr)
++        getSimulation()->getSystemModule()->unsubscribe("LoRa_AppPacketSent", this);
++}
+ 
+ void NetworkServerApp::initialize(int stage)
+ {
+-    if (stage == 0) {
+-        ASSERT(recvdPackets.size()==0);
+-        LoRa_ServerPacketReceived = registerSignal("LoRa_ServerPacketReceived");
++    if (stage == INITSTAGE_LOCAL) {
++        packetReceivedSignal = registerSignal("LoRa_ServerPacketReceived");
+         localPort = par("localPort");
+         destPort = par("destPort");
+         adrMethod = par("adrMethod").stdstringValue();
+-    } else if (stage == INITSTAGE_APPLICATION_LAYER) {
+-        startUDP();
++        adrDeviceMargin = par("adrDeviceMargin");
++        adrStepSize = par("adrStepSize");
++        adrWindowSize = par("adrWindowSize");
++        proposalMaxDistance = par("proposalMaxDistance");
++        enableM1 = par("enableM1");
++        enableM2 = par("enableM2");
++        forcePeriodicAdrResponse = par("forcePeriodicAdrResponse");
++
++        adaptiveMobilityAdr = par("adaptiveMobilityAdr");
++        useCsiNotificationsForAdr = par("useCsiNotificationsForAdr");
++        adrAlgorithmName = par("adrAlgorithm").stdstringValue();
++        if (adrAlgorithmName == "compatibility") {
++            adrAlgorithm = adaptiveMobilityAdr ? AdrAlgorithm::MOBILITY_ENERGY :
++                    AdrAlgorithm::THESIS_LEGACY;
++            adrAlgorithmName = adaptiveMobilityAdr ? "mobilityEnergy" : "thesisLegacy";
++        }
++        else if (adrAlgorithmName == "lorawanReference")
++            adrAlgorithm = AdrAlgorithm::LORAWAN_REFERENCE;
++        else if (adrAlgorithmName == "thesisLegacy")
++            adrAlgorithm = AdrAlgorithm::THESIS_LEGACY;
++        else if (adrAlgorithmName == "mobilityEnergy")
++            adrAlgorithm = AdrAlgorithm::MOBILITY_ENERGY;
++        else if (adrAlgorithmName == "ndAdr")
++            adrAlgorithm = AdrAlgorithm::ND_ADR;
++        else if (adrAlgorithmName == "madere")
++            adrAlgorithm = AdrAlgorithm::MADERE;
++        else
++            throw cRuntimeError("adrAlgorithm must be lorawanReference, thesisLegacy, mobilityEnergy, ndAdr, madere or compatibility");
++        staticAdrWindowSize = par("staticAdrWindowSize");
++        mobileAdrWindowSize = par("mobileAdrWindowSize");
++        ewmaAlpha = par("ewmaAlpha");
++        mobilitySpeedThreshold = par("mobilitySpeedThreshold");
++        mobileConfirmationSamples = par("mobileConfirmationSamples");
++        staticConfirmationSamples = par("staticConfirmationSamples");
++        staticAdrMargin = par("staticAdrMargin");
++        mobileAdrMargin = par("mobileAdrMargin");
++        sfBoundaryHysteresis = par("sfBoundaryHysteresis");
++        sfConfirmationSamples = par("sfConfirmationSamples");
++        targetPdr = par("targetPdr");
++        reliabilitySlope = par("reliabilitySlope");
++        channelLoadPenalty = par("channelLoadPenalty");
++        collisionModelScale = par("collisionModelScale");
++        channelSwitchLoadHysteresis = par("channelSwitchLoadHysteresis");
++        constrainMobileSfByDistance = par("constrainMobileSfByDistance");
++        energyEvaluationPeriod = par("energyEvaluationPeriod");
++        rxWindowDuration = par("rxWindowDuration");
++        rxWindowCount = par("rxWindowCount");
++        stableHeartbeatInterval = par("stableHeartbeatInterval").doubleValue();
++        activeHeartbeatInterval = par("activeHeartbeatInterval").doubleValue();
++        initialHeartbeatInterval = par("initialHeartbeatInterval").doubleValue();
++        deteriorationSnrDrop = par("deteriorationSnrDrop");
++        deteriorationRssiDrop = par("deteriorationRssiDrop");
++        deteriorationConfirmationSamples = par("deteriorationConfirmationSamples");
++        deteriorationHoldSamples = par("deteriorationHoldSamples");
++        maxTpDecreasePerCommand = par("maxTpDecreasePerCommand");
++        maxTpIncreasePerCommand = par("maxTpIncreasePerCommand");
++
++        if (adrMethod != "max" && adrMethod != "avg")
++            throw cRuntimeError("adrMethod must be 'max' or 'avg'");
++        if (adrStepSize <= 0)
++            throw cRuntimeError("adrStepSize must be positive");
++        if (adrWindowSize <= 0 || staticAdrWindowSize <= 0 || mobileAdrWindowSize <= 0)
++            throw cRuntimeError("All ADR window sizes must be positive");
++        if (proposalMaxDistance <= 0 || reliabilitySlope <= 0 || energyEvaluationPeriod <= 0 ||
++                collisionModelScale <= 0)
++            throw cRuntimeError("ADR distances, reliability slope and energy period must be positive");
++        if (ewmaAlpha <= 0 || ewmaAlpha > 1 || targetPdr <= 0 || targetPdr > 1)
++            throw cRuntimeError("ewmaAlpha and targetPdr must be in (0,1]");
++        if (mobileConfirmationSamples <= 0 || staticConfirmationSamples <= 0 ||
++                sfConfirmationSamples <= 0 || deteriorationConfirmationSamples <= 0 ||
++                deteriorationHoldSamples < 0 || rxWindowCount < 0)
++            throw cRuntimeError("ADR confirmation counts must be positive and RX count non-negative");
++        if (stableHeartbeatInterval < 0 || activeHeartbeatInterval < 0 || initialHeartbeatInterval < 0)
++            throw cRuntimeError("Heartbeat intervals cannot be negative");
++
++        if (adrAlgorithm == AdrAlgorithm::MOBILITY_ENERGY)
++            loadEnergyConfiguration();
++        receivedRssi.setName("Received RSSI");
++    }
++    else if (stage == INITSTAGE_APPLICATION_LAYER) {
++        startUdp();
++        evaluateAdr = par("evaluateADRinServer");
+         getSimulation()->getSystemModule()->subscribe("LoRa_AppPacketSent", this);
+-        evaluateADRinServer = par("evaluateADRinServer");
+-        adrDeviceMargin = par("adrDeviceMargin");
+-        receivedRSSI.setName("Received RSSI");
+-        totalReceivedPackets = 0;
+-        for(int i=0;i<6;i++)
+-        {
+-            counterUniqueReceivedPacketsPerSF[i] = 0;
+-            counterOfSentPacketsFromNodesPerSF[i] = 0;
+-        }
+-    }
+-}
+-
+-
+-void NetworkServerApp::startUDP()
++    }
++}
++
++void NetworkServerApp::loadEnergyConfiguration()
++{
++    cXMLElement *root = par("energyConfigFile").xmlValue();
++    if (root == nullptr)
++        throw cRuntimeError("adaptiveMobilityAdr requires energyConfigFile");
++
++    auto readRequired = [root](const char *tagName) {
++        const auto elements = root->getElementsByTagName(tagName);
++        if (elements.empty() || elements.front()->getAttribute("value") == nullptr)
++            throw cRuntimeError("%s not defined in ADR energy configuration", tagName);
++        return std::strtod(elements.front()->getAttribute("value"), nullptr);
++    };
++    supplyVoltage = readRequired("supplyVoltage");
++    receiverCurrentMa = readRequired("receiverReceivingSupplyCurrent");
++    sleepCurrentMa = readRequired("sleepSupplyCurrent");
++
++    const auto containers = root->getElementsByTagName("txSupplyCurrents");
++    if (containers.empty())
++        throw cRuntimeError("txSupplyCurrents not defined in ADR energy configuration");
++    for (auto element : containers.front()->getElementsByTagName("txSupplyCurrent")) {
++        const char *power = element->getAttribute("txPower");
++        const char *current = element->getAttribute("supplyCurrent");
++        if (power == nullptr || current == nullptr)
++            throw cRuntimeError("Each txSupplyCurrent needs txPower and supplyCurrent");
++        txCurrentMaByDbm[std::lround(std::strtod(power, nullptr))] =
++                std::strtod(current, nullptr);
++    }
++    if (txCurrentMaByDbm.empty())
++        throw cRuntimeError("No TX supply currents defined for adaptive ADR");
++}
++
++double NetworkServerApp::getTxCurrentMa(int txPowerDbm) const
++{
++    auto upper = txCurrentMaByDbm.lower_bound(txPowerDbm);
++    if (upper == txCurrentMaByDbm.begin())
++        return upper->second;
++    if (upper == txCurrentMaByDbm.end())
++        return std::prev(upper)->second;
++    auto lower = std::prev(upper);
++    return txPowerDbm - lower->first <= upper->first - txPowerDbm ? lower->second : upper->second;
++}
++
++void NetworkServerApp::startUdp()
+ {
+     socket.setOutputGate(gate("socketOut"));
+     const char *localAddress = par("localAddress");
+     socket.bind(*localAddress ? L3AddressResolver().resolve(localAddress) : L3Address(), localPort);
+ }
+ 
+-
+-void NetworkServerApp::handleMessage(cMessage *msg)
+-{
+-    if (msg->arrivedOn("socketIn")) {
+-        auto pkt = check_and_cast<Packet *>(msg);
+-        const auto &frame  = pkt->peekAtFront<LoRaMacFrame>();
+-        if (frame == nullptr)
+-            throw cRuntimeError("Header error type");
+-        //LoRaMacFrame *frame = check_and_cast<LoRaMacFrame *>(msg);
+-        if (simTime() >= getSimulation()->getWarmupPeriod())
+-        {
+-            totalReceivedPackets++;
+-        }
+-        updateKnownNodes(pkt);
+-        processLoraMACPacket(pkt);
+-    }
+-    else if(msg->isSelfMessage()) {
+-        processScheduledPacket(msg);
+-    }
+-}
+-
+-void NetworkServerApp::processLoraMACPacket(Packet *pk)
+-{
+-    const auto & frame = pk->peekAtFront<LoRaMacFrame>();
+-    if(isPacketProcessed(frame))
+-    {
+-        delete pk;
++void NetworkServerApp::handleMessage(cMessage *message)
++{
++    if (message->arrivedOn("socketIn"))
++        handleUplink(check_and_cast<Packet *>(message));
++    else if (message->isSelfMessage())
++        processPendingUplink(message);
++    else
++        throw cRuntimeError("Unexpected message '%s'", message->getName());
++}
++
++void NetworkServerApp::handleUplink(Packet *packet)
++{
++    const auto& frame = packet->peekAtFront<LoRaMacFrame>();
++    std::unique_ptr<Packet> payloadView(packet->dup());
++    payloadView->trimFront();
++    payloadView->removeAtFront<LoRaMacFrame>();
++    const auto& appPacket = payloadView->peekAtFront<LoRaAppPacket>();
++
++    const bool heartbeat = appPacket->getOptions().isHeartbeat();
++    const bool csi = frame->isGeneratedByGateway();
++    if (simTime() >= getSimulation()->getWarmupPeriod()) {
++        totalReceivedCopies++;
++        heartbeatCopies += heartbeat;
++        csiNotifications += csi;
++    }
++
++    // CSI is an enhanced-simulator observation, not an ordinary LoRaWAN
++    // uplink. Keeping this gate treatment-specific prevents the reference and
++    // legacy algorithms from receiving information unavailable to them.
++    if (csi && !useCsiNotificationsForAdr) {
++        delete packet;
+         return;
+     }
+-    addPktToProcessingTable(pk);
+-}
+-
+-void NetworkServerApp::finish()
+-{
+-    recordScalar("LoRa_NS_DER", double(counterUniqueReceivedPackets)/counterOfSentPacketsFromNodes);
+-    for(uint i=0;i<knownNodes.size();i++)
+-    {
+-        delete knownNodes[i].historyAllSNIR;
+-        delete knownNodes[i].historyAllRSSI;
+-        delete knownNodes[i].receivedSeqNumber;
+-        delete knownNodes[i].calculatedSNRmargin;
+-        recordScalar("Send ADR for node", knownNodes[i].numberOfSentADRPackets);
+-    }
+-    for (std::map<int,int>::iterator it=numReceivedPerNode.begin(); it != numReceivedPerNode.end(); ++it)
+-    {
+-        const std::string stringScalar = "numReceivedFromNode " + std::to_string(it->first);
+-        recordScalar(stringScalar.c_str(), it->second);
+-    }
+-
+-    receivedRSSI.recordAs("receivedRSSI");
+-    recordScalar("totalReceivedPackets", totalReceivedPackets);
+-
+-    while(!receivedPackets.empty()) {
+-        receivedPackets.back().endOfWaiting->removeControlInfo();
+-        delete receivedPackets.back().rcvdPacket;
+-        if (receivedPackets.back().endOfWaiting && receivedPackets.back().endOfWaiting->isScheduled()) {
+-            cancelAndDelete(receivedPackets.back().endOfWaiting);
+-        }
+-        else
+-            delete receivedPackets.back().endOfWaiting;
+-        receivedPackets.pop_back();
+-    }
+-
+-    knownNodes.clear();
+-    receivedPackets.clear();
+-
+-    recordScalar("counterUniqueReceivedPacketsPerSF SF7", counterUniqueReceivedPacketsPerSF[0]);
+-    recordScalar("counterUniqueReceivedPacketsPerSF SF8", counterUniqueReceivedPacketsPerSF[1]);
+-    recordScalar("counterUniqueReceivedPacketsPerSF SF9", counterUniqueReceivedPacketsPerSF[2]);
+-    recordScalar("counterUniqueReceivedPacketsPerSF SF10", counterUniqueReceivedPacketsPerSF[3]);
+-    recordScalar("counterUniqueReceivedPacketsPerSF SF11", counterUniqueReceivedPacketsPerSF[4]);
+-    recordScalar("counterUniqueReceivedPacketsPerSF SF12", counterUniqueReceivedPacketsPerSF[5]);
+-    if (counterOfSentPacketsFromNodesPerSF[0] > 0)
+-        recordScalar("DER SF7", double(counterUniqueReceivedPacketsPerSF[0]) / counterOfSentPacketsFromNodesPerSF[0]);
+-    else
+-        recordScalar("DER SF7", 0);
+-
+-    if (counterOfSentPacketsFromNodesPerSF[1] > 0)
+-        recordScalar("DER SF8", double(counterUniqueReceivedPacketsPerSF[1]) / counterOfSentPacketsFromNodesPerSF[1]);
+-    else
+-        recordScalar("DER SF8", 0);
+-
+-    if (counterOfSentPacketsFromNodesPerSF[2] > 0)
+-        recordScalar("DER SF9", double(counterUniqueReceivedPacketsPerSF[2]) / counterOfSentPacketsFromNodesPerSF[2]);
+-    else
+-        recordScalar("DER SF9", 0);
+-
+-    if (counterOfSentPacketsFromNodesPerSF[3] > 0)
+-        recordScalar("DER SF10", double(counterUniqueReceivedPacketsPerSF[3]) / counterOfSentPacketsFromNodesPerSF[3]);
+-    else
+-        recordScalar("DER SF10", 0);
+-
+-    if (counterOfSentPacketsFromNodesPerSF[4] > 0)
+-        recordScalar("DER SF11", double(counterUniqueReceivedPacketsPerSF[4]) / counterOfSentPacketsFromNodesPerSF[4]);
+-    else
+-        recordScalar("DER SF11", 0);
+-
+-    if (counterOfSentPacketsFromNodesPerSF[5] > 0)
+-        recordScalar("DER SF12", double(counterUniqueReceivedPacketsPerSF[5]) / counterOfSentPacketsFromNodesPerSF[5]);
+-    else
+-        recordScalar("DER SF12", 0);
+-}
+-
+-bool NetworkServerApp::isPacketProcessed(const Ptr<const LoRaMacFrame> &pkt)
+-{
+-    for(const auto & elem : knownNodes) {
+-        if(elem.srcAddr == pkt->getTransmitterAddress()) {
+-            if(elem.lastSeqNoProcessed > pkt->getSequenceNumber()) return true;
+-        }
+-    }
+-    return false;
+-}
+-
+-void NetworkServerApp::updateKnownNodes(Packet* pkt)
+-{
+-    const auto & frame = pkt->peekAtFront<LoRaMacFrame>();
+-    bool nodeExist = false;
+-    for(auto &elem : knownNodes)
+-    {
+-        if(elem.srcAddr == frame->getTransmitterAddress()) {
+-            nodeExist = true;
+-            if(elem.lastSeqNoProcessed < frame->getSequenceNumber()) {
+-                elem.lastSeqNoProcessed = frame->getSequenceNumber();
+-            }
++
++    updateKnownNode(frame);
++    if (isOldPacket(frame)) {
++        delete packet;
++        return;
++    }
++    addToProcessingTable(packet);
++}
++
++KnownNode& NetworkServerApp::updateKnownNode(const Ptr<const LoRaMacFrame>& frame)
++{
++    const int index = findNode(frame->getTransmitterAddress());
++    if (index >= 0) {
++        auto& node = knownNodes[index];
++        node.lastSequenceNumber = std::max(node.lastSequenceNumber, frame->getSequenceNumber());
++        node.currentSf = frame->getLoRaSF();
++        node.currentPowerDbm = math::mW2dBmW(frame->getLoRaTP()) + 30;
++        node.currentChannelMhz = frame->getLoRaCF().get() / 1e6;
++        return node;
++    }
++
++    KnownNode node;
++    node.address = frame->getTransmitterAddress();
++    node.lastSequenceNumber = frame->getSequenceNumber();
++    node.currentSf = frame->getLoRaSF();
++    node.currentPowerDbm = math::mW2dBmW(frame->getLoRaTP()) + 30;
++    node.currentChannelMhz = frame->getLoRaCF().get() / 1e6;
++    node.commandedHeartbeatInterval = initialHeartbeatInterval;
++    knownNodes.push_back(node);
++    return knownNodes.back();
++}
++
++bool NetworkServerApp::isOldPacket(const Ptr<const LoRaMacFrame>& frame) const
++{
++    const int index = findNode(frame->getTransmitterAddress());
++    // Equal-sequence copies may join an active pending entry. After that entry
++    // is processed, a late copy must not create a second delivery/PDR sample.
++    return index >= 0 &&
++            frame->getSequenceNumber() <= knownNodes[index].lastProcessedSequenceNumber;
++}
++
++int NetworkServerApp::findNode(const MacAddress& address) const
++{
++    for (size_t i = 0; i < knownNodes.size(); ++i)
++        if (knownNodes[i].address == address)
++            return i;
++    return -1;
++}
++
++int NetworkServerApp::findPendingUplink(const Ptr<const LoRaMacFrame>& frame) const
++{
++    for (size_t i = 0; i < pendingUplinks.size(); ++i) {
++        const auto& pendingFrame = pendingUplinks[i].packet->peekAtFront<LoRaMacFrame>();
++        if (pendingFrame->getTransmitterAddress() == frame->getTransmitterAddress() &&
++                pendingFrame->getSequenceNumber() == frame->getSequenceNumber())
++            return i;
++    }
++    return -1;
++}
++
++void NetworkServerApp::addToProcessingTable(Packet *packet)
++{
++    const auto& frame = packet->peekAtFront<LoRaMacFrame>();
++    const auto& networkHeader = getNetworkProtocolHeader(packet);
++    const L3Address gateway = networkHeader->getSourceAddress();
++    const double snrDb = math::fraction2dB(frame->getSNIR());
++
++    const int pendingIndex = findPendingUplink(frame);
++    if (pendingIndex >= 0) {
++        pendingUplinks[pendingIndex].gateways.emplace_back(gateway, snrDb, frame->getRSSI());
++        delete packet;
++        return;
++    }
++
++    PendingUplink pending;
++    pending.packet = packet;
++    pending.waitingTimer = new cMessage("endOfWaitingWindow");
++    pending.waitingTimer->setContextPointer(packet);
++    pending.gateways.emplace_back(gateway, snrDb, frame->getRSSI());
++    scheduleAt(simTime() + 1.2, pending.waitingTimer);
++    pendingUplinks.push_back(pending);
++}
++
++void NetworkServerApp::processPendingUplink(cMessage *timer)
++{
++    int pendingIndex = -1;
++    for (size_t i = 0; i < pendingUplinks.size(); ++i)
++        if (pendingUplinks[i].waitingTimer == timer) {
++            pendingIndex = i;
+             break;
+         }
+-    }
+-
+-    if(nodeExist == false)
+-    {
+-        knownNode newNode;
+-        newNode.srcAddr= frame->getTransmitterAddress();
+-        newNode.lastSeqNoProcessed = frame->getSequenceNumber();
+-        newNode.framesFromLastADRCommand = 0;
+-        newNode.numberOfSentADRPackets = 0;
+-        newNode.historyAllSNIR = new cOutVector;
+-        newNode.historyAllSNIR->setName("Vector of SNIR per node");
+-        //newNode.historyAllSNIR->record(pkt->getSNIR());
+-        newNode.historyAllSNIR->record(math::fraction2dB(frame->getSNIR()));
+-        newNode.historyAllRSSI = new cOutVector;
+-        newNode.historyAllRSSI->setName("Vector of RSSI per node");
+-        newNode.historyAllRSSI->record(frame->getRSSI());
+-        newNode.receivedSeqNumber = new cOutVector;
+-        newNode.receivedSeqNumber->setName("Received Sequence number");
+-        newNode.calculatedSNRmargin = new cOutVector;
+-        newNode.calculatedSNRmargin->setName("Calculated SNRmargin in ADR");
+-        knownNodes.push_back(newNode);
+-    }
+-}
+-
+-void NetworkServerApp::addPktToProcessingTable(Packet* pkt)
+-{
+-    const auto & frame = pkt->peekAtFront<LoRaMacFrame>();
+-    bool packetExists = false;
+-    for(auto &elem : receivedPackets)
+-    {
+-        const auto &frameAux = elem.rcvdPacket->peekAtFront<LoRaMacFrame>();
+-        if(frameAux->getTransmitterAddress() == frame->getTransmitterAddress() && frameAux->getSequenceNumber() == frame->getSequenceNumber())
+-        {
+-            packetExists = true;
+-            const auto& networkHeader = getNetworkProtocolHeader(pkt);
+-            const L3Address& gwAddress = networkHeader->getSourceAddress();
+-            elem.possibleGateways.emplace_back(gwAddress, frame->getSNIR(), frame->getRSSI());
+-            delete pkt;
++    if (pendingIndex < 0)
++        throw cRuntimeError("ADR waiting timer is not associated with an uplink");
++
++    auto& pending = pendingUplinks[pendingIndex];
++    Packet *packet = pending.packet;
++    const auto& frame = packet->peekAtFront<LoRaMacFrame>();
++    std::unique_ptr<Packet> payloadView(packet->dup());
++    payloadView->trimFront();
++    payloadView->removeAtFront<LoRaMacFrame>();
++    const auto& appPacket = payloadView->peekAtFront<LoRaAppPacket>();
++
++    auto bestGateway = std::max_element(pending.gateways.begin(), pending.gateways.end(),
++            [](const auto& a, const auto& b) { return std::get<1>(a) < std::get<1>(b); });
++    const L3Address gateway = std::get<0>(*bestGateway);
++    const double bestSnr = std::get<1>(*bestGateway);
++    const double bestRssi = std::get<2>(*bestGateway);
++    const bool accountingPacket = isAccountingPacket(frame, appPacket);
++
++    // Use the uplink timestamp on both sides of the warm-up boundary; this is
++    // the correction that prevents an artificial DER/PDR greater than one.
++    if (appPacket->getOptions().getSentAt() >= getSimulation()->getWarmupPeriod() && accountingPacket) {
++        uniqueDataPackets++;
++        if (frame->getLoRaSF() >= 7 && frame->getLoRaSF() <= 12)
++            uniqueDataPacketsPerSf[frame->getLoRaSF() - 7]++;
++        int receivedChannel = 0;
++        const double receivedMhz = frame->getLoRaCF().get() / 1e6;
++        for (size_t channel = 1; channel < eu868ChannelsMhz.size(); ++channel)
++            if (std::abs(receivedMhz - eu868ChannelsMhz[channel]) <
++                    std::abs(receivedMhz - eu868ChannelsMhz[receivedChannel]))
++                receivedChannel = channel;
++        uniqueDataPacketsPerChannel[receivedChannel]++;
++        const int nodeId = frame->getTransmitterAddress().getInt() - 1;
++        receivedPerNode[nodeId]++;
++        sentPerNode[nodeId] = std::max(1, appPacket->getOptions().getPacketCounter() + 1);
++        lastSnrPerNode[nodeId] = bestSnr;
++        lastRssiPerNode[nodeId] = bestRssi;
++        receivedRssi.collect(bestRssi);
++        emit(packetReceivedSignal, true);
++    }
++
++    auto& node = knownNodes[findNode(frame->getTransmitterAddress())];
++    if (evaluateAdr)
++        evaluateAdrCommand(packet, node, gateway, bestSnr, bestRssi);
++    if (appPacket->getOptions().getIsconfirmedMSG())
++        sendConfirmedAck(frame, appPacket, gateway);
++    node.lastProcessedSequenceNumber = std::max(node.lastProcessedSequenceNumber,
++            frame->getSequenceNumber());
++
++    delete packet;
++    delete timer;
++    pendingUplinks.erase(pendingUplinks.begin() + pendingIndex);
++}
++
++void NetworkServerApp::evaluateAdrCommand(Packet *packet, KnownNode& node,
++        const L3Address& gateway, double bestSnr, double bestRssi)
++{
++    switch (adrAlgorithm) {
++        case AdrAlgorithm::LORAWAN_REFERENCE:
++            evaluateLoRaWanReferenceAdrCommand(packet, node, gateway, bestSnr);
+             break;
++        case AdrAlgorithm::THESIS_LEGACY:
++            evaluateThesisLegacyAdrCommand(packet, node, gateway, bestSnr);
++            break;
++        case AdrAlgorithm::MOBILITY_ENERGY:
++            evaluateAdaptiveAdrCommand(packet, node, gateway, bestSnr, bestRssi);
++            break;
++        case AdrAlgorithm::ND_ADR:
++            evaluateNdAdrCommand(packet, node, gateway, bestSnr, bestRssi);
++            break;
++        case AdrAlgorithm::MADERE:
++            evaluateMadereCommand(packet, node, gateway, bestSnr);
++            break;
++    }
++}
++
++void NetworkServerApp::evaluateLoRaWanReferenceAdrCommand(Packet *packet, KnownNode& node,
++        const L3Address& gateway, double bestSnr)
++{
++    const auto& frame = packet->peekAtFront<LoRaMacFrame>();
++    std::unique_ptr<Packet> payloadView(packet->dup());
++    payloadView->trimFront();
++    payloadView->removeAtFront<LoRaMacFrame>();
++    const auto& appPacket = payloadView->peekAtFront<LoRaAppPacket>();
++
++    node.snrHistory.push_back(bestSnr);
++    while ((int)node.snrHistory.size() > adrWindowSize)
++        node.snrHistory.pop_front();
++    node.framesSinceAdr++;
++
++    const bool adrAckRequested = appPacket->getOptions().getADRACKReq();
++    if (node.framesSinceAdr < adrWindowSize && !adrAckRequested)
++        return;
++    node.framesSinceAdr = 0;
++
++    // The reference NS-ADR uses a configurable margin divisor. The fidelity
++    // ablation campaign fixes it at 2.5 dB to reproduce The Things Stack;
++    // older campaign INI files retain the historical 3-dB default.
++    const double representativeSnr = adrMethod == "max" ?
++            *std::max_element(node.snrHistory.begin(), node.snrHistory.end()) :
++            std::accumulate(node.snrHistory.begin(), node.snrHistory.end(), 0.0) /
++                    node.snrHistory.size();
++    const double marginDb = representativeSnr - requiredSnr(node.currentSf) - adrDeviceMargin;
++    int remainingSteps = static_cast<int>(marginDb / adrStepSize);
++    int proposedSf = node.currentSf;
++    int proposedPowerDbm = clampInt((int)std::round(node.currentPowerDbm), 2, 14);
++
++    while (remainingSteps > 0) {
++        if (proposedSf > 7)
++            proposedSf--; // Higher data rate is preferred before reducing TP.
++        else if (proposedPowerDbm > 2)
++            proposedPowerDbm = std::max(2, proposedPowerDbm - 3);
++        else
++            break;
++        remainingSteps--;
++    }
++    while (remainingSteps < 0) {
++        if (proposedPowerDbm < 14)
++            proposedPowerDbm = std::min(14, proposedPowerDbm + 3);
++        else
++            break; // Further robustness is handled by ED ADR recovery.
++        remainingSteps++; // Consume a negative step toward zero.
++    }
++
++    int currentChannelIndex = 0;
++    for (size_t i = 1; i < eu868ChannelsMhz.size(); ++i)
++        if (std::abs(eu868ChannelsMhz[i] - node.currentChannelMhz) <
++                std::abs(eu868ChannelsMhz[currentChannelIndex] - node.currentChannelMhz))
++            currentChannelIndex = i;
++
++    // NStep=0 produces no command, except that ADRACKReq must receive a reply
++    // so the end device can reset ADRACKCnt as specified by LoRaWAN Class A.
++    sendAdrCommand(frame, node, gateway, proposedSf, proposedPowerDbm,
++            currentChannelIndex, -1, -1, adrAckRequested);
++}
++
++void NetworkServerApp::evaluateThesisLegacyAdrCommand(Packet *packet, KnownNode& node,
++        const L3Address& gateway, double bestSnr)
++{
++    const auto& frame = packet->peekAtFront<LoRaMacFrame>();
++    std::unique_ptr<Packet> payloadView(packet->dup());
++    payloadView->trimFront();
++    payloadView->removeAtFront<LoRaMacFrame>();
++    const auto& appPacket = payloadView->peekAtFront<LoRaAppPacket>();
++
++    node.snrHistory.push_back(bestSnr);
++    while ((int)node.snrHistory.size() > adrWindowSize)
++        node.snrHistory.pop_front();
++    node.framesSinceAdr++;
++
++    const bool adrAckRequested = appPacket->getOptions().getADRACKReq();
++    if (node.framesSinceAdr < adrWindowSize && !adrAckRequested)
++        return;
++    node.framesSinceAdr = 0;
++
++    double representativeSnr = adrMethod == "max" ?
++            *std::max_element(node.snrHistory.begin(), node.snrHistory.end()) :
++            std::accumulate(node.snrHistory.begin(), node.snrHistory.end(), 0.0) / node.snrHistory.size();
++    int proposedSf = node.currentSf;
++    int proposedPowerDbm = clampInt((int)std::round(node.currentPowerDbm), 2, 14);
++    int marginSteps = static_cast<int>((representativeSnr - requiredSnr(node.currentSf) -
++            adrDeviceMargin) / adrStepSize);
++    while (marginSteps > 0) {
++        if (proposedSf > 7)
++            proposedSf--;
++        else if (proposedPowerDbm > 2)
++            proposedPowerDbm = std::max(2, proposedPowerDbm - 3);
++        else
++            break;
++        marginSteps--;
++    }
++    while (marginSteps < 0 && proposedPowerDbm < 14) {
++        proposedPowerDbm = std::min(14, proposedPowerDbm + 3);
++        marginSteps++;
++    }
++
++    if (enableM2) {
++        if (!appPacket->getOptions().getHasPosition())
++            throw cRuntimeError("M2 requires includePosition=true at every end device");
++        const double distance = std::max(0.0, appPacket->getOptions().getDistanceED());
++        const double bandWidth = proposalMaxDistance / 6.0;
++        proposedSf = 6 + clampInt((int)std::ceil(distance / bandWidth), 1, 6);
++    }
++
++    int currentChannelIndex = 0;
++    for (size_t i = 1; i < eu868ChannelsMhz.size(); ++i)
++        if (std::abs(eu868ChannelsMhz[i] - node.currentChannelMhz) <
++                std::abs(eu868ChannelsMhz[currentChannelIndex] - node.currentChannelMhz))
++            currentChannelIndex = i;
++    const int proposedChannel = enableM1 ? findLeastLoadedChannel() : currentChannelIndex;
++
++    // forcePeriodicAdrResponse=true reproduces the historical implementation;
++    // corrected experiments suppress no-op downlinks except for ADRACKReq.
++    sendAdrCommand(frame, node, gateway, proposedSf, proposedPowerDbm,
++            proposedChannel, -1, -1, forcePeriodicAdrResponse || adrAckRequested);
++}
++
++void NetworkServerApp::evaluateNdAdrCommand(Packet *packet, KnownNode& node,
++        const L3Address& gateway, double bestSnr, double bestRssi)
++{
++    const auto& frame = packet->peekAtFront<LoRaMacFrame>();
++    std::unique_ptr<Packet> payloadView(packet->dup());
++    payloadView->trimFront();
++    payloadView->removeAtFront<LoRaMacFrame>();
++    const auto& appPacket = payloadView->peekAtFront<LoRaAppPacket>();
++    const bool adrAckRequested = appPacket->getOptions().getADRACKReq();
++    if (!adrAckRequested)
++        return;
++
++    node.ndSnrHistory.push_back(bestSnr);
++    while (node.ndSnrHistory.size() > 15)
++        node.ndSnrHistory.pop_front();
++
++    int currentChannelIndex = 0;
++    for (size_t i = 1; i < eu868ChannelsMhz.size(); ++i)
++        if (std::abs(eu868ChannelsMhz[i] - node.currentChannelMhz) <
++                std::abs(eu868ChannelsMhz[currentChannelIndex] - node.currentChannelMhz))
++            currentChannelIndex = i;
++
++    if ((int)node.ndSnrHistory.size() < node.ndWindow) {
++        sendAdrCommand(frame, node, gateway, node.currentSf,
++                clampInt((int)std::round(node.currentPowerDbm), 2, 14),
++                currentChannelIndex, -1, -1, true);
++        return;
++    }
++
++    const double averageSnr = std::accumulate(
++            node.ndSnrHistory.end() - node.ndWindow, node.ndSnrHistory.end(), 0.0) /
++            node.ndWindow;
++    static constexpr double snrThresholds[6] = {-7.5, -10, -12.5, -15, -17.5, -20};
++    static constexpr double rssiThresholds[6] = {-123, -126, -129, -132, -134.5, -137};
++    auto thresholdSf = [](double value, const double *thresholds) {
++        for (int sf = 7; sf <= 12; ++sf)
++            if (value >= thresholds[sf - 7])
++                return sf;
++        return 12;
++    };
++    const int snrSf = thresholdSf(averageSnr, snrThresholds);
++    const int rssiSf = thresholdSf(bestRssi, rssiThresholds);
++    if (snrSf != rssiSf) {
++        node.ndWindow = std::min(node.ndWindow + 1, 15);
++        sendAdrCommand(frame, node, gateway, node.currentSf,
++                clampInt((int)std::round(node.currentPowerDbm), 2, 14),
++                currentChannelIndex, -1, -1, true);
++        return;
++    }
++
++    node.ndWindow = 3;
++    node.ndDecisions++;
++    int proposedSf = node.currentSf;
++    int proposedPowerDbm = clampInt((int)std::round(node.currentPowerDbm), 2, 14);
++    int steps = static_cast<int>(std::round(
++            (averageSnr - requiredSnr(node.currentSf) - adrDeviceMargin) / adrStepSize));
++    while (steps > 0) {
++        if (proposedSf > 7)
++            proposedSf--;
++        else if (proposedPowerDbm > 2)
++            proposedPowerDbm = std::max(2, proposedPowerDbm - 3);
++        else
++            break;
++        steps--;
++    }
++    while (steps < 0 && proposedPowerDbm < 14) {
++        proposedPowerDbm = std::min(14, proposedPowerDbm + 3);
++        steps++;
++    }
++    sendAdrCommand(frame, node, gateway, proposedSf, proposedPowerDbm,
++            currentChannelIndex, -1, -1, true);
++}
++
++void NetworkServerApp::evaluateMadereCommand(Packet *packet, KnownNode& node,
++        const L3Address& gateway, double bestSnr)
++{
++    const auto& frame = packet->peekAtFront<LoRaMacFrame>();
++    int proposedSf = node.currentSf;
++    int proposedPowerDbm = clampInt((int)std::round(node.currentPowerDbm), 2, 14);
++    int steps = static_cast<int>(std::round(
++            (bestSnr - requiredSnr(node.currentSf) - adrDeviceMargin) / adrStepSize));
++    while (steps > 0) {
++        if (proposedSf > 7)
++            proposedSf--;
++        else if (proposedPowerDbm > 2)
++            proposedPowerDbm = std::max(2, proposedPowerDbm - 3);
++        else
++            break;
++        steps--;
++    }
++    while (steps < 0 && proposedPowerDbm < 14) {
++        proposedPowerDbm = std::min(14, proposedPowerDbm + 3);
++        steps++;
++    }
++    int currentChannelIndex = 0;
++    for (size_t i = 1; i < eu868ChannelsMhz.size(); ++i)
++        if (std::abs(eu868ChannelsMhz[i] - node.currentChannelMhz) <
++                std::abs(eu868ChannelsMhz[currentChannelIndex] - node.currentChannelMhz))
++            currentChannelIndex = i;
++    // The ED applies its position-uncertainty SF after receiving the SNR. TP
++    // remains the conventional ADR result, matching the recovered baseline.
++    sendAdrCommand(frame, node, gateway, proposedSf, proposedPowerDbm,
++            currentChannelIndex, -1, -1, true, bestSnr);
++}
++
++void NetworkServerApp::updateAdaptiveObservation(KnownNode& node,
++        const Ptr<const LoRaMacFrame>& frame, const Ptr<const LoRaAppPacket>& appPacket,
++        double bestSnr, double bestRssi)
++{
++    const auto& options = appPacket->getOptions();
++    const bool failedReception = frame->isGeneratedByGateway();
++    const int sequence = frame->getSequenceNumber();
++    double deliverySample = failedReception ? 0.0 : 1.0;
++    if (node.lastAdaptiveSequenceNumber >= 0 && sequence > node.lastAdaptiveSequenceNumber)
++        deliverySample = failedReception ? 0.0 : 1.0 / (sequence - node.lastAdaptiveSequenceNumber);
++    node.lastAdaptiveSequenceNumber = std::max(node.lastAdaptiveSequenceNumber, sequence);
++
++    bool deteriorationSample = failedReception;
++    if (node.linkEwmaInitialized) {
++        deteriorationSample = deteriorationSample || bestSnr < node.ewmaSnr - deteriorationSnrDrop ||
++                bestRssi < node.ewmaRssi - deteriorationRssiDrop;
++        node.ewmaSnr = ewmaAlpha * bestSnr + (1 - ewmaAlpha) * node.ewmaSnr;
++        node.ewmaRssi = ewmaAlpha * bestRssi + (1 - ewmaAlpha) * node.ewmaRssi;
++        node.ewmaDelivery = ewmaAlpha * deliverySample + (1 - ewmaAlpha) * node.ewmaDelivery;
++    }
++    else {
++        node.ewmaSnr = bestSnr;
++        node.ewmaRssi = bestRssi;
++        node.ewmaDelivery = deliverySample;
++        node.linkEwmaInitialized = true;
++    }
++    // Log-normal shadowing can produce an isolated SNR/RSSI drop even for a
++    // perfectly static node. Require consecutive evidence before switching to
++    // the short heartbeat; otherwise fading creates a costly short/long
++    // feedback loop. Once confirmed, keep the alert for a bounded clean-sample
++    // horizon so a real deterioration is not forgotten immediately.
++    if (deteriorationSample) {
++        node.deteriorationEvidence++;
++        if (node.deteriorationEvidence >= deteriorationConfirmationSamples) {
++            node.deteriorationSamplesRemaining = deteriorationHoldSamples;
++            node.deteriorationEvidence = 0;
++            node.deteriorationEvents++;
+         }
+     }
+-    if(packetExists == false)
+-    {
+-        receivedPacket rcvPkt;
+-        rcvPkt.rcvdPacket = pkt;
+-        rcvPkt.endOfWaiting = new cMessage("endOfWaitingWindow");
+-        rcvPkt.endOfWaiting->setControlInfo(pkt);
+-        const auto& networkHeader = getNetworkProtocolHeader(pkt);
+-        const L3Address& gwAddress = networkHeader->getSourceAddress();
+-        rcvPkt.possibleGateways.emplace_back(gwAddress, frame->getSNIR(), frame->getRSSI());
+-        EV << "Added " << gwAddress << " " << frame->getSNIR() << " " << frame->getRSSI() << endl;
+-        scheduleAt(simTime() + 1.2, rcvPkt.endOfWaiting);
+-        receivedPackets.push_back(rcvPkt);
+-    }
+-}
+-
+-void NetworkServerApp::processScheduledPacket(cMessage* selfMsg)
+-{
+-    auto pkt = check_and_cast<Packet *>(selfMsg->removeControlInfo());
+-    const auto & frame = pkt->peekAtFront<LoRaMacFrame>();
+-
+-    if (simTime() >= getSimulation()->getWarmupPeriod())
+-    {
+-        counterUniqueReceivedPacketsPerSF[frame->getLoRaSF()-7]++;
+-    }
+-    L3Address pickedGateway;
+-    double SNIRinGW = -99999999999;
+-    double RSSIinGW = -99999999999;
+-    int packetNumber;
+-    int nodeNumber;
+-    for(uint i=0;i<receivedPackets.size();i++)
+-    {
+-        const auto &frameAux = receivedPackets[i].rcvdPacket->peekAtFront<LoRaMacFrame>();
+-        if(frameAux->getTransmitterAddress() == frame->getTransmitterAddress() && frameAux->getSequenceNumber() == frame->getSequenceNumber())        {
+-            packetNumber = i;
+-            nodeNumber = frame->getTransmitterAddress().getInt();
+-            if (numReceivedPerNode.count(nodeNumber-1)>0)
+-            {
+-                ++numReceivedPerNode[nodeNumber-1];
+-            } else {
+-                numReceivedPerNode[nodeNumber-1] = 1;
++    else {
++        node.deteriorationEvidence = 0;
++        if (node.deteriorationSamplesRemaining > 0)
++            node.deteriorationSamplesRemaining--;
++    }
++
++    node.snrHistory.push_back(bestSnr);
++    while ((int)node.snrHistory.size() > staticAdrWindowSize)
++        node.snrHistory.pop_front();
++
++    // Motion is inferred only from coordinate displacement over elapsed time.
++    // RSSI/SNR deterioration changes heartbeat policy but not mobility class.
++    if (options.getHasPosition()) {
++        if (node.hasPosition && simTime() > node.lastObservationTime) {
++            const double dx = options.getPositionX() - node.lastPositionX;
++            const double dy = options.getPositionY() - node.lastPositionY;
++            const double speed = std::sqrt(dx * dx + dy * dy) /
++                    (simTime() - node.lastObservationTime).dbl();
++            node.ewmaSpeed = ewmaAlpha * speed + (1 - ewmaAlpha) * node.ewmaSpeed;
++            if (node.ewmaSpeed >= mobilitySpeedThreshold) {
++                node.movingEvidence++;
++                node.stationaryEvidence = 0;
+             }
+-
+-            for(uint j=0;j<receivedPackets[i].possibleGateways.size();j++)
+-            {
+-                if(SNIRinGW < std::get<1>(receivedPackets[i].possibleGateways[j]))
+-                {
+-                    RSSIinGW = std::get<2>(receivedPackets[i].possibleGateways[j]);
+-                    SNIRinGW = std::get<1>(receivedPackets[i].possibleGateways[j]);
+-                    pickedGateway = std::get<0>(receivedPackets[i].possibleGateways[j]);
++            else {
++                node.stationaryEvidence++;
++                node.movingEvidence = 0;
++            }
++
++            const int previousClass = node.mobilityClass;
++            if (node.movingEvidence >= mobileConfirmationSamples)
++                node.mobilityClass = ADR_MOBILITY_MOBILE;
++            else if (node.stationaryEvidence >= staticConfirmationSamples)
++                node.mobilityClass = ADR_MOBILITY_STATIC;
++            if (previousClass != node.mobilityClass)
++                node.mobilityTransitions++;
++        }
++        node.hasPosition = true;
++        node.lastPositionX = options.getPositionX();
++        node.lastPositionY = options.getPositionY();
++        node.lastObservationTime = simTime();
++    }
++}
++
++double NetworkServerApp::predictSuccess(const KnownNode& node,
++        const Ptr<const LoRaMacFrame>& frame, int payloadBytes, int sf, int tpDbm,
++        int channelIndex, const std::vector<int>& loads) const
++{
++    // TP changes shift received SNR by the same dB amount in the link-budget
++    // approximation. The logistic curve maps margin to link probability.
++    const double candidateSnr = node.ewmaSnr + tpDbm - node.currentPowerDbm;
++    const double margin = candidateSnr - requiredSnr(sf);
++    const double linkProbability = 1.0 / (1.0 + std::exp(-margin / reliabilitySlope));
++
++    const double currentMargin = node.ewmaSnr - requiredSnr(node.currentSf);
++    const double currentLinkProbability = 1.0 / (1.0 + std::exp(-currentMargin / reliabilitySlope));
++    int currentChannel = 0;
++    for (size_t i = 1; i < eu868ChannelsMhz.size(); ++i)
++        if (std::abs(eu868ChannelsMhz[i] - node.currentChannelMhz) <
++                std::abs(eu868ChannelsMhz[currentChannel] - node.currentChannelMhz))
++            currentChannel = i;
++    // Only competing nodes contribute collision pressure. Counting the node
++    // itself made an otherwise empty channel fail the target-PDR constraint.
++    const int candidateContenders = std::max(0, loads[channelIndex] -
++            (channelIndex == currentChannel ? 1 : 0));
++    const int currentContenders = std::max(0, loads[currentChannel] - 1);
++    const LoRaAirtime candidateAirtime = calculateLoRaAirtime(sf,
++            frame->getLoRaBW().get(), payloadBytes, frame->getLoRaCR(), true);
++    const LoRaAirtime currentAirtime = calculateLoRaAirtime(node.currentSf,
++            frame->getLoRaBW().get(), payloadBytes, frame->getLoRaCR(), true);
++
++    // Unslotted ALOHA: P(no overlap) ~= exp(-2G). Unlike the former normalized
++    // node-count penalty, this term distinguishes the collision exposure of
++    // SF7 from the much longer ToA at SF12.
++    const double candidateCollision = std::exp(-collisionModelScale * candidateContenders *
++            candidateAirtime.total().dbl() / energyEvaluationPeriod);
++    const double currentCollision = std::exp(-collisionModelScale * currentContenders *
++            currentAirtime.total().dbl() / energyEvaluationPeriod);
++    const double unexplainedLoss = clampValue(node.ewmaDelivery /
++            std::max(0.05, currentLinkProbability * currentCollision), 0.1, 1.0);
++    return clampValue(linkProbability * candidateCollision * unexplainedLoss, 0.001, 1.0);
++}
++
++double NetworkServerApp::estimateEnergyCost(const Ptr<const LoRaMacFrame>& frame,
++        int payloadBytes, int sf, int tpDbm, double successProbability) const
++{
++    const LoRaAirtime airtime = calculateLoRaAirtime(sf, frame->getLoRaBW().get(),
++            payloadBytes, frame->getLoRaCR(), true);
++
++    // Voltage[V] * current[mA] * time[s] / 1000 gives joules.
++    const double txEnergy = supplyVoltage * getTxCurrentMa(tpDbm) * airtime.total().dbl() / 1000.0;
++    const double rxEnergy = supplyVoltage * receiverCurrentMa *
++            rxWindowDuration * rxWindowCount / 1000.0;
++    const double sleepSeconds = std::max(0.0, energyEvaluationPeriod -
++            airtime.total().dbl() - rxWindowDuration * rxWindowCount);
++    const double sleepEnergy = supplyVoltage * sleepCurrentMa * sleepSeconds / 1000.0;
++    return (txEnergy + rxEnergy + sleepEnergy) / std::max(0.001, successProbability);
++}
++
++std::vector<int> NetworkServerApp::channelLoads() const
++{
++    std::vector<int> loads(eu868ChannelsMhz.size(), 0);
++    for (const auto& knownNode : knownNodes) {
++        auto channel = std::min_element(eu868ChannelsMhz.begin(), eu868ChannelsMhz.end(),
++                [&knownNode](double a, double b) {
++                    return std::abs(a - knownNode.currentChannelMhz) <
++                            std::abs(b - knownNode.currentChannelMhz);
++                });
++        loads[std::distance(eu868ChannelsMhz.begin(), channel)]++;
++    }
++    return loads;
++}
++
++AdrCandidate NetworkServerApp::selectEnergyCandidate(const KnownNode& node,
++        const Ptr<const LoRaMacFrame>& frame, int payloadBytes,
++        int fixedSpreadingFactor, double safetyMargin) const
++{
++    const auto loads = channelLoads();
++    AdrCandidate best;
++    best.energyCostJ = std::numeric_limits<double>::infinity();
++    AdrCandidate fallback = best;
++    double highestSuccess = -1;
++    int currentChannel = 0;
++    for (size_t i = 1; i < eu868ChannelsMhz.size(); ++i)
++        if (std::abs(eu868ChannelsMhz[i] - node.currentChannelMhz) <
++                std::abs(eu868ChannelsMhz[currentChannel] - node.currentChannelMhz))
++            currentChannel = i;
++
++    const int firstSf = fixedSpreadingFactor < 0 ? 7 : fixedSpreadingFactor;
++    const int lastSf = fixedSpreadingFactor < 0 ? 12 : fixedSpreadingFactor;
++    for (int sf = firstSf; sf <= lastSf; ++sf) {
++        for (int tp = 2; tp <= 14; ++tp) {
++            for (size_t channel = 0; channel < eu868ChannelsMhz.size(); ++channel) {
++                // Do not move channels for a one-node/noise-level difference;
++                // a real load improvement must exceed the configured hysteresis.
++                if ((int)channel != currentChannel &&
++                        loads[currentChannel] - loads[channel] <= channelSwitchLoadHysteresis)
++                    continue;
++
++                const double predictedSuccess = predictSuccess(node, frame, payloadBytes,
++                        sf, tp, channel, loads);
++                const double margin = node.ewmaSnr + tp - node.currentPowerDbm - requiredSnr(sf);
++                const double cost = estimateEnergyCost(frame, payloadBytes, sf, tp, predictedSuccess);
++                AdrCandidate candidate{sf, tp, (int)channel, predictedSuccess, margin, cost,
++                        predictedSuccess >= targetPdr && margin >= safetyMargin};
++                if (candidate.feasible && candidate.energyCostJ < best.energyCostJ)
++                    best = candidate;
++                if (predictedSuccess > highestSuccess ||
++                        (predictedSuccess == highestSuccess && cost < fallback.energyCostJ)) {
++                    fallback = candidate;
++                    highestSuccess = predictedSuccess;
+                 }
+             }
+         }
+     }
+-    emit(LoRa_ServerPacketReceived, true);
++    return std::isfinite(best.energyCostJ) ? best : fallback;
++}
++
++int NetworkServerApp::confirmedMobileSpreadingFactor(KnownNode& node, double distance)
++{
++    const double width = proposalMaxDistance / 6.0;
++    const double lowerBoundary = (node.currentSf - 7) * width;
++    const double upperBoundary = (node.currentSf - 6) * width;
++    int desiredSf = node.currentSf;
++    if (distance < lowerBoundary - sfBoundaryHysteresis ||
++            distance > upperBoundary + sfBoundaryHysteresis)
++        desiredSf = 6 + clampInt((int)std::ceil(std::max(0.0, distance) / width), 1, 6);
++
++    if (desiredSf == node.currentSf) {
++        node.pendingSf = -1;
++        node.pendingSfSamples = 0;
++        return node.currentSf;
++    }
++    if (node.pendingSf == desiredSf)
++        node.pendingSfSamples++;
++    else {
++        node.pendingSf = desiredSf;
++        node.pendingSfSamples = 1;
++    }
++    if (node.pendingSfSamples < sfConfirmationSamples) {
++        node.sfChangesBlockedByHysteresis++;
++        return node.currentSf;
++    }
++    node.pendingSf = -1;
++    node.pendingSfSamples = 0;
++    return desiredSf;
++}
++
++void NetworkServerApp::evaluateAdaptiveAdrCommand(Packet *packet, KnownNode& node,
++        const L3Address& gateway, double bestSnr, double bestRssi)
++{
++    const auto& frame = packet->peekAtFront<LoRaMacFrame>();
++    std::unique_ptr<Packet> payloadView(packet->dup());
++    payloadView->trimFront();
++    payloadView->removeAtFront<LoRaMacFrame>();
++    const auto& appPacket = payloadView->peekAtFront<LoRaAppPacket>();
++
++    updateAdaptiveObservation(node, frame, appPacket, bestSnr, bestRssi);
++    node.framesSinceAdr++;
++
++    const int decisionWindow = node.mobilityClass == ADR_MOBILITY_STATIC ?
++            staticAdrWindowSize : mobileAdrWindowSize;
++    const bool adrAckRequested = appPacket->getOptions().getADRACKReq();
++    const double desiredHeartbeat = node.mobilityClass == ADR_MOBILITY_STATIC &&
++            node.deteriorationSamplesRemaining == 0 ? stableHeartbeatInterval : activeHeartbeatInterval;
++    const bool controlChanged = desiredHeartbeat != node.commandedHeartbeatInterval ||
++            node.mobilityClass != node.lastCommandedMobilityClass;
++
++    if (node.framesSinceAdr < decisionWindow && !adrAckRequested && !controlChanged)
++        return;
++
++    int proposedSf = node.currentSf;
++    int proposedTp = clampInt((int)std::round(node.currentPowerDbm), 2, 14);
++    int proposedChannel = 0;
++    for (size_t i = 1; i < eu868ChannelsMhz.size(); ++i)
++        if (std::abs(eu868ChannelsMhz[i] - node.currentChannelMhz) <
++                std::abs(eu868ChannelsMhz[proposedChannel] - node.currentChannelMhz))
++            proposedChannel = i;
++
++    if (node.framesSinceAdr >= decisionWindow || adrAckRequested) {
++        node.framesSinceAdr = 0;
++        const int payloadBytes = (packet->getDataLength().get() + 7) / 8;
++        int fixedSf = -1;
++        double safetyMargin = staticAdrMargin;
++        if (node.mobilityClass != ADR_MOBILITY_STATIC) {
++            if (constrainMobileSfByDistance)
++                fixedSf = confirmedMobileSpreadingFactor(node,
++                        std::max(0.0, appPacket->getOptions().getDistanceED()));
++            safetyMargin = mobileAdrMargin;
++        }
++        KnownNode decisionState = node;
++        if (node.mobilityClass == ADR_MOBILITY_STATIC && !node.snrHistory.empty()) {
++            // Static mode deliberately filters over the full long window. In
++            // mobile/unknown mode the short EWMA above remains the estimator.
++            decisionState.ewmaSnr = adrMethod == "max" ?
++                    *std::max_element(node.snrHistory.begin(), node.snrHistory.end()) :
++                    std::accumulate(node.snrHistory.begin(), node.snrHistory.end(), 0.0) /
++                            node.snrHistory.size();
++        }
++        AdrCandidate candidate = selectEnergyCandidate(decisionState, frame, payloadBytes,
++                fixedSf, safetyMargin);
++
++        // Static SF changes also need repeated evidence. Mobile SF evidence is
++        // already handled against distance-band boundaries above.
++        if ((node.mobilityClass == ADR_MOBILITY_STATIC || !constrainMobileSfByDistance) &&
++                candidate.spreadingFactor != node.currentSf) {
++            if (node.pendingSf == candidate.spreadingFactor)
++                node.pendingSfSamples++;
++            else {
++                node.pendingSf = candidate.spreadingFactor;
++                node.pendingSfSamples = 1;
++            }
++            if (node.pendingSfSamples < sfConfirmationSamples) {
++                node.sfChangesBlockedByHysteresis++;
++                candidate = selectEnergyCandidate(decisionState, frame, payloadBytes,
++                        node.currentSf, safetyMargin);
++            }
++            else {
++                node.pendingSf = -1;
++                node.pendingSfSamples = 0;
++            }
++        }
++
++        proposedSf = candidate.spreadingFactor;
++        proposedChannel = candidate.channelIndex;
++        const int rawTp = candidate.transmitPowerDbm;
++        if (rawTp < proposedTp)
++            proposedTp = std::max(rawTp, proposedTp - maxTpDecreasePerCommand);
++        else if (rawTp > proposedTp)
++            proposedTp = std::min(rawTp, proposedTp + maxTpIncreasePerCommand);
++        node.lastPredictedSuccess = candidate.predictedSuccess;
++        node.lastEnergyCost = candidate.energyCostJ;
++    }
++
++    sendAdrCommand(frame, node, gateway, proposedSf, proposedTp, proposedChannel,
++            desiredHeartbeat, node.mobilityClass, adrAckRequested);
++}
++
++void NetworkServerApp::sendAdrCommand(const Ptr<const LoRaMacFrame>& frame, KnownNode& node,
++        const L3Address& gateway, int sf, int tpDbm, int channelIndex,
++        double heartbeatInterval, int mobilityClass, bool forceResponse, double feedbackSnr)
++{
++    const double channelMhz = eu868ChannelsMhz[channelIndex];
++    const bool radioChanged = sf != node.currentSf || tpDbm != (int)std::round(node.currentPowerDbm) ||
++            std::abs(channelMhz - node.currentChannelMhz) > 1e-6;
++    const bool heartbeatChanged = heartbeatInterval >= 0 &&
++            heartbeatInterval != node.commandedHeartbeatInterval;
++    const bool mobilityChanged = mobilityClass >= 0 && mobilityClass != node.lastCommandedMobilityClass;
++    if (!radioChanged && !heartbeatChanged && !mobilityChanged && !forceResponse) {
++        node.suppressedNoOpCommands++;
++        return;
++    }
++
++    LoRaOptions options;
++    options.setLoRaSF(sf);
++    options.setLoRaTP(tpDbm);
++    options.setLoRaCF(channelMhz);
++    options.setHeartbeatInterval(heartbeatInterval);
++    options.setMobilityClass(mobilityClass);
++    options.setFeedbackSnr(feedbackSnr);
++
++    auto command = makeShared<LoRaAppPacket>();
++    command->setMsgType(TXCONFIG);
++    command->setOptions(options);
++    command->setChunkLength(B(par("headerLength").intValue()));
++
++    auto downlinkFrame = makeShared<LoRaMacFrame>();
++    downlinkFrame->setChunkLength(B(par("headerLength").intValue()));
++    downlinkFrame->setReceiverAddress(frame->getTransmitterAddress());
++    downlinkFrame->setLoRaTP(math::dBmW2mW(14));
++    downlinkFrame->setLoRaCF(frame->getLoRaCF());
++    downlinkFrame->setLoRaSF(frame->getLoRaSF());
++    downlinkFrame->setLoRaBW(frame->getLoRaBW());
++    downlinkFrame->setLoRaCR(frame->getLoRaCR());
++
++    auto downlink = new Packet("ADRPacket");
++    downlink->insertAtFront(command);
++    downlink->insertAtFront(downlinkFrame);
++    socket.sendTo(downlink, gateway, destPort);
++
++    if (sf != node.currentSf)
++        node.sfChanges++;
++    if (tpDbm > node.currentPowerDbm)
++        node.tpIncreases++;
++    else if (tpDbm < node.currentPowerDbm)
++        node.tpDecreases++;
++    if (std::abs(channelMhz - node.currentChannelMhz) > 1e-6)
++        node.channelChanges++;
++    node.currentSf = sf;
++    node.currentPowerDbm = tpDbm;
++    node.currentChannelMhz = channelMhz;
++    if (heartbeatInterval >= 0)
++        node.commandedHeartbeatInterval = heartbeatInterval;
++    if (mobilityClass >= 0)
++        node.lastCommandedMobilityClass = mobilityClass;
+     if (simTime() >= getSimulation()->getWarmupPeriod())
+-    {
+-        counterUniqueReceivedPackets++;
+-    }
+-    receivedRSSI.collect(frame->getRSSI());
+-    if(evaluateADRinServer)
+-    {
+-        evaluateADR(pkt, pickedGateway, SNIRinGW, RSSIinGW);
+-    }
+-    delete receivedPackets[packetNumber].rcvdPacket;
+-    delete selfMsg;
+-    receivedPackets.erase(receivedPackets.begin()+packetNumber);
+-}
+-
+-void NetworkServerApp::evaluateADR(Packet* pkt, L3Address pickedGateway, double SNIRinGW, double RSSIinGW)
+-{
+-    bool sendADR = false;
+-    bool sendADRAckRep = false;
+-    double SNRm; //needed for ADR
+-    int nodeIndex;
+-
+-    pkt->trimFront();
+-    auto frame = pkt->removeAtFront<LoRaMacFrame>();
+-
+-    const auto & rcvAppPacket = pkt->peekAtFront<LoRaAppPacket>();
+-
+-    if(rcvAppPacket->getOptions().getADRACKReq())
+-    {
+-        sendADRAckRep = true;
+-    }
+-
+-    for(uint i=0;i<knownNodes.size();i++)
+-    {
+-        if(knownNodes[i].srcAddr == frame->getTransmitterAddress())
+-        {
+-            knownNodes[i].adrListSNIR.push_back(SNIRinGW);
+-            knownNodes[i].historyAllSNIR->record(SNIRinGW);
+-            knownNodes[i].historyAllRSSI->record(RSSIinGW);
+-            knownNodes[i].receivedSeqNumber->record(frame->getSequenceNumber());
+-            if(knownNodes[i].adrListSNIR.size() == 20) knownNodes[i].adrListSNIR.pop_front();
+-            knownNodes[i].framesFromLastADRCommand++;
+-
+-            if(knownNodes[i].framesFromLastADRCommand == 20 || sendADRAckRep == true)
+-            {
+-                nodeIndex = i;
+-                knownNodes[i].framesFromLastADRCommand = 0;
+-                sendADR = true;
+-                if(adrMethod == "max")
+-                {
+-                    SNRm = *max_element(knownNodes[i].adrListSNIR.begin(), knownNodes[i].adrListSNIR.end());
+-                }
+-                if(adrMethod == "avg")
+-                {
+-                    double totalSNR = 0;
+-                    int numberOfFields = 0;
+-                    for (std::list<double>::iterator it=knownNodes[i].adrListSNIR.begin(); it != knownNodes[i].adrListSNIR.end(); ++it)
+-                    {
+-                        totalSNR+=*it;
+-                        numberOfFields++;
+-                    }
+-                    SNRm = totalSNR/numberOfFields;
+-                }
+-
+-            }
+-
++        node.sentAdrCommands++;
++}
++
++void NetworkServerApp::sendConfirmedAck(const Ptr<const LoRaMacFrame>& frame,
++        const Ptr<const LoRaAppPacket>& appPacket, const L3Address& gateway)
++{
++    auto ackPayload = makeShared<LoRaAppPacket>();
++    ackPayload->setMsgType(ACK);
++    ackPayload->setOptions(appPacket->getOptions());
++    ackPayload->setChunkLength(B(par("headerLength").intValue()));
++
++    auto ackFrame = makeShared<LoRaMacFrame>();
++    ackFrame->setChunkLength(B(par("headerLength").intValue()));
++    ackFrame->setReceiverAddress(frame->getTransmitterAddress());
++    ackFrame->setSequenceNumber(frame->getSequenceNumber());
++    ackFrame->setLoRaTP(math::dBmW2mW(14));
++    ackFrame->setLoRaCF(frame->getLoRaCF());
++    ackFrame->setLoRaSF(frame->getLoRaSF());
++    ackFrame->setLoRaBW(frame->getLoRaBW());
++    ackFrame->setLoRaCR(frame->getLoRaCR());
++
++    auto ack = new Packet("ACKPacket");
++    ack->insertAtFront(ackPayload);
++    ack->insertAtFront(ackFrame);
++    socket.sendTo(ack, gateway, destPort);
++}
++
++int NetworkServerApp::findLeastLoadedChannel() const
++{
++    const auto loads = channelLoads();
++    return std::distance(loads.begin(), std::min_element(loads.begin(), loads.end()));
++}
++
++double NetworkServerApp::requiredSnr(int spreadingFactor)
++{
++    static const double thresholds[] = {-7.5, -10, -12.5, -15, -17.5, -20};
++    if (spreadingFactor < 7 || spreadingFactor > 12)
++        throw cRuntimeError("Invalid LoRa spreading factor %d", spreadingFactor);
++    return thresholds[spreadingFactor - 7];
++}
++
++bool NetworkServerApp::isAccountingPacket(const Ptr<const LoRaMacFrame>& frame,
++        const Ptr<const LoRaAppPacket>& appPacket)
++{
++    return !appPacket->getOptions().isHeartbeat() && !frame->isGeneratedByGateway();
++}
++
++void NetworkServerApp::receiveSignal(cComponent *, simsignal_t, intval_t spreadingFactor,
++        cObject *)
++{
++    if (simTime() >= getSimulation()->getWarmupPeriod()) {
++        sentDataPackets++;
++        if (spreadingFactor >= 7 && spreadingFactor <= 12)
++            sentDataPacketsPerSf[spreadingFactor - 7]++;
++    }
++}
++
++void NetworkServerApp::finish()
++{
++    const long accountedDeliveries = std::min(uniqueDataPackets, sentDataPackets);
++    const double der = sentDataPackets > 0 ? (double)accountedDeliveries / sentDataPackets : 0;
++    recordScalar("LoRa_NS_DER", der);
++    recordScalar("counterOfSentPacketsFromNodes", sentDataPackets);
++    recordScalar("counterUniqueReceivedPackets", accountedDeliveries);
++    recordScalar("rawUniqueReceivedPackets", uniqueDataPackets);
++    recordScalar("totalReceivedPackets", accountedDeliveries);
++    recordScalar("totalReceivedCopies", totalReceivedCopies);
++    recordScalar("heartbeatCopies", heartbeatCopies);
++    recordScalar("csiNotifications", csiNotifications);
++    recordScalar("adrAlgorithmCode", static_cast<int>(adrAlgorithm));
++    recordScalar("adrStepSizeDb", adrStepSize, "dB");
++    recordScalar("useCsiNotificationsForAdr", useCsiNotificationsForAdr);
++    recordScalar("collisionModelScale", collisionModelScale);
++    recordScalar("constrainMobileSfByDistance", constrainMobileSfByDistance);
++    recordScalar("enableM1", enableM1);
++    recordScalar("enableM2", enableM2);
++    recordScalar("forcePeriodicAdrResponse", forcePeriodicAdrResponse);
++
++    for (int sf = 7; sf <= 12; ++sf) {
++        const int index = sf - 7;
++        recordScalar(("counterUniqueReceivedPacketsPerSF SF" + std::to_string(sf)).c_str(),
++                uniqueDataPacketsPerSf[index]);
++        const double sfDer = sentDataPacketsPerSf[index] > 0 ?
++                (double)uniqueDataPacketsPerSf[index] / sentDataPacketsPerSf[index] : 0;
++        recordScalar(("DER SF" + std::to_string(sf)).c_str(), sfDer);
++    }
++    for (size_t channel = 0; channel < eu868ChannelsMhz.size(); ++channel) {
++        const std::string suffix = std::to_string(channel);
++        recordScalar(("uniqueReceivedChannel" + suffix).c_str(),
++                uniqueDataPacketsPerChannel[channel]);
++    }
++
++    for (size_t nodeIndex = 0; nodeIndex < knownNodes.size(); ++nodeIndex) {
++        const auto& node = knownNodes[nodeIndex];
++        recordScalar("Send ADR for node", node.sentAdrCommands);
++        recordScalar("SF distribution", node.currentSf);
++        // Use the server's stable discovery index in scalar names; formatting
++        // a 48-bit MAC as a signed int produced unreadable pseudo node IDs.
++        const std::string id = std::to_string(nodeIndex);
++        recordScalar(("adaptiveMobilityClass node " + id).c_str(), node.mobilityClass);
++        recordScalar(("adaptiveEwmaSpeed node " + id).c_str(), node.ewmaSpeed, "mps");
++        recordScalar(("adaptiveEwmaSNR node " + id).c_str(), node.ewmaSnr, "dB");
++        recordScalar(("adaptiveEwmaRSSI node " + id).c_str(), node.ewmaRssi, "dBm");
++        recordScalar(("adaptiveEstimatedPDR node " + id).c_str(), node.ewmaDelivery);
++        recordScalar(("adaptivePredictedSuccess node " + id).c_str(), node.lastPredictedSuccess);
++        recordScalar(("adaptiveEnergyCost node " + id).c_str(), node.lastEnergyCost, "J");
++        recordScalar(("adaptiveHeartbeatInterval node " + id).c_str(),
++                node.commandedHeartbeatInterval, "s");
++        recordScalar(("adaptiveNoOpSuppressed node " + id).c_str(), node.suppressedNoOpCommands);
++        recordScalar(("adaptiveMobilityTransitions node " + id).c_str(), node.mobilityTransitions);
++        recordScalar(("adaptiveDeteriorationEvents node " + id).c_str(), node.deteriorationEvents);
++        recordScalar(("adaptiveSFChanges node " + id).c_str(), node.sfChanges);
++        recordScalar(("adaptiveSFChangesBlocked node " + id).c_str(), node.sfChangesBlockedByHysteresis);
++        recordScalar(("adaptiveTPIncreases node " + id).c_str(), node.tpIncreases);
++        recordScalar(("adaptiveTPDecreases node " + id).c_str(), node.tpDecreases);
++        recordScalar(("adaptiveChannelChanges node " + id).c_str(), node.channelChanges);
++        recordScalar(("ndAdrWindow node " + id).c_str(), node.ndWindow);
++        recordScalar(("ndAdrDecisions node " + id).c_str(), node.ndDecisions);
++    }
++    for (const auto& entry : receivedPerNode) {
++        const int nodeId = entry.first;
++        const int received = entry.second;
++        recordScalar(("numReceivedFromNode " + std::to_string(nodeId)).c_str(), received);
++        const int sent = sentPerNode[nodeId];
++        recordScalar(("numSentPerED " + std::to_string(nodeId)).c_str(), sent);
++        recordScalar(("DERperNode " + std::to_string(nodeId)).c_str(),
++                sent > 0 ? (double)received / sent : 0);
++        recordScalar(("SNRperED " + std::to_string(nodeId)).c_str(), lastSnrPerNode[nodeId]);
++        recordScalar(("RSSIperED " + std::to_string(nodeId)).c_str(), lastRssiPerNode[nodeId]);
++    }
++    receivedRssi.recordAs("receivedRSSI");
++}
++
++void NetworkServerApp::clearPendingUplinks()
++{
++    for (auto& pending : pendingUplinks) {
++        if (pending.waitingTimer != nullptr) {
++            if (pending.waitingTimer->isScheduled())
++                cancelEvent(pending.waitingTimer);
++            delete pending.waitingTimer;
+         }
+-    }
+-
+-    if(sendADR || sendADRAckRep)
+-    {
+-        auto mgmtPacket = makeShared<LoRaAppPacket>();
+-        mgmtPacket->setMsgType(TXCONFIG);
+-
+-        if(sendADR)
+-        {
+-            double SNRmargin;
+-            double requiredSNR;
+-            if(frame->getLoRaSF() == 7) requiredSNR = -7.5;
+-            if(frame->getLoRaSF() == 8) requiredSNR = -10;
+-            if(frame->getLoRaSF() == 9) requiredSNR = -12.5;
+-            if(frame->getLoRaSF() == 10) requiredSNR = -15;
+-            if(frame->getLoRaSF() == 11) requiredSNR = -17.5;
+-            if(frame->getLoRaSF() == 12) requiredSNR = -20;
+-
+-            SNRmargin = SNRm - requiredSNR - adrDeviceMargin;
+-            knownNodes[nodeIndex].calculatedSNRmargin->record(SNRmargin);
+-            int Nstep = round(SNRmargin/3);
+-            LoRaOptions newOptions;
+-
+-            // Increase the data rate with each step
+-            int calculatedSF = frame->getLoRaSF();
+-            while(Nstep > 0 && calculatedSF > 7)
+-            {
+-                calculatedSF--;
+-                Nstep--;
+-            }
+-
+-            // Decrease the Tx power by 3 for each step, until min reached
+-            double calculatedPowerdBm = math::mW2dBmW(frame->getLoRaTP()) + 30;
+-            while(Nstep > 0 && calculatedPowerdBm > 2)
+-            {
+-                calculatedPowerdBm-=3;
+-                Nstep--;
+-            }
+-            if(calculatedPowerdBm < 2) calculatedPowerdBm = 2;
+-
+-            // Increase the Tx power by 3 for each step, until max reached
+-            while(Nstep < 0 && calculatedPowerdBm < 14)
+-            {
+-                calculatedPowerdBm+=3;
+-                Nstep++;
+-            }
+-            if(calculatedPowerdBm > 14) calculatedPowerdBm = 14;
+-
+-            newOptions.setLoRaSF(calculatedSF);
+-            newOptions.setLoRaTP(calculatedPowerdBm);
+-            EV << calculatedSF << endl;
+-            EV << calculatedPowerdBm << endl;
+-            mgmtPacket->setOptions(newOptions);
+-        }
+-
+-        if(simTime() >= getSimulation()->getWarmupPeriod() && sendADR == true)
+-        {
+-            knownNodes[nodeIndex].numberOfSentADRPackets++;
+-        }
+-
+-        auto frameToSend = makeShared<LoRaMacFrame>();
+-        frameToSend->setChunkLength(B(par("headerLength").intValue()));
+-
+-      //  LoRaMacFrame *frameToSend = new LoRaMacFrame("ADRPacket");
+-
+-        //frameToSend->encapsulate(mgmtPacket);
+-        frameToSend->setReceiverAddress(frame->getTransmitterAddress());
+-        //FIXME: What value to set for LoRa TP
+-        //frameToSend->setLoRaTP(pkt->getLoRaTP());
+-        frameToSend->setLoRaTP(math::dBmW2mW(14));
+-        frameToSend->setLoRaCF(frame->getLoRaCF());
+-        frameToSend->setLoRaSF(frame->getLoRaSF());
+-        frameToSend->setLoRaBW(frame->getLoRaBW());
+-
+-        auto pktAux = new Packet("ADRPacket");
+-        mgmtPacket->setChunkLength(B(par("headerLength").intValue()));
+-
+-        pktAux->insertAtFront(mgmtPacket);
+-        pktAux->insertAtFront(frameToSend);
+-        socket.sendTo(pktAux, pickedGateway, destPort);
+-
+-    }
+-    //delete pkt;
+-}
+-
+-void NetworkServerApp::receiveSignal(cComponent *source, simsignal_t signalID, intval_t value, cObject *details)
+-{
+-    if (simTime() >= getSimulation()->getWarmupPeriod())
+-    {
+-        counterOfSentPacketsFromNodes++;
+-        counterOfSentPacketsFromNodesPerSF[value-7]++;
+-    }
+-}
+-
+-} //namespace inet
++        delete pending.packet;
++    }
++    pendingUplinks.clear();
++}
++
++} // namespace flora
+--- flora-1.1/src/LoRaApp/SimpleLoRaApp.cc
++++ enhanced-rc11/src/LoRaApp/SimpleLoRaApp.cc
+@@ -1,284 +1,573 @@
+ //
+-// This program is free software: you can redistribute it and/or modify
+-// it under the terms of the GNU Lesser General Public License as published by
+-// the Free Software Foundation, either version 3 of the License, or
+-// (at your option) any later version.
+-// 
+-// This program is distributed in the hope that it will be useful,
+-// but WITHOUT ANY WARRANTY; without even the implied warranty of
+-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-// GNU Lesser General Public License for more details.
+-// 
+-// You should have received a copy of the GNU Lesser General Public License
+-// along with this program.  If not, see http://www.gnu.org/licenses/.
+-// 
++// Copyright (C) 2026
++// SPDX-License-Identifier: LGPL-3.0-or-later
++//
+ 
+ #include "SimpleLoRaApp.h"
++
++#include <algorithm>
++#include <array>
++#include <cmath>
++#include <vector>
++
++#include "inet/common/INETMath.h"
++#include "inet/common/packet/Packet.h"
++#include "inet/mobility/contract/IMobility.h"
+ #include "inet/mobility/static/StationaryMobility.h"
+-#include "../LoRa/LoRaTagInfo_m.h"
+-#include "inet/common/packet/Packet.h"
+-
++
++#include "LoRa/LoRaTagInfo_m.h"
+ 
+ namespace flora {
+ 
+ Define_Module(SimpleLoRaApp);
+ 
++SimpleLoRaApp::~SimpleLoRaApp()
++{
++    cancelAndDelete(sendMeasurements);
++    cancelAndDelete(heartbeatTimer);
++}
++
+ void SimpleLoRaApp::initialize(int stage)
+ {
+     cSimpleModule::initialize(stage);
++
+     if (stage == INITSTAGE_LOCAL) {
+-        std::pair<double,double> coordsValues = std::make_pair(-1, -1);
+-        cModule *host = getContainingNode(this);
+-        // Generate random location for nodes if circle deployment type
+-        if (strcmp(host->par("deploymentType").stringValue(), "circle")==0) {
+-           coordsValues = generateUniformCircleCoordinates(host->par("maxGatewayDistance").doubleValue(), host->par("gatewayX").doubleValue(), host->par("gatewayY").doubleValue());
+-           StationaryMobility *mobility = check_and_cast<StationaryMobility *>(host->getSubmodule("mobility"));
+-           mobility->par("initialX").setDoubleValue(coordsValues.first);
+-           mobility->par("initialY").setDoubleValue(coordsValues.second);
++        packetSentSignal = registerSignal("LoRa_AppPacketSent");
++        sfChangesSignal = registerSignal("CambiosSF");
++        tpChangesSignal = registerSignal("CambiosTP");
++        heartbeatIntervalChangedSignal = registerSignal("HeartbeatIntervalChanged");
++        mobilityClassChangedSignal = registerSignal("MobilityClassChanged");
++
++        auto host = getContainingNode(this);
++        gatewayX = host->par("gatewayX").doubleValue();
++        gatewayY = host->par("gatewayY").doubleValue();
++
++        // The thesis static testbed uses a uniform disk. A mobile node lets
++        // RandomWaypointMobility choose its initial position and waypoints.
++        if (!host->par("mobile").boolValue()
++                && !strcmp(host->par("deploymentType").stringValue(), "circle")) {
++            const auto coordinates = generateUniformCircleCoordinates(
++                    host->par("maxGatewayDistance").doubleValue(), gatewayX, gatewayY);
++            auto mobility = check_and_cast<StationaryMobility *>(host->getSubmodule("mobility"));
++            mobility->par("initialX").setDoubleValue(coordinates.first);
++            mobility->par("initialY").setDoubleValue(coordinates.second);
+         }
+     }
+     else if (stage == INITSTAGE_APPLICATION_LAYER) {
+-        bool isOperational;
+-        NodeStatus *nodeStatus = dynamic_cast<NodeStatus *>(findContainingNode(this)->getSubmodule("status"));
+-        isOperational = (!nodeStatus) || nodeStatus->getState() == NodeStatus::UP;
+-        if (!isOperational)
+-            throw cRuntimeError("This module doesn't support starting in node DOWN state");
+-        do {
+-            timeToFirstPacket = par("timeToFirstPacket");
+-            EV << "Wylosowalem czas :" << timeToFirstPacket << endl;
+-            //if(timeToNextPacket < 5) error("Time to next packet must be grater than 3");
+-        } while(timeToFirstPacket <= 5);
+-
+-        //timeToFirstPacket = par("timeToFirstPacket");
+-        sendMeasurements = new cMessage("sendMeasurements");
+-        scheduleAt(simTime()+timeToFirstPacket, sendMeasurements);
+-
+-        sentPackets = 0;
+-        receivedADRCommands = 0;
++        auto nodeStatus = dynamic_cast<NodeStatus *>(findContainingNode(this)->getSubmodule("status"));
++        if (nodeStatus && nodeStatus->getState() != NodeStatus::UP)
++            throw cRuntimeError("SimpleLoRaApp cannot start while its node is down");
++
+         numberOfPacketsToSend = par("numberOfPacketsToSend");
+-
+-        LoRa_AppPacketSent = registerSignal("LoRa_AppPacketSent");
+-
+-        //LoRa physical layer parameters
+-        loRaRadio = check_and_cast<LoRaRadio *>(getParentModule()->getSubmodule("LoRaNic")->getSubmodule("radio"));
+-        loRaRadio->loRaTP = par("initialLoRaTP").doubleValue();
+-//        setTP(par("initialLoRaTP").doubleValue());
+-//        loRaCF = units::values::Hz(par("initialLoRaCF").doubleValue());
+-        loRaRadio->loRaCF = units::values::Hz(par("initialLoRaCF").doubleValue());
+-//        loRaSF = par("initialLoRaSF");
+-        loRaRadio->loRaSF = par("initialLoRaSF");
+-//        loRaBW = inet::units::values::Hz(par("initialLoRaBW").doubleValue());
+-        loRaRadio->loRaBW = inet::units::values::Hz(par("initialLoRaBW").doubleValue());
+-//        loRaCR = par("initialLoRaCR");
+-        loRaRadio->loRaCR = par("initialLoRaCR");
+-//        loRaUseHeader = par("initialUseHeader");
+-        loRaRadio->loRaUseHeader = par("initialUseHeader");
++        timeToFirstPacket = par("timeToFirstPacket");
++        heartbeatInterval = par("heartbeatInterval");
++        heartbeatOnlyWhenDataSilent = par("heartbeatOnlyWhenDataSilent");
+         evaluateADRinNode = par("evaluateADRinNode");
++        includePosition = par("includePosition");
++        positionPayloadBytes = par("positionPayloadBytes");
++        localizationEnergyPerFixJ = par("localizationEnergyPerFix").doubleValue();
++        clientAdrMode = par("clientAdrMode").stdstringValue();
++        if (clientAdrMode != "network" && clientAdrMode != "blind" &&
++                clientAdrMode != "hadrMobile" && clientAdrMode != "madere")
++            throw cRuntimeError("clientAdrMode must be network, blind, hadrMobile or madere");
++        madereCellSizeM = par("madereCellSize").doubleValue();
++        madereSnrMarginCells = par("madereSnrMarginCells");
++        madereMaxSpeedMps = par("madereMaxSpeed").doubleValue();
++        madereGamma = par("madereGamma");
++        madereD0M = par("madereD0").doubleValue();
++        madereNoiseFigureDb = par("madereNoiseFigure");
++        madereFrequencyHz = par("madereFrequency").doubleValue();
++        madereMaxDistanceM = getContainingNode(this)->par("maxGatewayDistance").doubleValue();
++        if (madereCellSizeM <= 0 || madereSnrMarginCells < 0 || madereMaxSpeedMps < 0 ||
++                madereGamma <= 0 || madereD0M <= 0 || madereMaxDistanceM <= 0)
++            throw cRuntimeError("Invalid MADERE radial-model parameter");
++        if (positionPayloadBytes < 0 || localizationEnergyPerFixJ < 0)
++            throw cRuntimeError("Position bytes and localization energy must be non-negative");
++        initialPosition = getCurrentPosition();
++
++        loRaBW = Hz(par("initialLoRaBW").doubleValue());
++        loRaCR = par("initialLoRaCR");
++        loRaUseHeader = par("initialUseHeader");
++
++        if (par("randomizeInitialRadioParameters").boolValue()) {
++            static constexpr std::array<int, 7> allowedPowers = {2, 4, 6, 8, 10, 12, 14};
++            loRaTP = allowedPowers[intuniform(0, allowedPowers.size() - 1)];
++            loRaSF = intuniform(7, 12);
++        }
++        else {
++            loRaTP = par("initialLoRaTP").doubleValue();
++            loRaSF = par("initialLoRaSF");
++        }
++
++        // Legacy LoRaWAN uses the three mandatory EU868 channels. The thesis
++        // proposal enables the five additional 125-kHz channels as well.
++        std::vector<double> channelsMHz = {868.1, 868.3, 868.5};
++        if (par("useAllEu868Channels").boolValue())
++            channelsMHz.insert(channelsMHz.end(), {867.1, 867.3, 867.5, 867.7, 867.9});
++        loRaCF = Hz(channelsMHz[intuniform(0, channelsMHz.size() - 1)] * 1e6);
++
++        initialLoRaTP = loRaTP;
++        initialLoRaSF = loRaSF;
++        radioStateLastUpdate = simTime();
++        if (clientAdrMode == "madere")
++            initializeMadereRadialModel();
+         sfVector.setName("SF Vector");
+         tpVector.setName("TP Vector");
+-    }
+-}
+-
+-std::pair<double,double> SimpleLoRaApp::generateUniformCircleCoordinates(double radius, double gatewayX, double gatewayY)
+-{
+-    double randomValueRadius = uniform(0,(radius*radius));
+-    double randomTheta = uniform(0,2*M_PI);
+-
+-    // generate coordinates for circle with origin at 0,0
+-    double x = sqrt(randomValueRadius) * cos(randomTheta);
+-    double y = sqrt(randomValueRadius) * sin(randomTheta);
+-    // Change coordinates based on coordinate system used in OMNeT, with origin at top left
+-    x = x + gatewayX;
+-    y = gatewayY - y;
+-    std::pair<double,double> coordValues = std::make_pair(x,y);
+-    return coordValues;
++
++        sendMeasurements = new cMessage("sendMeasurements");
++        scheduleAt(simTime() + timeToFirstPacket, sendMeasurements);
++
++        if (heartbeatInterval > SIMTIME_ZERO) {
++            heartbeatTimer = new cMessage("heartbeatTimer");
++            scheduleAt(simTime() + heartbeatInterval, heartbeatTimer);
++        }
++    }
++}
++
++std::pair<double, double> SimpleLoRaApp::generateUniformCircleCoordinates(
++        double radius, double centerX, double centerY)
++{
++    const double radialDistance = sqrt(uniform(0, radius * radius));
++    const double angle = uniform(0, 2 * M_PI);
++    return {centerX + radialDistance * cos(angle), centerY - radialDistance * sin(angle)};
++}
++
++Coord SimpleLoRaApp::getCurrentPosition() const
++{
++    auto host = getContainingNode(this);
++    auto mobility = check_and_cast<IMobility *>(host->getSubmodule("mobility"));
++    return mobility->getCurrentPosition();
++}
++
++double SimpleLoRaApp::getDistanceToGateway() const
++{
++    const Coord position = getCurrentPosition();
++    return hypot(position.x - gatewayX, position.y - gatewayY);
++}
++
++void SimpleLoRaApp::handleMessage(cMessage *message)
++{
++    if (message == sendMeasurements) {
++        sendDataPacket();
++        if (numberOfPacketsToSend == 0 || sentPackets < numberOfPacketsToSend) {
++            timeToNextPacket = par("timeToNextPacket");
++            scheduleAt(simTime() + timeToNextPacket, sendMeasurements);
++        }
++    }
++    else if (message == heartbeatTimer) {
++        sendHeartbeat();
++        if (heartbeatInterval > SIMTIME_ZERO)
++            scheduleAt(simTime() + heartbeatInterval, heartbeatTimer);
++    }
++    else {
++        handleDownlink(message);
++        delete message;
++    }
++}
++
++void SimpleLoRaApp::sendDataPacket()
++{
++    applyClientAdrForNextPacket();
++    const int transmittedSf = loRaSF;
++    sendUplink(false);
++    restartHeartbeatAfterData();
++
++    if (simTime() >= getSimulation()->getWarmupPeriod()) {
++        sentPackets++;
++        sentPacketCounter++;
++        updateTrafficScheduleHash();
++    }
++
++    if (evaluateADRinNode) {
++        adrAckCounter++;
++        if (adrAckCounter == ADR_ACK_LIMIT)
++            sendNextPacketWithADRACKReq = true;
++        if (adrAckCounter >= ADR_ACK_LIMIT + ADR_ACK_DELAY) {
++            adrAckCounter = 0;
++            applyAdrRecoveryStep();
++            numADRACKReq++;
++        }
++    }
++
++    emit(packetSentSignal, transmittedSf);
++    clientAdrPacketIndex++;
++}
++
++void SimpleLoRaApp::sendHeartbeat()
++{
++    numHeartbeats++;
++    sendUplink(true);
++}
++
++void SimpleLoRaApp::sendUplink(bool heartbeat)
++{
++    auto packet = new Packet(heartbeat ? "Heartbeat" : "DataFrame");
++    packet->setKind(DATA);
++
++    auto payload = makeShared<LoRaAppPacket>();
++    const int positionBytes = includePosition ? positionPayloadBytes : 0;
++    payload->setChunkLength(B(par("dataSize").intValue() + positionBytes));
++    payload->setSampleMeasurement(intuniform(0, INT_MAX));
++
++    auto options = payload->getOptions();
++    const Coord position = getCurrentPosition();
++    options.setIsHeartbeat(heartbeat);
++    options.setPacketCounter(sentPacketCounter);
++    options.setDistanceED(includePosition ? getDistanceToGateway() : 0);
++    options.setPositionX(includePosition ? position.x : 0);
++    options.setPositionY(includePosition ? position.y : 0);
++    options.setHasPosition(includePosition);
++    options.setSentAt(simTime());
++    if (!heartbeat && evaluateADRinNode && sendNextPacketWithADRACKReq) {
++        options.setADRACKReq(true);
++        sendNextPacketWithADRACKReq = false;
++    }
++    payload->setOptions(options);
++
++    auto tag = packet->addTagIfAbsent<LoRaTag>();
++    tag->setBandwidth(loRaBW);
++    tag->setCenterFrequency(loRaCF);
++    tag->setCodeRendundance(loRaCR);
++    tag->setSpreadFactor(loRaSF);
++    tag->setPower(mW(math::dBmW2mW(loRaTP)));
++    tag->setIsHeartbeat(heartbeat);
++
++    sfVector.record(loRaSF);
++    tpVector.record(loRaTP);
++    if (!heartbeat && simTime() >= getSimulation()->getWarmupPeriod()) {
++        if (loRaSF >= 7 && loRaSF <= 12)
++            uplinksPerSf[loRaSF - 7]++;
++        const int index = channelIndex(loRaCF);
++        if (index >= 0)
++            uplinksPerChannel[index]++;
++    }
++    if (includePosition) {
++        totalLocationFixes++;
++        if (simTime() >= getSimulation()->getWarmupPeriod()) {
++            measurementLocationFixes++;
++            measurementPositionBytes += positionPayloadBytes;
++        }
++    }
++    packet->insertAtBack(payload);
++    send(packet, "appOut");
++}
++
++void SimpleLoRaApp::handleDownlink(cMessage *message)
++{
++    auto packet = check_and_cast<Packet *>(message);
++    const auto& command = packet->peekAtFront<LoRaAppPacket>();
++
++    if (simTime() >= getSimulation()->getWarmupPeriod())
++        receivedADRCommands++;
++    if (!evaluateADRinNode || command->getMsgType() != TXCONFIG)
++        return;
++
++    adrAckCounter = 0;
++    const auto& options = command->getOptions();
++    const double uplinkPowerDbm = loRaTP;
++
++    if (options.getLoRaTP() != -1 && options.getLoRaTP() != loRaTP) {
++        loRaTP = options.getLoRaTP();
++        tpChanges++;
++        emit(tpChangesSignal, tpChanges);
++    }
++    // The recovered MADERE ED ignores the conventional server SF and derives
++    // its SF from the SNR-conditioned position distribution. It still applies
++    // server TP, so do not count an instantaneous SF that is never transmitted.
++    if (clientAdrMode != "madere" && options.getLoRaSF() != -1 &&
++            options.getLoRaSF() != loRaSF) {
++        changeSpreadingFactor(options.getLoRaSF());
++        sfChanges++;
++        emit(sfChangesSignal, sfChanges);
++    }
++    if (options.getLoRaCF() != -1 &&
++            std::abs(options.getLoRaCF() * 1e6 - loRaCF.get()) > 0.5) {
++        accountRadioStateUntil(simTime());
++        loRaCF = Hz(options.getLoRaCF() * 1e6);
++    }
++
++    if (options.getHeartbeatInterval() >= 0) {
++        const simtime_t requestedInterval = options.getHeartbeatInterval();
++        if (requestedInterval != heartbeatInterval)
++            applyHeartbeatInterval(requestedInterval);
++    }
++    if (options.getMobilityClass() >= ADR_MOBILITY_UNKNOWN &&
++            options.getMobilityClass() <= ADR_MOBILITY_MOBILE &&
++            options.getMobilityClass() != adrMobilityClass) {
++        adrMobilityClass = options.getMobilityClass();
++        mobilityClassChanges++;
++        emit(mobilityClassChangedSignal, adrMobilityClass);
++    }
++    if (clientAdrMode == "madere" && options.getFeedbackSnr() > -998)
++        updateMadereFromFeedback(options.getFeedbackSnr(), uplinkPowerDbm);
++}
++
++void SimpleLoRaApp::applyHeartbeatInterval(simtime_t newInterval)
++{
++    // Reschedule from the command reception time. This makes a short interval
++    // react immediately to movement/deterioration and a long interval avoid an
++    // already queued unnecessary heartbeat.
++    if (heartbeatTimer->isScheduled())
++        cancelEvent(heartbeatTimer);
++    heartbeatInterval = newInterval;
++    heartbeatIntervalChanges++;
++    emit(heartbeatIntervalChangedSignal, heartbeatInterval);
++    if (heartbeatInterval > SIMTIME_ZERO)
++        scheduleAt(simTime() + heartbeatInterval, heartbeatTimer);
++}
++
++void SimpleLoRaApp::restartHeartbeatAfterData()
++{
++    // In the mobility-energy treatment a heartbeat is a keepalive, not a
++    // second periodic traffic stream. A normal uplink already proves liveness,
++    // so restart the current adaptive interval and transmit a heartbeat only
++    // when the application remains silent for that whole interval. The switch
++    // is false in the reference and thesis treatments to preserve their
++    // published controls exactly.
++    if (!heartbeatOnlyWhenDataSilent || heartbeatInterval <= SIMTIME_ZERO || !heartbeatTimer)
++        return;
++    if (heartbeatTimer->isScheduled())
++        cancelEvent(heartbeatTimer);
++    scheduleAt(simTime() + heartbeatInterval, heartbeatTimer);
++    heartbeatResetsByData++;
++}
++
++void SimpleLoRaApp::applyAdrRecoveryStep()
++{
++    // LoRaWAN reconnection first restores maximum TP. Subsequent
++    // ADR_ACK_DELAY cycles reduce the data rate one SF step at a time.
++    if (loRaTP < 14)
++        loRaTP = 14;
++    else if (loRaSF < 12)
++        changeSpreadingFactor(loRaSF + 1);
++}
++
++int SimpleLoRaApp::channelIndex(Hz frequency) const
++{
++    static constexpr std::array<double, 8> channelsHz = {
++        868.1e6, 868.3e6, 868.5e6, 867.1e6, 867.3e6, 867.5e6, 867.7e6, 867.9e6
++    };
++    int closest = 0;
++    for (size_t i = 1; i < channelsHz.size(); ++i)
++        if (std::abs(frequency.get() - channelsHz[i]) <
++                std::abs(frequency.get() - channelsHz[closest]))
++            closest = i;
++    return closest;
++}
++
++void SimpleLoRaApp::accountRadioStateUntil(simtime_t now)
++{
++    const simtime_t start = std::max(radioStateLastUpdate,
++            getSimulation()->getWarmupPeriod());
++    if (now > start) {
++        const double seconds = (now - start).dbl();
++        if (loRaSF >= 7 && loRaSF <= 12)
++            sfResidenceSeconds[loRaSF - 7] += seconds;
++        const int index = channelIndex(loRaCF);
++        if (index >= 0)
++            channelResidenceSeconds[index] += seconds;
++    }
++    radioStateLastUpdate = now;
++}
++
++void SimpleLoRaApp::changeSpreadingFactor(int newSf)
++{
++    if (newSf == loRaSF)
++        return;
++    if (newSf < 7 || newSf > 12)
++        throw cRuntimeError("Invalid spreading factor %d", newSf);
++    accountRadioStateUntil(simTime());
++    if (loRaSF >= 7 && loRaSF <= 12)
++        sfTransitions[loRaSF - 7][newSf - 7]++;
++    loRaSF = newSf;
++}
++
++void SimpleLoRaApp::updateTrafficScheduleHash()
++{
++    const uint64_t timestamp = static_cast<uint64_t>(simTime().inUnit(SIMTIME_US));
++    trafficScheduleHash ^= timestamp;
++    trafficScheduleHash *= 1099511628211ULL;
++}
++
++void SimpleLoRaApp::applyClientAdrForNextPacket()
++{
++    if (clientAdrMode == "network" || clientAdrMode == "madere")
++        return;
++    // Recovered Blind ADR hour: one SF12, two SF10 and three SF7 uplinks.
++    // Mapping that sequence onto common application events preserves its SF
++    // exposure without the historical implementation's second traffic stream.
++    static constexpr std::array<int, 6> blindSequence = {12, 10, 10, 7, 7, 7};
++    // Recovered mobile HADR/BADR branch cycles once through SF7..SF12.
++    static constexpr std::array<int, 6> hadrSequence = {7, 8, 9, 10, 11, 12};
++    const auto& sequence = clientAdrMode == "blind" ? blindSequence : hadrSequence;
++    const int nextSf = sequence[clientAdrPacketIndex % sequence.size()];
++    if (nextSf != loRaSF) {
++        changeSpreadingFactor(nextSf);
++        sfChanges++;
++        emit(sfChangesSignal, sfChanges);
++    }
++}
++
++void SimpleLoRaApp::initializeMadereRadialModel()
++{
++    const int bins = std::max(1, (int)std::ceil(madereMaxDistanceM / madereCellSizeM));
++    madereRadialProbability.assign(bins, 0.0);
++    const int initialBin = std::min(bins - 1,
++            std::max(0, (int)(getDistanceToGateway() / madereCellSizeM)));
++    madereRadialProbability[initialBin] = 1.0;
++    madereEstimatedDistanceM = (initialBin + 0.5) * madereCellSizeM;
++    madereLastUpdate = simTime();
++}
++
++void SimpleLoRaApp::propagateMadereProbability(double distanceM)
++{
++    const int radius = std::max(0, (int)std::ceil(distanceM / madereCellSizeM));
++    if (radius == 0 || madereRadialProbability.empty())
++        return;
++    std::vector<double> difference(madereRadialProbability.size() + 1, 0.0);
++    for (size_t source = 0; source < madereRadialProbability.size(); ++source) {
++        if (madereRadialProbability[source] <= 0)
++            continue;
++        const int first = std::max(0, (int)source - radius);
++        const int last = std::min((int)madereRadialProbability.size() - 1,
++                (int)source + radius);
++        const double share = madereRadialProbability[source] / (last - first + 1);
++        difference[first] += share;
++        difference[last + 1] -= share;
++    }
++    double running = 0;
++    for (size_t i = 0; i < madereRadialProbability.size(); ++i) {
++        running += difference[i];
++        madereRadialProbability[i] = running;
++    }
++}
++
++void SimpleLoRaApp::updateMadereFromFeedback(double snr, double uplinkPowerDbm)
++{
++    if (madereRadialProbability.empty())
++        initializeMadereRadialModel();
++    const double noiseFloorDbm = -174.0 + 10.0 * std::log10(loRaBW.get()) +
++            madereNoiseFigureDb;
++    const double wavelength = 3e8 / madereFrequencyHz;
++    const double pathLossD0Db = 20.0 * std::log10(4.0 * M_PI * madereD0M / wavelength);
++    const double pathLossDb = uplinkPowerDbm - snr - noiseFloorDbm;
++    double observedDistance = madereD0M * std::pow(10.0,
++            (pathLossDb - pathLossD0Db) / (10.0 * madereGamma));
++    observedDistance = std::max(0.0, std::min(madereMaxDistanceM, observedDistance));
++    const double halfWidth = madereSnrMarginCells * madereCellSizeM;
++
++    double retained = 0;
++    int candidates = 0;
++    for (size_t i = 0; i < madereRadialProbability.size(); ++i) {
++        const double distance = (i + 0.5) * madereCellSizeM;
++        if (std::abs(distance - observedDistance) <= halfWidth) {
++            retained += madereRadialProbability[i];
++            candidates++;
++        }
++        else
++            madereRadialProbability[i] = 0;
++    }
++    if (retained <= 0 && candidates > 0) {
++        for (size_t i = 0; i < madereRadialProbability.size(); ++i) {
++            const double distance = (i + 0.5) * madereCellSizeM;
++            if (std::abs(distance - observedDistance) <= halfWidth)
++                madereRadialProbability[i] = 1.0 / candidates;
++        }
++    }
++    else if (retained > 0) {
++        for (double& probability : madereRadialProbability)
++            probability /= retained;
++    }
++
++    const double elapsed = std::max(0.0, (simTime() - madereLastUpdate).dbl());
++    propagateMadereProbability(madereMaxSpeedMps * elapsed);
++    madereLastUpdate = simTime();
++
++    double probabilitySum = 0;
++    double weightedDistance = 0;
++    for (size_t i = 0; i < madereRadialProbability.size(); ++i) {
++        probabilitySum += madereRadialProbability[i];
++        weightedDistance += (i + 0.5) * madereCellSizeM * madereRadialProbability[i];
++    }
++    madereEstimatedDistanceM = probabilitySum > 0 ? weightedDistance / probabilitySum :
++            observedDistance;
++    int newSf = 12;
++    if (madereEstimatedDistanceM < 2500) newSf = 7;
++    else if (madereEstimatedDistanceM < 5000) newSf = 8;
++    else if (madereEstimatedDistanceM < 7500) newSf = 9;
++    else if (madereEstimatedDistanceM < 10000) newSf = 10;
++    else if (madereEstimatedDistanceM < 12500) newSf = 11;
++    if (newSf != loRaSF) {
++        changeSpreadingFactor(newSf);
++        sfChanges++;
++        emit(sfChangesSignal, sfChanges);
++    }
++    madereFeedbacks++;
+ }
+ 
+ void SimpleLoRaApp::finish()
+ {
+-    cModule *host = getContainingNode(this);
+-    StationaryMobility *mobility = check_and_cast<StationaryMobility *>(host->getSubmodule("mobility"));
+-    Coord coord = mobility->getCurrentPosition();
+-    recordScalar("positionX", coord.x);
+-    recordScalar("positionY", coord.y);
+-    recordScalar("finalTP", getTP());
+-    recordScalar("finalSF", getSF());
++    accountRadioStateUntil(simTime());
++    const Coord position = getCurrentPosition();
++    recordScalar("initialPositionX", initialPosition.x);
++    recordScalar("initialPositionY", initialPosition.y);
++    recordScalar("positionX", position.x);
++    recordScalar("positionY", position.y);
++    recordScalar("displacement", position.distance(initialPosition), "m");
++    recordScalar("distanceToGateway", getDistanceToGateway());
++    recordScalar("initialLoRaTP", initialLoRaTP);
++    recordScalar("initialLoRaSF", initialLoRaSF);
++    recordScalar("finalTP", loRaTP);
++    recordScalar("finalSF", loRaSF);
++    recordScalar("finalCF", loRaCF.get() / 1e6);
+     recordScalar("sentPackets", sentPackets);
+     recordScalar("receivedADRCommands", receivedADRCommands);
+-}
+-
+-void SimpleLoRaApp::handleMessage(cMessage *msg)
+-{
+-    if (msg->isSelfMessage()) {
+-        if (msg == sendMeasurements)
+-        {
+-            sendJoinRequest();
+-            if (simTime() >= getSimulation()->getWarmupPeriod())
+-                sentPackets++;
+-            delete msg;
+-            if(numberOfPacketsToSend == 0 || sentPackets < numberOfPacketsToSend)
+-            {
+-                double time;
+-                int loRaSF = getSF();
+-                if(loRaSF == 7) time = 7.808;
+-                if(loRaSF == 8) time = 13.9776;
+-                if(loRaSF == 9) time = 24.6784;
+-                if(loRaSF == 10) time = 49.3568;
+-                if(loRaSF == 11) time = 85.6064;
+-                if(loRaSF == 12) time = 171.2128;
+-                do {
+-                    timeToNextPacket = par("timeToNextPacket");
+-                    //if(timeToNextPacket < 3) error("Time to next packet must be grater than 3");
+-                } while(timeToNextPacket <= time);
+-                sendMeasurements = new cMessage("sendMeasurements");
+-                scheduleAt(simTime() + timeToNextPacket, sendMeasurements);
+-            }
+-        }
+-    }
+-    else
+-    {
+-        handleMessageFromLowerLayer(msg);
+-        delete msg;
+-        //cancelAndDelete(sendMeasurements);
+-        //sendMeasurements = new cMessage("sendMeasurements");
+-        //scheduleAt(simTime(), sendMeasurements);
+-    }
+-}
+-
+-void SimpleLoRaApp::handleMessageFromLowerLayer(cMessage *msg)
+-{
+-//    LoRaAppPacket *packet = check_and_cast<LoRaAppPacket *>(msg);
+-    auto pkt = check_and_cast<Packet *>(msg);
+-    const auto & packet = pkt->peekAtFront<LoRaAppPacket>();
+-    if (simTime() >= getSimulation()->getWarmupPeriod())
+-        receivedADRCommands++;
+-    if(evaluateADRinNode)
+-    {
+-        ADR_ACK_CNT = 0;
+-        if(packet->getMsgType() == TXCONFIG)
+-        {
+-            if(packet->getOptions().getLoRaTP() != -1)
+-            {
+-                setTP(packet->getOptions().getLoRaTP());
+-            }
+-            if(packet->getOptions().getLoRaSF() != -1)
+-            {
+-                setSF(packet->getOptions().getLoRaSF());
+-            }
+-            EV << "New TP " << getTP() << endl;
+-            EV << "New SF " << getSF() << endl;
+-        }
++    recordScalar("ADRRecoverySteps", numADRACKReq);
++    recordScalar("heartbeats", numHeartbeats);
++    recordScalar("finalHeartbeatInterval", heartbeatInterval.dbl(), "s");
++    recordScalar("heartbeatIntervalChanges", heartbeatIntervalChanges);
++    recordScalar("heartbeatResetsByData", heartbeatResetsByData);
++    recordScalar("finalAdrMobilityClass", adrMobilityClass);
++    recordScalar("mobilityClassChanges", mobilityClassChanges);
++    recordScalar("SFChanges", sfChanges);
++    recordScalar("TPChanges", tpChanges);
++    recordScalar("includePosition", includePosition);
++    recordScalar("positionPayloadBytes", positionPayloadBytes, "B");
++    recordScalar("totalLocationFixes", totalLocationFixes);
++    recordScalar("measurementLocationFixes", measurementLocationFixes);
++    recordScalar("measurementPositionBytes", measurementPositionBytes, "B");
++    recordScalar("measurementLocationEnergyConsumed",
++            measurementLocationFixes * localizationEnergyPerFixJ, "J");
++    recordScalar("trafficScheduleHashLow",
++            static_cast<uint32_t>(trafficScheduleHash & 0xffffffffULL));
++    recordScalar("trafficScheduleHashHigh",
++            static_cast<uint32_t>(trafficScheduleHash >> 32));
++    recordScalar("clientAdrModeCode", clientAdrMode == "network" ? 0 :
++            (clientAdrMode == "blind" ? 1 : (clientAdrMode == "hadrMobile" ? 2 : 3)));
++    recordScalar("madereFeedbacks", madereFeedbacks);
++    recordScalar("madereEstimatedDistance", madereEstimatedDistanceM, "m");
++    for (int sf = 7; sf <= 12; ++sf) {
++        const std::string suffix = std::to_string(sf);
++        recordScalar(("sfResidenceSeconds SF" + suffix).c_str(),
++                sfResidenceSeconds[sf - 7], "s");
++        recordScalar(("uplinksPerSF SF" + suffix).c_str(), uplinksPerSf[sf - 7]);
++        for (int destination = 7; destination <= 12; ++destination)
++            recordScalar(("sfTransition " + suffix + " to " +
++                    std::to_string(destination)).c_str(),
++                    sfTransitions[sf - 7][destination - 7]);
++    }
++    for (size_t channel = 0; channel < channelResidenceSeconds.size(); ++channel) {
++        const std::string suffix = std::to_string(channel);
++        recordScalar(("channelResidenceSeconds " + suffix).c_str(),
++                channelResidenceSeconds[channel], "s");
++        recordScalar(("uplinksPerChannel " + suffix).c_str(), uplinksPerChannel[channel]);
+     }
+ }
+ 
+ bool SimpleLoRaApp::handleOperationStage(LifecycleOperation *operation, IDoneCallback *doneCallback)
+ {
+     Enter_Method_Silent();
+-
+     throw cRuntimeError("Unsupported lifecycle operation '%s'", operation->getClassName());
+-    return true;
+-}
+-
+-void SimpleLoRaApp::sendJoinRequest()
+-{
+-    auto pktRequest = new Packet("DataFrame");
+-    pktRequest->setKind(DATA);
+-
+-    auto payload = makeShared<LoRaAppPacket>();
+-    payload->setChunkLength(B(par("dataSize").intValue()));
+-
+-    lastSentMeasurement = rand();
+-    payload->setSampleMeasurement(lastSentMeasurement);
+-
+-    if(evaluateADRinNode && sendNextPacketWithADRACKReq)
+-    {
+-        auto opt = payload->getOptions();
+-        opt.setADRACKReq(true);
+-        payload->setOptions(opt);
+-        //request->getOptions().setADRACKReq(true);
+-        sendNextPacketWithADRACKReq = false;
+-    }
+-
+-
+-    auto loraTag = pktRequest->addTagIfAbsent<LoRaTag>();
+-    loraTag->setBandwidth(getBW());
+-    loraTag->setCenterFrequency(getCF());
+-    loraTag->setSpreadFactor(getSF());
+-    loraTag->setCodeRendundance(getCR());
+-    loraTag->setPower(mW(math::dBmW2mW(getTP())));
+-
+-    //add LoRa control info
+-  /*  LoRaMacControlInfo *cInfo = new LoRaMacControlInfo();
+-    cInfo->setLoRaTP(loRaTP);
+-    cInfo->setLoRaCF(loRaCF);
+-    cInfo->setLoRaSF(loRaSF);
+-    cInfo->setLoRaBW(loRaBW);
+-    cInfo->setLoRaCR(loRaCR);
+-    pktRequest->setControlInfo(cInfo);*/
+-
+-    sfVector.record(getSF());
+-    tpVector.record(getTP());
+-    EV << "Wysylam pakiet z TP: " << getTP() << endl;
+-    EV << "Wysylam pakiet z SF: " << getSF() << endl;
+-    pktRequest->insertAtBack(payload);
+-    send(pktRequest, "socketOut");
+-    if(evaluateADRinNode)
+-    {
+-        ADR_ACK_CNT++;
+-        if(ADR_ACK_CNT == ADR_ACK_LIMIT) sendNextPacketWithADRACKReq = true;
+-        if(ADR_ACK_CNT >= ADR_ACK_LIMIT + ADR_ACK_DELAY)
+-        {
+-            ADR_ACK_CNT = 0;
+-            increaseSFIfPossible();
+-        }
+-    }
+-    emit(LoRa_AppPacketSent, getSF());
+-}
+-
+-void SimpleLoRaApp::increaseSFIfPossible()
+-{
+-//    if(loRaSF < 12) loRaSF++;
+-    if(getSF() < 12) setSF(getSF() + 1);
+-}
+-
+-void SimpleLoRaApp::setSF(int SF) {
+-    loRaRadio->loRaSF = SF;
+-}
+-
+-int SimpleLoRaApp::getSF() {
+-    return loRaRadio->loRaSF;
+-}
+-
+-void SimpleLoRaApp::setTP(int TP) {
+-    loRaRadio->loRaTP = TP;
+-}
+-
+-double SimpleLoRaApp::getTP() {
+-    return loRaRadio->loRaTP;
+-}
+-
+-void SimpleLoRaApp::setCF(units::values::Hz CF) {
+-    loRaRadio->loRaCF = CF;
+-}
+-
+-units::values::Hz SimpleLoRaApp::getCF() {
+-    return loRaRadio->loRaCF;
+-}
+-
+-void SimpleLoRaApp::setBW(units::values::Hz BW) {
+-    loRaRadio->loRaBW = BW;
+-}
+-
+-units::values::Hz SimpleLoRaApp::getBW() {
+-    return loRaRadio->loRaBW;
+-}
+-
+-void SimpleLoRaApp::setCR(int CR) {
+-    loRaRadio->loRaCR = CR;
+-}
+-
+-int SimpleLoRaApp::getCR() {
+-    return loRaRadio->loRaCR;
+-}
+-
+-} //end namespace inet
++}
++
++} // namespace flora
+--- flora-1.1/src/LoRaEnergyModules/LoRaEnergyConsumer.cc
++++ enhanced-rc11/src/LoRaEnergyModules/LoRaEnergyConsumer.cc
+@@ -1,225 +1,240 @@
+-//
+-// This program is free software: you can redistribute it and/or modify
+-// it under the terms of the GNU Lesser General Public License as published by
+-// the Free Software Foundation, either version 3 of the License, or
+-// (at your option) any later version.
+-// 
+-// This program is distributed in the hope that it will be useful,
+-// but WITHOUT ANY WARRANTY; without even the implied warranty of
+-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-// GNU Lesser General Public License for more details.
+-// 
+-// You should have received a copy of the GNU Lesser General Public License
+-// along with this program.  If not, see http://www.gnu.org/licenses/.
+-// 
++// Copyright (C) 2026
++// SPDX-License-Identifier: LGPL-3.0-or-later
+ 
+ #include "LoRaEnergyConsumer.h"
+ 
+-#include "inet/physicallayer/wireless/common/contract/packetlevel/IRadio.h"
+-#include "LoRaPhy/LoRaTransmitter.h"
++#include <algorithm>
++#include <cmath>
++#include <cstdlib>
++
++#include "inet/common/INETMath.h"
++
++#include "LoRa/LoRaRadio.h"
++
+ namespace flora {
+ 
+-using namespace inet::power;
++using namespace inet;
++using namespace inet::physicallayer;
++using namespace omnetpp;
+ 
+ Define_Module(LoRaEnergyConsumer);
+ 
+ void LoRaEnergyConsumer::initialize(int stage)
+ {
+-    cSimpleModule::initialize(stage);
++    // The energy source must see the correct initial power when it registers
++    // this consumer at INITSTAGE_POWER.
++    if (stage == INITSTAGE_POWER) {
++        previousPower = computePowerBreakdown();
++        powerConsumption = previousPower.total();
++    }
++
++    StateBasedEpEnergyConsumer::initialize(stage);
++
+     if (stage == INITSTAGE_LOCAL) {
++        txCurrentLookupModel = par("txCurrentLookupModel").stdstringValue();
++        if (txCurrentLookupModel != "dbmNearest" &&
++                txCurrentLookupModel != "legacyExactWatts")
++            throw cRuntimeError("txCurrentLookupModel must be dbmNearest or legacyExactWatts");
+         if (!readConfigurationFile())
+-            throw cRuntimeError("LoRaEnergyConsumer: error in reading the input configuration file");
+-        standbySupplyCurrent = 0;
+-        sleepSupplyCurrent = 0;
+-        sleepPowerConsumption = mW(supplyVoltage*sleepSupplyCurrent);
+-
+-        receiverIdlePowerConsumption = mW(supplyVoltage*idleSupplyCurrent);
+-        transmitterIdlePowerConsumption = mW(supplyVoltage*idleSupplyCurrent);
+-        receiverReceivingPowerConsumption = mW(supplyVoltage*receiverReceivingSupplyCurrent);
+-        receiverBusyPowerConsumption = mW(supplyVoltage*receiverBusySupplyCurrent);
+-
+-        offPowerConsumption = W(par("offPowerConsumption"));
+-        switchingPowerConsumption = W(par("switchingPowerConsumption"));
+-
+-        //Setting to zero, values are passed to energystorage based on tx power of current packet in getPowerConsumption()
+-        transmitterTransmittingPowerConsumption = W(0);
+-        transmitterTransmittingPreamblePowerConsumption = W(0);
+-        transmitterTransmittingHeaderPowerConsumption = W(0);
+-        transmitterTransmittingDataPowerConsumption = W(0);
+-
+-        cModule *radioModule = getParentModule();
+-        radioModule->subscribe(IRadio::radioModeChangedSignal, this);
+-        radioModule->subscribe(IRadio::receptionStateChangedSignal, this);
+-        radioModule->subscribe(IRadio::transmissionStateChangedSignal, this);
+-        radioModule->subscribe(IRadio::receivedSignalPartChangedSignal, this);
+-        radioModule->subscribe(IRadio::transmittedSignalPartChangedSignal, this);
+-        //radioModule->subscribe(EpEnergyStorageBase::residualEnergyCapacityChangedSignal, this);
+-        //radioModule->subscribe(IdealEpEnergyStorage::residualEnergyCapacityChangedSignal, this);
+-        radio = check_and_cast<IRadio *>(radioModule);
+-
+-        energySource.reference(this, "energySourceModule", true);
+-
+-        totalEnergyConsumed = 0;
+-        energyBalance = J(0);
+-    }
+-    else if (stage == INITSTAGE_POWER)
+-        energySource->addEnergyConsumer(this);
++            throw cRuntimeError("LoRaEnergyConsumer: cannot read configFile");
++
++        // V*mA equals mW. These assignments also document the electrical
++        // model exposed through the inherited INET state-based parameters.
++        sleepPowerConsumption = mW(supplyVoltage * sleepSupplyCurrent);
++        receiverIdlePowerConsumption = mW(supplyVoltage * idleSupplyCurrent);
++        transmitterIdlePowerConsumption = mW(supplyVoltage * idleSupplyCurrent);
++        receiverReceivingPowerConsumption = mW(supplyVoltage * receiverReceivingSupplyCurrent);
++        receiverReceivingPreamblePowerConsumption = receiverReceivingPowerConsumption;
++        receiverReceivingHeaderPowerConsumption = receiverReceivingPowerConsumption;
++        receiverReceivingDataPowerConsumption = receiverReceivingPowerConsumption;
++        receiverBusyPowerConsumption = mW(supplyVoltage * receiverBusySupplyCurrent);
++
++        totalEnergyConsumedSignal = registerSignal("totalEnergyConsumption");
++        measurementEnergyConsumedSignal = registerSignal("measurementEnergyConsumption");
++        lastEnergyUpdate = simTime();
++        previousPower = PowerBreakdown();
++    }
++}
++
++bool LoRaEnergyConsumer::readConfigurationFile()
++{
++    cXMLElement *root = par("configFile").xmlValue();
++    if (root == nullptr)
++        return false;
++
++    auto readRequiredValue = [root](const char *tagName) {
++        const auto elements = root->getElementsByTagName(tagName);
++        if (elements.empty() || elements.front()->getAttribute("value") == nullptr)
++            throw cRuntimeError("%s not defined in energy configuration", tagName);
++        return std::strtod(elements.front()->getAttribute("value"), nullptr);
++    };
++
++    supplyVoltage = readRequiredValue("supplyVoltage");
++    receiverReceivingSupplyCurrent = readRequiredValue("receiverReceivingSupplyCurrent");
++    receiverBusySupplyCurrent = readRequiredValue("receiverBusySupplyCurrent");
++    idleSupplyCurrent = readRequiredValue("idleSupplyCurrent");
++    sleepSupplyCurrent = readRequiredValue("sleepSupplyCurrent");
++
++    const auto containers = root->getElementsByTagName("txSupplyCurrents");
++    if (containers.empty())
++        throw cRuntimeError("txSupplyCurrents not defined in energy configuration");
++
++    txSupplyCurrentByDbm.clear();
++    txSupplyCurrentByWatts.clear();
++    for (auto element : containers.front()->getElementsByTagName("txSupplyCurrent")) {
++        const char *powerText = element->getAttribute("txPower");
++        const char *currentText = element->getAttribute("supplyCurrent");
++        if (powerText == nullptr || currentText == nullptr)
++            throw cRuntimeError("Each txSupplyCurrent needs txPower and supplyCurrent");
++        const double powerDbm = std::strtod(powerText, nullptr);
++        const double supplyCurrentMa = std::strtod(currentText, nullptr);
++        txSupplyCurrentByDbm[std::lround(powerDbm)] = supplyCurrentMa;
++        txSupplyCurrentByWatts[math::dBmW2mW(powerDbm) / 1000.0] = supplyCurrentMa;
++    }
++    if (txSupplyCurrentByDbm.empty())
++        throw cRuntimeError("No TX supply currents defined");
++    return true;
++}
++
++double LoRaEnergyConsumer::getTxSupplyCurrent(int txPowerDbm) const
++{
++    auto exact = txSupplyCurrentByDbm.find(txPowerDbm);
++    if (exact != txSupplyCurrentByDbm.end())
++        return exact->second;
++
++    // A non-tabulated power is mapped to the nearest measured current instead
++    // of dereferencing an invalid map iterator or comparing floating watts.
++    auto upper = txSupplyCurrentByDbm.lower_bound(txPowerDbm);
++    if (upper == txSupplyCurrentByDbm.begin())
++        return upper->second;
++    if (upper == txSupplyCurrentByDbm.end())
++        return std::prev(upper)->second;
++    auto lower = std::prev(upper);
++    return txPowerDbm - lower->first <= upper->first - txPowerDbm
++            ? lower->second : upper->second;
++}
++
++double LoRaEnergyConsumer::getLegacyTxSupplyCurrent(double txPowerWatts) const
++{
++    const auto exact = txSupplyCurrentByWatts.find(txPowerWatts);
++    if (exact == txSupplyCurrentByWatts.end())
++        throw cRuntimeError("Legacy exact-watt TX-current lookup has no entry for %.17g W",
++                txPowerWatts);
++    return exact->second;
++}
++
++LoRaEnergyConsumer::PowerBreakdown LoRaEnergyConsumer::computePowerBreakdown() const
++{
++    PowerBreakdown result;
++    const IRadio::RadioMode mode = radio->getRadioMode();
++
++    if (mode == IRadio::RADIO_MODE_OFF) {
++        result.other = offPowerConsumption;
++        return result;
++    }
++    if (mode == IRadio::RADIO_MODE_SLEEP) {
++        result.sleep = sleepPowerConsumption;
++        return result;
++    }
++    if (mode == IRadio::RADIO_MODE_SWITCHING) {
++        result.other = switchingPowerConsumption;
++        return result;
++    }
++
++    if (mode == IRadio::RADIO_MODE_RECEIVER || mode == IRadio::RADIO_MODE_TRANSCEIVER) {
++        const auto state = radio->getReceptionState();
++        if (state == IRadio::RECEPTION_STATE_IDLE)
++            result.idle += receiverIdlePowerConsumption;
++        else if (state == IRadio::RECEPTION_STATE_RECEIVING)
++            result.rx += receiverReceivingPowerConsumption;
++        else if (state == IRadio::RECEPTION_STATE_BUSY)
++            result.rx += receiverBusyPowerConsumption;
++        else if (state != IRadio::RECEPTION_STATE_UNDEFINED)
++            throw cRuntimeError("Unknown LoRa reception state %d", state);
++    }
++
++    if (mode == IRadio::RADIO_MODE_TRANSMITTER || mode == IRadio::RADIO_MODE_TRANSCEIVER) {
++        const auto state = radio->getTransmissionState();
++        if (state == IRadio::TRANSMISSION_STATE_IDLE)
++            result.idle += transmitterIdlePowerConsumption;
++        else if (state == IRadio::TRANSMISSION_STATE_TRANSMITTING) {
++            const auto loraRadio = check_and_cast<const LoRaRadio *>(radio);
++            // currentTxPower is stored in W; W*1000 converts it to mW before dBm.
++            const double txPowerWatts = loraRadio->getCurrentTxPower();
++            const double supplyCurrentMa = txCurrentLookupModel == "legacyExactWatts" ?
++                    getLegacyTxSupplyCurrent(txPowerWatts) :
++                    getTxSupplyCurrent(std::lround(math::mW2dBmW(txPowerWatts * 1000.0)));
++            result.tx += mW(supplyVoltage * supplyCurrentMa);
++        }
++        else if (state != IRadio::TRANSMISSION_STATE_UNDEFINED)
++            throw cRuntimeError("Unknown LoRa transmission state %d", state);
++    }
++    return result;
++}
++
++W LoRaEnergyConsumer::computePowerConsumption() const
++{
++    return computePowerBreakdown().total();
++}
++
++void LoRaEnergyConsumer::integrateEnergyUntil(simtime_t now)
++{
++    if (now <= lastEnergyUpdate)
++        return;
++
++    const double completeSeconds = (now - lastEnergyUpdate).dbl();
++    auto accumulate = [](EnergyBreakdown& energy, const PowerBreakdown& power, double seconds) {
++        energy.tx += power.tx * s(seconds);
++        energy.rx += power.rx * s(seconds);
++        energy.idle += power.idle * s(seconds);
++        energy.sleep += power.sleep * s(seconds);
++        energy.other += power.other * s(seconds);
++    };
++    accumulate(completeRunEnergy, previousPower, completeSeconds);
++
++    // PDR and application counters exclude warm-up. This second accumulator
++    // clips the interval at warm-up so energy/PDR comparisons use one window.
++    const simtime_t warmup = getSimulation()->getWarmupPeriod();
++    const simtime_t measuredStart = std::max(lastEnergyUpdate, warmup);
++    if (now > measuredStart)
++        accumulate(measurementEnergy, previousPower, (now - measuredStart).dbl());
++
++    lastEnergyUpdate = now;
++    emit(totalEnergyConsumedSignal, completeRunEnergy.total().get());
++    emit(measurementEnergyConsumedSignal, measurementEnergy.total().get());
++}
++
++void LoRaEnergyConsumer::receiveSignal(cComponent *source, simsignal_t signal,
++        intval_t value, cObject *details)
++{
++    // Integrate the old state up to the exact state-change timestamp, then let
++    // INET update and announce the new instantaneous power in watts.
++    integrateEnergyUntil(simTime());
++    StateBasedEpEnergyConsumer::receiveSignal(source, signal, value, details);
++    previousPower = computePowerBreakdown();
+ }
+ 
+ void LoRaEnergyConsumer::finish()
+ {
+-    recordScalar("totalEnergyConsumed", double(totalEnergyConsumed));
+-}
+-
+-bool LoRaEnergyConsumer::readConfigurationFile()
+-{
+-    cXMLElement *xmlConfig = par("configFile").xmlValue();
+-    if (xmlConfig == nullptr)
+-        return false;
+-    cXMLElementList tagList;
+-    cXMLElement *tempTag;
+-    const char *str;
+-    std::string sstr;    // for easier comparison
+-
+-    tagList = xmlConfig->getElementsByTagName("receiverReceivingSupplyCurrent");
+-    if(tagList.empty()) {
+-        throw cRuntimeError("receiverReceivingSupplyCurrent not defined in the configuration file!");
+-    }
+-    tempTag = tagList.front();
+-    str = tempTag->getAttribute("value");
+-    receiverReceivingSupplyCurrent = strtod(str, nullptr);
+-
+-    tagList = xmlConfig->getElementsByTagName("receiverBusySupplyCurrent");
+-    if(tagList.empty()) {
+-        throw cRuntimeError("receiverBusySupplyCurrent not defined in the configuration file!");
+-    }
+-    tempTag = tagList.front();
+-    str = tempTag->getAttribute("value");
+-    receiverBusySupplyCurrent = strtod(str, nullptr);
+-
+-    tagList = xmlConfig->getElementsByTagName("idleSupplyCurrent");
+-    if(tagList.empty()) {
+-        throw cRuntimeError("idleSupplyCurrent not defined in the configuration file!");
+-    }
+-    tempTag = tagList.front();
+-    str = tempTag->getAttribute("value");
+-    idleSupplyCurrent = strtod(str, nullptr);
+-
+-    tagList = xmlConfig->getElementsByTagName("supplyVoltage");
+-    if(tagList.empty()) {
+-        throw cRuntimeError("supplyVoltage not defined in the configuration file!");
+-    }
+-    tempTag = tagList.front();
+-    str = tempTag->getAttribute("value");
+-    supplyVoltage = strtod(str, nullptr);
+-
+-    tagList = xmlConfig->getElementsByTagName("txSupplyCurrents");
+-    if(tagList.empty()) {
+-        throw cRuntimeError("txSupplyCurrents not defined in the configuration file!");
+-    }
+-    tempTag = tagList.front();
+-    cXMLElementList txSupplyCurrentList = tempTag->getElementsByTagName("txSupplyCurrent");
+-    if (txSupplyCurrentList.empty())
+-        throw cRuntimeError("No txSupplyCurrent have been defined in txSupplyCurrents!");
+-
+-    for (cXMLElementList::const_iterator aComb = txSupplyCurrentList.begin(); aComb != txSupplyCurrentList.end(); aComb++) {
+-        const char *txPower, *supplyCurrent;
+-        if ((*aComb)->getAttribute("txPower") != nullptr)
+-            txPower = (*aComb)->getAttribute("txPower");
+-        else
+-            txPower = "";
+-        if ((*aComb)->getAttribute("supplyCurrent") != nullptr)
+-            supplyCurrent = (*aComb)->getAttribute("supplyCurrent");
+-        else
+-            supplyCurrent = "";
+-        transmitterTransmittingSupplyCurrent[strtod(txPower, nullptr)] = strtod(supplyCurrent, nullptr);
+-    }
+-    return true;
+-}
+-
+-void LoRaEnergyConsumer::receiveSignal(cComponent *source, simsignal_t signal, intval_t value, cObject *details)
+-{
+-    if (signal == IRadio::radioModeChangedSignal ||
+-        signal == IRadio::receptionStateChangedSignal ||
+-        signal == IRadio::transmissionStateChangedSignal ||
+-        signal == IRadio::receivedSignalPartChangedSignal ||
+-        signal == IRadio::transmittedSignalPartChangedSignal)
+-    {
+-        powerConsumption = getPowerConsumption();
+-        emit(powerConsumptionChangedSignal, powerConsumption.get());
+-
+-        simtime_t currentSimulationTime = simTime();
+-        //if (currentSimulationTime != lastEnergyBalanceUpdate) {
+-            energyBalance += s((currentSimulationTime - lastEnergyBalanceUpdate).dbl()) * (lastPowerConsumption);
+-            totalEnergyConsumed = (energyBalance.get());
+-            lastEnergyBalanceUpdate = currentSimulationTime;
+-            lastPowerConsumption = powerConsumption;
+-        //}
+-    }
+-    else
+-        throw cRuntimeError("Unknown signal");
+-}
+-
+-W LoRaEnergyConsumer::getPowerConsumption() const
+-{
+-    IRadio::RadioMode radioMode = radio->getRadioMode();
+-
+-    if (radioMode == IRadio::RADIO_MODE_OFF)
+-        return offPowerConsumption;
+-    if (radioMode == IRadio::RADIO_MODE_SLEEP || radioMode == IRadio::RADIO_MODE_SWITCHING)
+-        return W(0);
+-
+-    W powerConsumption = W(0);
+-    IRadio::ReceptionState receptionState = radio->getReceptionState();
+-    IRadio::TransmissionState transmissionState = radio->getTransmissionState();
+-
+-    if (radioMode == IRadio::RADIO_MODE_RECEIVER) {
+-        powerConsumption += mW(supplyVoltage*receiverBusySupplyCurrent);
+-    } else if (radioMode == IRadio::RADIO_MODE_TRANSMITTER) {
+-        LoRaRadio *radio = check_and_cast<LoRaRadio *>(getParentModule());
+-        auto current = transmitterTransmittingSupplyCurrent.find(radio->loRaTP);
+-        powerConsumption += mW(supplyVoltage*current->second);
+-    } else {
+-        powerConsumption += mW(supplyVoltage*idleSupplyCurrent);
+-    }
+-
+-//    if (radioMode == IRadio::RADIO_MODE_RECEIVER || radioMode == IRadio::RADIO_MODE_TRANSCEIVER) {
+-//        if (receptionState == IRadio::RECEPTION_STATE_IDLE)
+-//            powerConsumption += receiverIdlePowerConsumption;
+-//        else if (receptionState == IRadio::RECEPTION_STATE_RECEIVING) {
+-//            auto part = radio->getReceivedSignalPart();
+-//            if (part == IRadioSignal::SIGNAL_PART_NONE)
+-//                ;
+-//            else if (radioMode == IRadio::RADIO_MODE_RECEIVER || part == IRadioSignal::SIGNAL_PART_WHOLE || part == IRadioSignal::SIGNAL_PART_PREAMBLE || part == IRadioSignal::SIGNAL_PART_HEADER || part == IRadioSignal::SIGNAL_PART_DATA )
+-//                powerConsumption += receiverReceivingPowerConsumption;
+-//            else
+-//                throw cRuntimeError("Unknown received signal part");
+-//        }
+-//        else if (receptionState == IRadio::RECEPTION_STATE_BUSY || radioMode == IRadio::RADIO_MODE_RECEIVER)
+-//            powerConsumption += receiverBusyPowerConsumption;
+-//        else if (receptionState != IRadio::RECEPTION_STATE_UNDEFINED)
+-//            throw cRuntimeError("Unknown radio reception state");
+-//    }
+-//
+-//    if (radioMode == IRadio::RADIO_MODE_TRANSMITTER || radioMode == IRadio::RADIO_MODE_TRANSCEIVER) {
+-//        if (transmissionState == IRadio::TRANSMISSION_STATE_IDLE)
+-//            powerConsumption += transmitterIdlePowerConsumption;
+-//        else if (transmissionState == IRadio::TRANSMISSION_STATE_TRANSMITTING) {
+-//            LoRaRadio *radio = check_and_cast<LoRaRadio *>(getParentModule());
+-//            auto part = radio->getTransmittedSignalPart();
+-//            if (part == IRadioSignal::SIGNAL_PART_NONE)
+-//                ;
+-//            else if (part == IRadioSignal::SIGNAL_PART_WHOLE || part == IRadioSignal::SIGNAL_PART_PREAMBLE || part == IRadioSignal::SIGNAL_PART_HEADER || part == IRadioSignal::SIGNAL_PART_DATA)
+-//            {
+-//                auto current = transmitterTransmittingSupplyCurrent.find(radio->loRaTP);
+-//                powerConsumption += mW(supplyVoltage*current->second);
+-//            }
+-//            else
+-//                throw cRuntimeError("Unknown transmitted signal part");
+-//        }
+-//        else if (transmissionState != IRadio::TRANSMISSION_STATE_UNDEFINED)
+-//            throw cRuntimeError("Unknown radio transmission state");
+-//    }
+-    return powerConsumption;
+-}
+-}
++    // Account for the final interval, which has no following state-change signal.
++    integrateEnergyUntil(simTime());
++
++    recordScalar("totalEnergyConsumed", completeRunEnergy.total().get(), "J");
++    recordScalar("measurementEnergyConsumed", measurementEnergy.total().get(), "J");
++    // Component values over the same post-warm-up window as PDR. These avoid
++    // comparing a 10-day delivery population with a 12-day TX/RX/sleep total.
++    recordScalar("measurementTxEnergyConsumed", measurementEnergy.tx.get(), "J");
++    recordScalar("measurementRxEnergyConsumed", measurementEnergy.rx.get(), "J");
++    recordScalar("measurementIdleEnergyConsumed", measurementEnergy.idle.get(), "J");
++    recordScalar("measurementSleepEnergyConsumed", measurementEnergy.sleep.get(), "J");
++    recordScalar("measurementOtherEnergyConsumed", measurementEnergy.other.get(), "J");
++    recordScalar("txEnergyConsumed", completeRunEnergy.tx.get(), "J");
++    recordScalar("rxEnergyConsumed", completeRunEnergy.rx.get(), "J");
++    recordScalar("idleEnergyConsumed", completeRunEnergy.idle.get(), "J");
++    recordScalar("sleepEnergyConsumed", completeRunEnergy.sleep.get(), "J");
++    recordScalar("otherEnergyConsumed", completeRunEnergy.other.get(), "J");
++    recordScalar("finalPowerConsumption", powerConsumption.get(), "W");
++    recordScalar("txCurrentLookupModelCode", txCurrentLookupModel == "dbmNearest" ? 1 : 0);
++}
++
++} // namespace flora
+--- flora-1.1/src/LoRaPhy/LoRaAirtimeCalculator.h
++++ enhanced-rc11/src/LoRaPhy/LoRaAirtimeCalculator.h
+@@ -0,0 +1,100 @@
++// Copyright (C) 2026
++// SPDX-License-Identifier: LGPL-3.0-or-later
++
++#ifndef LORAPHY_LORAAIRTIMECALCULATOR_H_
++#define LORAPHY_LORAAIRTIMECALCULATOR_H_
++
++#include <algorithm>
++#include <cmath>
++
++#include <omnetpp.h>
++
++namespace flora {
++
++/** Durations of the LoRa PHY parts; their sum is the complete time on air. */
++struct LoRaAirtime
++{
++    omnetpp::simtime_t preamble;
++    omnetpp::simtime_t header;
++    omnetpp::simtime_t payload;
++
++    omnetpp::simtime_t total() const { return preamble + header + payload; }
++};
++
++/**
++ * Shared Semtech-compatible LoRa time-on-air calculation.
++ *
++ * Keeping this formula in one place ensures that the physical transmitter and
++ * the energy-aware ADR optimizer evaluate exactly the same packet duration.
++ */
++inline LoRaAirtime calculateLoRaAirtime(int spreadingFactor, double bandwidthHz,
++        int payloadBytes, int codeRedundance, bool useHeader)
++{
++    if (spreadingFactor < 7 || spreadingFactor > 12)
++        throw omnetpp::cRuntimeError("Unsupported LoRa spreading factor SF%d", spreadingFactor);
++    if (bandwidthHz <= 0)
++        throw omnetpp::cRuntimeError("LoRa bandwidth must be positive");
++    if (payloadBytes < 0)
++        throw omnetpp::cRuntimeError("LoRa PHY payload length cannot be negative");
++    if (codeRedundance < 1 || codeRedundance > 4)
++        throw omnetpp::cRuntimeError("LoRa code redundancy must be in [1,4], got %d", codeRedundance);
++
++    // A LoRa symbol lasts 2^SF/BW. DE is enabled for symbol durations of at
++    // least 16 ms (SF11 and SF12 at 125 kHz).
++    const double symbolDuration = std::pow(2.0, spreadingFactor) / bandwidthHz;
++    const int lowDataRateOptimization = symbolDuration >= 0.016 ? 1 : 0;
++    const int implicitHeader = useHeader ? 0 : 1;
++
++    // CRC is enabled. CR=1..4 represents coding rates 4/5..4/8.
++    const double numerator = 8.0 * payloadBytes - 4.0 * spreadingFactor + 28.0
++            + 16.0 - 20.0 * implicitHeader;
++    const double denominator = 4.0 * (spreadingFactor - 2 * lowDataRateOptimization);
++    const int codedBlocks = std::max(0, static_cast<int>(std::ceil(numerator / denominator)));
++    const int payloadSymbols = 8 + codedBlocks * (codeRedundance + 4);
++
++    // The explicit header occupies the first eight payload symbols. This split
++    // supports INET's part scheduling and does not change the total duration.
++    const int headerSymbols = useHeader ? std::min(8, payloadSymbols) : 0;
++    LoRaAirtime result;
++    result.preamble = (8.0 + 4.25) * symbolDuration;
++    result.header = headerSymbols * symbolDuration;
++    result.payload = (payloadSymbols - headerSymbols) * symbolDuration;
++    return result;
++}
++
++/**
++ * Recovered pre-correction FLoRa timing model.
++ *
++ * The inherited transmitter used a fixed 20-byte ED payload (15 bytes for a
++ * gateway), forced DE=0, and split an extra (8+payloadSymbols) term equally
++ * between header and payload. It is retained only as an explicit ablation
++ * treatment and must not be used as a LoRa timing reference.
++ */
++inline LoRaAirtime calculateLegacyLoRaAirtime(int spreadingFactor,
++        double bandwidthHz, int fixedPayloadBytes, int codeRedundance)
++{
++    if (spreadingFactor < 7 || spreadingFactor > 12)
++        throw omnetpp::cRuntimeError("Unsupported LoRa spreading factor SF%d", spreadingFactor);
++    if (bandwidthHz <= 0)
++        throw omnetpp::cRuntimeError("LoRa bandwidth must be positive");
++    if (fixedPayloadBytes < 0)
++        throw omnetpp::cRuntimeError("Legacy LoRa payload length cannot be negative");
++    if (codeRedundance < 1 || codeRedundance > 4)
++        throw omnetpp::cRuntimeError("LoRa code redundancy must be in [1,4], got %d", codeRedundance);
++
++    const double symbolDuration = std::pow(2.0, spreadingFactor) / bandwidthHz;
++    int payloadSymbols = 8 + static_cast<int>(std::ceil(
++            (8.0 * fixedPayloadBytes - 4.0 * spreadingFactor + 28.0 + 16.0) /
++            (4.0 * spreadingFactor))) * (codeRedundance + 4);
++    payloadSymbols = std::max(8, payloadSymbols);
++
++    LoRaAirtime result;
++    result.preamble = (8.0 + 4.25) * symbolDuration;
++    result.header = 0.5 * (8 + payloadSymbols) * symbolDuration;
++    result.payload = result.header;
++    return result;
++}
++
++} // namespace flora
++
++#endif
+--- flora-1.1/src/LoRaPhy/LoRaAnalogModel.cc
++++ enhanced-rc11/src/LoRaPhy/LoRaAnalogModel.cc
+@@ -31,55 +31,52 @@
+     return stream << "LoRaAnalogModel";
+ }
+ 
+-const W LoRaAnalogModel::getBackgroundNoisePower(const LoRaBandListening *listening) const {
+-    //const LoRaBandListening *loRaListening = check_and_cast<const LoRaBandListening *>(listening);
+-    //Sensitivity values from Semtech SX1272/73 datasheet, table 10, Rev 3.1, March 2017
+-    W noisePower = W(math::dBmW2mW(-126.5) / 1000);
+-    if(listening->getLoRaSF() == 6)
+-    {
+-        if(listening->getLoRaBW() == Hz(125000)) noisePower = W(math::dBmW2mW(-121) / 1000);
+-        if(listening->getLoRaBW() == Hz(250000)) noisePower = W(math::dBmW2mW(-118) / 1000);
+-        if(listening->getLoRaBW() == Hz(500000)) noisePower = W(math::dBmW2mW(-111) / 1000);
++const W LoRaAnalogModel::getBackgroundNoisePower(const LoRaBandListening *listening) const
++{
++    const std::string noiseModel = par("backgroundNoiseModel").stdstringValue();
++    if (noiseModel == "legacySensitivity") {
++        // Exact table recovered from the inherited FLoRa analog model. These
++        // are receiver-sensitivity values used as background noise.
++        static const double legacyNoiseDbm[6][3] = {
++            {-124, -122, -116}, // SF7
++            {-127, -125, -119}, // SF8
++            {-130, -128, -122}, // SF9
++            {-133, -130, -125}, // SF10
++            {-135, -132, -128}, // SF11
++            {-137, -135, -129}  // SF12
++        };
++        const int sf = listening->getLoRaSF();
++        const double bandwidthHz = listening->getLoRaBW().get();
++        int bandwidthIndex = bandwidthHz == 250000.0 ? 1 :
++                bandwidthHz == 500000.0 ? 2 : 0;
++        const double noisePowerDbm = sf >= 7 && sf <= 12 ?
++                legacyNoiseDbm[sf - 7][bandwidthIndex] : -126.5;
++        return W(math::dBmW2mW(noisePowerDbm) / 1000);
+     }
++    if (noiseModel != "thermal")
++        throw cRuntimeError("backgroundNoiseModel must be thermal or legacySensitivity");
+ 
+-    if (listening->getLoRaSF() == 7)
+-    {
+-        if(listening->getLoRaBW() == Hz(125000)) noisePower = W(math::dBmW2mW(-124) / 1000);
+-        if(listening->getLoRaBW() == Hz(250000)) noisePower = W(math::dBmW2mW(-122) / 1000);
+-        if(listening->getLoRaBW() == Hz(500000)) noisePower = W(math::dBmW2mW(-116) / 1000);
++    // The medium performs an initialization-time probe with an unspecified
++    // band; use the thesis' 125 kHz default for that probe.
++    const double configuredBandwidthHz = listening->getLoRaBW().get();
++    const double bandwidthHz = configuredBandwidthHz > 0 ? configuredBandwidthHz :
++            par("fallbackNoiseBandwidth").doubleValue();
++
++    // Sensitivity is checked separately by LoRaReceiver. The noise model
++    // contains thermal noise plus the receiver noise figure only.
++    const double noisePowerDbm = par("thermalNoiseDensityDbmHz").doubleValue()
++            + 10 * log10(bandwidthHz) + par("receiverNoiseFigureDb").doubleValue();
++    return W(math::dBmW2mW(noisePowerDbm) / 1000);
++}
++
++void LoRaAnalogModel::finish()
++{
++    const std::string noiseModel = par("backgroundNoiseModel").stdstringValue();
++    recordScalar("backgroundNoiseModelCode", noiseModel == "thermal" ? 1 : 0);
++    if (noiseModel == "thermal") {
++        recordScalar("thermalNoiseDensityDbmHz", par("thermalNoiseDensityDbmHz").doubleValue());
++        recordScalar("receiverNoiseFigureDb", par("receiverNoiseFigureDb").doubleValue(), "dB");
+     }
+-
+-    if(listening->getLoRaSF() == 8)
+-    {
+-        if(listening->getLoRaBW() == Hz(125000)) noisePower = W(math::dBmW2mW(-127) / 1000);
+-        if(listening->getLoRaBW() == Hz(250000)) noisePower = W(math::dBmW2mW(-125) / 1000);
+-        if(listening->getLoRaBW() == Hz(500000)) noisePower = W(math::dBmW2mW(-119) / 1000);
+-    }
+-    if(listening->getLoRaSF() == 9)
+-    {
+-        if(listening->getLoRaBW() == Hz(125000)) noisePower = W(math::dBmW2mW(-130) / 1000);
+-        if(listening->getLoRaBW() == Hz(250000)) noisePower = W(math::dBmW2mW(-128) / 1000);
+-        if(listening->getLoRaBW() == Hz(500000)) noisePower = W(math::dBmW2mW(-122) / 1000);
+-    }
+-    if(listening->getLoRaSF() == 10)
+-    {
+-        if(listening->getLoRaBW() == Hz(125000)) noisePower = W(math::dBmW2mW(-133) / 1000);
+-        if(listening->getLoRaBW() == Hz(250000)) noisePower = W(math::dBmW2mW(-130) / 1000);
+-        if(listening->getLoRaBW() == Hz(500000)) noisePower = W(math::dBmW2mW(-125) / 1000);
+-    }
+-    if(listening->getLoRaSF() == 11)
+-    {
+-        if(listening->getLoRaBW() == Hz(125000)) noisePower = W(math::dBmW2mW(-135) / 1000);
+-        if(listening->getLoRaBW() == Hz(250000)) noisePower = W(math::dBmW2mW(-132) / 1000);
+-        if(listening->getLoRaBW() == Hz(500000)) noisePower = W(math::dBmW2mW(-128) / 1000);
+-    }
+-    if(listening->getLoRaSF() == 12)
+-    {
+-        if(listening->getLoRaBW() == Hz(125000)) noisePower = W(math::dBmW2mW(-137) / 1000);
+-        if(listening->getLoRaBW() == Hz(250000)) noisePower = W(math::dBmW2mW(-135) / 1000);
+-        if(listening->getLoRaBW() == Hz(500000)) noisePower = W(math::dBmW2mW(-129) / 1000);
+-    }
+-    return noisePower;
+ }
+ 
+ W LoRaAnalogModel::computeReceptionPower(const IRadio *receiverRadio, const ITransmission *transmission, const IArrival *arrival) const
+@@ -191,4 +188,3 @@
+ }
+ 
+ } // namespace inet
+-
+--- flora-1.1/src/LoRaPhy/LoRaLogNormalShadowing.cc
++++ enhanced-rc11/src/LoRaPhy/LoRaLogNormalShadowing.cc
+@@ -20,10 +20,6 @@
+ 
+ Define_Module(LoRaLogNormalShadowing);
+ 
+-LoRaLogNormalShadowing::LoRaLogNormalShadowing()
+-{
+-}
+-
+ void LoRaLogNormalShadowing::initialize(int stage)
+ {
+     FreeSpacePathLoss::initialize(stage);
+@@ -31,6 +27,22 @@
+         sigma = par("sigma");
+         gamma = par("gamma");
+         d0 = m(par("d0"));
++        useFriisReference = par("useFriisReference");
++        configuredPathLossDb = par("referencePathLoss");
++        transmitterGainDb = par("transmitterGain");
++        receiverGainDb = par("receiverGain");
++        if (d0 <= m(0))
++            throw cRuntimeError("The reference distance d0 must be positive");
++
++        if (useFriisReference) {
++            const double frequency = par("referenceFrequency").doubleValue();
++            const double propagationSpeed = par("propagationSpeed").doubleValue();
++            const double wavelength = propagationSpeed / frequency;
++            referencePathLossDb = 20 * log10(4 * M_PI * d0.get() / wavelength)
++                    + 10 * log10(systemLoss) - transmitterGainDb - receiverGainDb;
++        }
++        else
++            referencePathLossDb = configuredPathLossDb;
+     }
+ }
+ 
+@@ -46,22 +58,27 @@
+ 
+ double LoRaLogNormalShadowing::computePathLoss(mps propagationSpeed, Hz frequency, m distance) const
+ {
+-    // parameters taken from paper "Do LoRa Low-Power Wide-Area Networks Scale?"
+-    double PL_d0_db = 127.41;
+-    double PL_db = PL_d0_db + 10 * gamma * log10(unit(distance / d0).get()) + normal(0.0, sigma);
+-    return math::dB2fraction(-PL_db);
++    if (frequency <= Hz(0) || propagationSpeed <= mps(0) || distance <= m(0))
++        throw cRuntimeError("Propagation speed, carrier frequency and distance must be positive");
++
++    // Friis is used only to anchor PL(d0); gamma and sigma continue to
++    // represent large-scale attenuation and environmental shadowing.
++    const double shadowingDb = normal(0.0, sigma);
++    const double pathLossDb = referencePathLossDb
++            + 10 * gamma * log10(unit(distance / d0).get())
++            + shadowingDb;
++
++    return math::dB2fraction(-pathLossDb);
+ }
+ 
+-m LoRaLogNormalShadowing::computeRange(W transmissionPower) const
++m LoRaLogNormalShadowing::computeLoRaRange(W transmissionPower) const
+ {
+-    // parameters taken from paper "Do LoRa Low-Power Wide-Area Networks Scale?"
+-    double PL_d0_db = 127.41;
+-    double max_sensitivity = -137;
+-    double trans_power_db = round(10 * log10(transmissionPower.get()*1000));
+-    EV << "LoRaLogNormalShadowing transmissionPower in W = " << transmissionPower << " in dBm = " << trans_power_db << endl;
+-    double rhs = (trans_power_db - PL_d0_db - max_sensitivity)/(10 * gamma);
+-    double distance = d0.get() * pow(10, rhs);
+-    return m(distance);
++    // LoRa's SF12 sensitivity at 125 kHz is used as the conservative range
++    // boundary expected by LoRaMediumCache.
++    constexpr double receiverSensitivityDbm = -137.0;
++    const double transmissionPowerDbm = 10 * log10(transmissionPower.get() * 1000);
++    const double maximumPathLossDb = transmissionPowerDbm - receiverSensitivityDbm;
++    return d0 * pow(10, (maximumPathLossDb - referencePathLossDb) / (10 * gamma));
+ }
+ 
+-}
++} // namespace flora
+--- flora-1.1/src/LoRaPhy/LoRaReceiver.cc
++++ enhanced-rc11/src/LoRaPhy/LoRaReceiver.cc
+@@ -14,7 +14,6 @@
+ // 
+ 
+ #include "LoRaReceiver.h"
+-#include "LoRaReception.h"
+ #include "inet/physicallayer/wireless/common/analogmodel/packetlevel/ScalarNoise.h"
+ #include "../LoRaApp/SimpleLoRaApp.h"
+ #include "LoRaPhyPreamble_m.h"
+@@ -31,26 +30,56 @@
+ 
+ void LoRaReceiver::initialize(int stage)
+ {
+-    FlatReceiverBase::initialize(stage);
+     if (stage == INITSTAGE_LOCAL)
+     {
+         snirThreshold = math::dB2fraction(par("snirThreshold"));
+-        energyDetection = mW(math::dBmW2mW(par("energyDetection")));
+         if(strcmp(getParentModule()->getClassName(), "flora::LoRaGWRadio") == 0)
+         {
+             iAmGateway = true;
+         } else iAmGateway = false;
+         alohaChannelModel = par("alohaChannelModel");
++        enforceRequiredSnr = par("enforceRequiredSnr");
+         LoRaReceptionCollision = registerSignal("LoRaReceptionCollision");
+         numCollisions = 0;
+-        rcvBelowSensitivity = 0;
++        numLowSNRLosses = 0;
++        snrsVector.setName("LoraReceiver SNRs Vector");
++        miRSSIVector.setName("LoraReceiver RSSIs Vector");
++
+     }
+ }
+ 
+ void LoRaReceiver::finish()
+ {
+         recordScalar("numCollisions", numCollisions);
+-        recordScalar("rcvBelowSensitivity", rcvBelowSensitivity);
++        recordScalar("rcvBelowSensitivity_NotCollided", rcvBelowSensitivity_NotCollided);
++        recordScalar("numLowSNRLosses", numLowSNRLosses);  // New counter for SNR-based losses!
++        recordScalar("numCollisionsBelowSens", numCollisionsBelowSens);  // Log new counter
++        recordScalar("numCollisionsAboveSens", numCollisionsAboveSens);
++        recordScalar("Total_rcvBelowSensitivity", Total_rcvBelowSensitivity);
++        recordScalar("otherPhyLosses", otherPhyLosses);
++        recordScalar("requiredSnrGateEnabled", enforceRequiredSnr);
++
++
++        ////---------------////////////////////////////////////////-----------------------------------------------------------
++       snr_media=miSNRCountTotal.getMean();
++       snr_max=miSNRCountTotal.getMax();
++       snr_dev=miSNRCountTotal.getStddev();
++       snr_min=miSNRCountTotal.getMin();
++       recordScalar("snr_media", snr_media);
++       recordScalar("snr_max", snr_max);
++       recordScalar("snr_min", snr_min);
++       recordScalar("snr_dev", snr_dev);
++
++       rssi_media=miRSSICountTotal.getMean();
++       rssi_max=miRSSICountTotal.getMax();
++       rssi_dev=miRSSICountTotal.getStddev();
++       rssi_min=miRSSICountTotal.getMin();
++       recordScalar("rssi_media", rssi_media);
++       recordScalar("rssi_max", rssi_max);
++       recordScalar("rssi_min", rssi_min);
++       recordScalar("rssi_dev", rssi_dev);
++       flaggedBelowSens.clear(); // Optional cleanup
++       collidedPackets.clear(); // Optional cleanup
+ 
+ }
+ 
+@@ -58,11 +87,10 @@
+ {
+     //here we can check compatibility of LoRaTx parameters (or beeing a gateway)
+     const LoRaTransmission *loRaTransmission = check_and_cast<const LoRaTransmission *>(transmission);
+-//    auto *loRaApp = check_and_cast<SimpleLoRaApp *>(getParentModule()->getParentModule()->getSubmodule("SimpleLoRaApp"));
+-    auto *loRaRadio = check_and_cast<LoRaRadio *>(getParentModule());
+-//    auto node = getContainingNode(this);
+-//    auto loRaRadio = check_and_cast<LoRaRadio *>(node->getSubmodule("LoRaNic")->getSubmodule("LoRaRadio"));
+-    if(iAmGateway || (loRaTransmission->getLoRaCF() == loRaRadio->loRaCF && loRaTransmission->getLoRaBW() == loRaRadio->loRaBW && loRaTransmission->getLoRaSF() == loRaRadio->loRaSF))
++    auto *loRaApp = check_and_cast<SimpleLoRaApp *>(getParentModule()->getParentModule()->getSubmodule("SimpleLoRaApp"));
++    if (iAmGateway || (loRaTransmission->getLoRaCF() == loRaApp->getLoRaCF()
++            && loRaTransmission->getLoRaBW() == loRaApp->getLoRaBW()
++            && loRaTransmission->getLoRaSF() == loRaApp->getLoRaSF()))
+         return true;
+     else
+         return false;
+@@ -75,13 +103,36 @@
+     const LoRaReception *loRaReception = check_and_cast<const LoRaReception *>(reception);
+     if (iAmGateway == false && (loRaListening->getLoRaCF() != loRaReception->getLoRaCF() || loRaListening->getLoRaBW() != loRaReception->getLoRaBW() || loRaListening->getLoRaSF() != loRaReception->getLoRaSF())) {
+         return false;
+-    } else {
++    }
++    else
++    {
+         W minReceptionPower = loRaReception->computeMinPower(reception->getStartTime(part), reception->getEndTime(part));
+         W sensitivity = getSensitivity(loRaReception);
++
+         bool isReceptionPossible = minReceptionPower >= sensitivity;
++
+         EV_DEBUG << "Computing whether reception is possible: minimum reception power = " << minReceptionPower << ", sensitivity = " << sensitivity << " -> reception is " << (isReceptionPossible ? "possible" : "impossible") << endl;
+-        if(isReceptionPossible == false) {
+-           const_cast<LoRaReceiver* >(this)->rcvBelowSensitivity++;
++
++        // Check and register packets that were below sensitivity only once
++           if(isReceptionPossible == false)
++        {
++            if (simTime() >= getSimulation()->getWarmupPeriod()) //mi linea solo contar despues de warmup
++            {
++                const Packet* pkt = reception->getTransmission()->getPacket();
++                // Packet already flagged as below sensitivity, skip double count
++                if (flaggedBelowSens.find(pkt) == flaggedBelowSens.end())// Avoid double-counting
++                {
++                    Total_rcvBelowSensitivity++;
++                    //const_cast<LoRaReceiver*>(this)->Total_rcvBelowSensitivity++;//no lo necesito con mutable
++                    // colisiono???
++
++                    if (collidedPackets.find(pkt) == collidedPackets.end())
++                        rcvBelowSensitivity_NotCollided++;
++                        //const_cast<LoRaReceiver* >(this)->rcvBelowSensitivity_NotCollided++;//no lo necesito con mutable
++                    flaggedBelowSens.insert(pkt);
++
++                }
++            }
+         }
+         return isReceptionPossible;
+     }
+@@ -91,68 +142,110 @@
+ {
+     if(isPacketCollided(reception, part, interference))
+     {
++        // Marcar como colisionado // Register collided packets only once to prevent double-counting
++        const Packet* pkt = reception->getTransmission()->getPacket();
++        collidedPackets.insert(pkt);
++        //const_cast<LoRaReceiver*>(this)->collidedPackets.insert(pkt);//no lo necesito con mutable
++        // Marcar como colisionado
++
+         auto packet = reception->getTransmission()->getPacket();
+         const auto &chunk = packet->peekAtFront<FieldsChunk>();
+         auto loraMac = dynamicPtrCast<const LoRaMacFrame>(chunk);
++
+         auto loraPreamble = dynamicPtrCast<const LoRaPhyPreamble>(chunk);
+         MacAddress rec;
+-        if (loraPreamble)
+-            rec = loraPreamble->getReceiverAddress();
+-        else if (loraMac)
+-            rec = loraMac->getReceiverAddress();
+-
+-        if (iAmGateway == false) {
+-            auto *macLayer = check_and_cast<LoRaMac *>(getParentModule()->getParentModule()->getSubmodule("mac"));
+-            if (rec == macLayer->getAddress()) {
+-                const_cast<LoRaReceiver* >(this)->numCollisions++;
+-            }
+-            //EV << "Node: Extracted macFrame = " << loraMacFrame->getReceiverAddress() << ", node address = " << macLayer->getAddress() << std::endl;
+-        } else {
+-            auto *gwMacLayer = check_and_cast<LoRaGWMac *>(getParentModule()->getParentModule()->getSubmodule("mac"));
+-            EV << "GW: Extracted macFrame = " << rec << ", node address = " << gwMacLayer->getAddress() << std::endl;
+-            if (rec == MacAddress::BROADCAST_ADDRESS) {
+-                const_cast<LoRaReceiver* >(this)->numCollisions++;
+-            }
+-        }
+-        return false;
+-    } else {
+-        return true;
++            if (loraPreamble)
++                rec = loraPreamble->getReceiverAddress();
++            else if (loraMac)
++                rec = loraMac->getReceiverAddress();
++
++            if (iAmGateway == false) //If the receiver is an end device, it checks if the packet was meant for this node.
++                {
++                    auto *macLayer = check_and_cast<LoRaMac *>(getParentModule()->getParentModule()->getSubmodule("mac"));
++                    if (rec == macLayer->getAddress())
++                        {
++                     //       const_cast<LoRaReceiver* >(this)->numCollisions++;
++                        }
++                    //EV << "Node: Extracted macFrame = " << loraMacFrame->getReceiverAddress() << ", node address = " << macLayer->getAddress() << std::endl;
++                }
++            else //If the receiver is a gateway, it compares the extracted address with its own.
++                {
++                    auto *gwMacLayer = check_and_cast<LoRaGWMac *>(getParentModule()->getParentModule()->getSubmodule("mac"));
++                    EV << "GW: Extracted macFrame = " << rec << ", node address = " << gwMacLayer->getAddress() << std::endl;
++                    if (rec == MacAddress::BROADCAST_ADDRESS)//BROADCAST_ADDRESS es la direccion del GW
++                        {
++                              if (simTime() >= getSimulation()->getWarmupPeriod())//mi linea solo contar despues de warmup
++                              {
++
++                                         numCollisions++;
++                                         //const_cast<LoRaReceiver* >(this)->numCollisions++;
++
++                                         // Count collisions that were also below sensitivity
++                                         const LoRaReception *loRaReception = check_and_cast<const LoRaReception *>(reception);
++                                         W minReceptionPower = loRaReception->computeMinPower(reception->getStartTime(part), reception->getEndTime(part));
++                                         W sensitivity = getSensitivity(loRaReception);
++                                         if (minReceptionPower < sensitivity)
++                                         {
++                                             numCollisionsBelowSens++;
++                                             //const_cast<LoRaReceiver*>(this)->numCollisionsBelowSens++;//no lo necesito con mutable
++                                         }
++
++                                         else
++                                             numCollisionsAboveSens++;
++                                             //const_cast<LoRaReceiver*>(this)->numCollisionsAboveSens++;//no lo necesito con mutable
++
++                              }
++                        }
++                }
++            return false; //hay colision, no se considera intento de recepcion
++    }
++    else
++    {
++        return true; //no hay colision se considera intento de recepcion
+     }
+ }
+ 
+ bool LoRaReceiver::isPacketCollided(const IReception *reception, IRadioSignal::SignalPart part, const IInterference *interference) const
+ {
+-    //auto radio = reception->getReceiver();
+-    //auto radioMedium = radio->getMedium();
++    //Takes a received packet (reception), a part of the signal (part), and a list of ongoing transmissions (interference).
++    //Retrieves all signals that were transmitted at the same time as the reception packet.
+     auto interferingReceptions = interference->getInterferingReceptions();
+-    const LoRaReception *loRaReception = check_and_cast<const LoRaReception *>(reception);
++    const LoRaReception *loRaReception = check_and_cast<const LoRaReception *>(reception); ///esta captura la señal *reception
+     simtime_t m_x = (loRaReception->getStartTime() + loRaReception->getEndTime())/2;
+     simtime_t d_x = (loRaReception->getEndTime() - loRaReception->getStartTime())/2;
+-    EV << "Czas transmisji to " << loRaReception->getEndTime() - loRaReception->getStartTime() << endl;
+-    double P_threshold = 6;
+-    W signalRSSI_w = loRaReception->getPower();
+-    double signalRSSI_mw = signalRSSI_w.get()*1000;
+-    double signalRSSI_dBm = math::mW2dBmW(signalRSSI_mw);
++    //calculates midpoint (m_y) and duration (d_y) for the reception packet.
++
++    EV << "El tiempo de transmisión es " << loRaReception->getEndTime() - loRaReception->getStartTime() << endl;
++    W signalRSSI_w = loRaReception->getPower();  ///// estas CAPTURA la potencia
++    double signalRSSI_mw = signalRSSI_w.get()*1000; ///// estas convierte la potencia en mW
++    double signalRSSI_dBm = math::mW2dBmW(signalRSSI_mw); ///// estas convierte la potencia en dBm
++
+     EV << signalRSSI_mw << endl;
+     EV << signalRSSI_dBm << endl;
+     int receptionSF = loRaReception->getLoRaSF();
+-    for (auto interferingReception : *interferingReceptions) {
++
++    for (auto interferingReception : *interferingReceptions)
++
++    {
+         bool overlap = false;
+         bool frequencyCollision = false;
+         bool captureEffect = false;
+         bool timingCollision = false; //Collision is acceptable in first part of preamble
+-        const LoRaReception *loRaInterference = check_and_cast<const LoRaReception *>(interferingReception);
++        const LoRaReception *loRaInterference = check_and_cast<const LoRaReception *>(interferingReception);///esta captura la señal *interference
+ 
+         simtime_t m_y = (loRaInterference->getStartTime() + loRaInterference->getEndTime())/2;
+         simtime_t d_y = (loRaInterference->getEndTime() - loRaInterference->getStartTime())/2;
++        //calculates midpoint (m_y) and duration (d_y) for the interfering packet.
+         if(omnetpp::fabs(m_x - m_y) < d_x + d_y)
+         {
+-            overlap = true;
++            overlap = true; //se marca el indicador que coincidideron en el tiempo las dos senales
+         }
+ 
+         if(loRaReception->getLoRaCF() == loRaInterference->getLoRaCF())
+         {
+-            frequencyCollision = true;
++            frequencyCollision = true; //se marca que coinciden en CF
++
++
+         }
+ 
+         W interferenceRSSI_w = loRaInterference->getPower();
+@@ -163,6 +256,8 @@
+         /* If difference in power between two signals is greater than threshold, no collision*/
+         if(signalRSSI_dBm - interferenceRSSI_dBm >= nonOrthDelta[receptionSF-7][interferenceSF-7])
+         {
++            // Compares the received power with the interference power using a lookup table (nonOrthDelta).
++            //If the received packet is significantly stronger than the interference, the receiver ignores the interference
+             captureEffect = true;
+         }
+ 
+@@ -170,13 +265,17 @@
+         EV << "[MSDEBUG] Received interference at SF: " << interferenceSF << " with power " << interferenceRSSI_dBm << endl;
+         EV << "[MSDEBUG] Acceptable diff is equal " << nonOrthDelta[receptionSF-7][interferenceSF-7] << endl;
+         EV << "[MSDEBUG] Diff is equal " << signalRSSI_dBm - interferenceRSSI_dBm << endl;
++
+         if (captureEffect == false)
+         {
+             EV << "[MSDEBUG] Packet is discarded" << endl;
+-        } else
++        }
++
++        else
+             EV << "[MSDEBUG] Packet is not discarded" << endl;
+ 
+         /* If last 6 symbols of preamble are received, no collision*/
++        //If the interference overlaps with the last 6 symbols of the preamble, it causes a timing collision.
+         double nPreamble = 8; //from the paper "Do Lora networks..."
+         simtime_t Tsym = (pow(2, loRaReception->getLoRaSF()))/(loRaReception->getLoRaBW().get()/1000)/1000;
+         simtime_t csBegin = loRaReception->getPreambleStartTime() + Tsym * (nPreamble - 6);
+@@ -189,6 +288,7 @@
+         {
+             if(alohaChannelModel == true)
+             {
++                // If ALOHA-based transmission is used, any overlap + frequency collision = a packet collision.
+                 if(iAmGateway && (part == IRadioSignal::SIGNAL_PART_DATA || part == IRadioSignal::SIGNAL_PART_WHOLE)) const_cast<LoRaReceiver* >(this)->emit(LoRaReceptionCollision, true);
+                 return true;
+             }
+@@ -196,13 +296,54 @@
+             {
+                 if(captureEffect == false && timingCollision)
+                 {
++                    //If ALOHA is not used, a collision occurs only if the capture effect fails AND there's a timing collision.
+                     if(iAmGateway && (part == IRadioSignal::SIGNAL_PART_DATA || part == IRadioSignal::SIGNAL_PART_WHOLE)) const_cast<LoRaReceiver* >(this)->emit(LoRaReceptionCollision, true);
+                     return true;
+-                }
+-            }
+-
+-        }
+-    }
++                }//fin if captureEffect
++
++            }//fin If ALOHA is not used
++
++
++        }//fin if overlap
++
++        if  ((overlap && frequencyCollision) || (captureEffect == false && timingCollision))/// este if lo puse yo
++        {
++            //potencia recibida//--------------------------------------//////////////////////////////-------INICIO LINEAS MIAS
++                           W signalRSSI_w = loRaReception->getPower();  ///// estas CAPTURA la potencia
++                              double signalRSSI_mw = signalRSSI_w.get()*1000; ///// estas convierte la potencia en mW
++                              double signalRSSI_dBm = math::mW2dBmW(signalRSSI_mw); ///// estas convierte la potencia en dBm
++                           //noise----///
++                              miRSSI_GW = signalRSSI_dBm;
++                               // Constants for noise floor calculation
++                                   if(loRaReception->getLoRaBW() == Hz(125000)) miBW=125000;
++                                   if(loRaReception->getLoRaBW() == Hz(250000)) miBW=250000;
++                                   if(loRaReception->getLoRaBW() == Hz(500000)) miBW=250000;
++                                   if(loRaReception->getLoRaSF() == 7) miSNRreq = -7.5;
++                                   if(loRaReception->getLoRaSF() == 8) miSNRreq = -10;
++                                   if(loRaReception->getLoRaSF() == 9) miSNRreq = -12.5;
++                                   if(loRaReception->getLoRaSF() == 10) miSNRreq = -15;
++                                   if(loRaReception->getLoRaSF() == 11) miSNRreq = -17.5;
++                                   if(loRaReception->getLoRaSF() == 12) miSNRreq = -20;
++                                   double NF = 6;  // Noise Figure in dB
++                                   //double B = miBW;  // Channel bandwidth in Hz
++                                   double k = -174;  // Theoretical noise floor at room temperature in dBm/Hz for 1 Hz bandwidth
++                                   double B_adjusted = miBW * 1.5;  // Adjusting the bandwidth for GFSK modulation
++
++                                   // Calculate the TXVR noise floor incorporating the receiver's noise figure and adjusted bandwidth
++                                   noiseFloor = k + 10 * log10(B_adjusted) + NF+ miSNRreq;  // Calculated noise floor based on SF
++                                   miSNR_GW = miRSSI_GW - noiseFloor;
++                                   miRSSIVector.record(miRSSI_GW);
++                                   miRSSICountTotal.collect(miRSSI_GW);
++                                   snrsVector.record(miSNR_GW);
++                                   miSNRCountTotal.collect(miSNR_GW);
++
++                                  ///noise//-----------------------------------
++
++        }
++
++
++    }//fin for
++
+     return false;
+ }
+ 
+@@ -212,6 +353,7 @@
+     auto isReceptionAttempted = isReceptionPossible && computeIsReceptionAttempted(listening, reception, part, interference);
+     auto isReceptionSuccessful = isReceptionAttempted && computeIsReceptionSuccessful(listening, reception, part, interference, snir);
+     return new ReceptionDecision(reception, part, isReceptionPossible, isReceptionAttempted, isReceptionSuccessful);
++
+ }
+ 
+ Packet *LoRaReceiver::computeReceivedPacket(const ISnir *snir, bool isReceptionSuccessful) const
+@@ -236,7 +378,7 @@
+     const LoRaReception *loRaReception = check_and_cast<const LoRaReception *>(reception);
+     W signalRSSI_w = loRaReception->getPower();
+     signalPowerInd->setPower(signalRSSI_w);
+-
++////////////////////////////////////////////////////////////////////////////////////////////necesito saber mas de esto////////////////////////////////////////
+     auto snirInd = packet->addTagIfAbsent<SnirInd>();
+     snirInd->setMinimumSnir(snir->getMin());
+     snirInd->setMaximumSnir(snir->getMax());
+@@ -253,8 +395,22 @@
+ 
+ bool LoRaReceiver::computeIsReceptionSuccessful(const IListening *listening, const IReception *reception, IRadioSignal::SignalPart part, const IInterference *interference, const ISnir *snir) const
+ {
+-    return true;
+-    //we don't check the SINR level, it is done in collision checking by P_threshold level evaluation
++    if (!enforceRequiredSnr)
++        return true;
++
++    static const double requiredSnrDb[] = {-7.5, -10, -12.5, -15, -17.5, -20};
++    const auto loraReception = check_and_cast<const LoRaReception *>(reception);
++    const int spreadingFactor = loraReception->getLoRaSF();
++    if (spreadingFactor < 7 || spreadingFactor > 12)
++        throw cRuntimeError("Invalid LoRa spreading factor %d", spreadingFactor);
++
++    // Sensitivity determines whether reception can be attempted. Decoding an
++    // attempted frame still requires the SF-specific minimum SNIR.
++    const double minimumSnrDb = math::fraction2dB(snir->getMin());
++    const bool successful = minimumSnrDb >= requiredSnrDb[spreadingFactor - 7];
++    if (!successful && simTime() >= getSimulation()->getWarmupPeriod())
++        const_cast<LoRaReceiver *>(this)->numLowSNRLosses++;
++    return successful;
+ }
+ 
+ const IListening *LoRaReceiver::createListening(const IRadio *radio, const simtime_t startTime, const simtime_t endTime, const Coord &startPosition, const Coord &endPosition) const
+@@ -262,13 +418,11 @@
+     if(iAmGateway == false)
+     {
+         auto node = getContainingNode(this);
+-//        auto loRaApp = check_and_cast<SimpleLoRaApp *>(node->getSubmodule("SimpleLoRaApp"));
+-        auto loRaRadio = check_and_cast<LoRaRadio *>(node->getSubmodule("LoRaNic")->getSubmodule("radio"));
+-        return new LoRaBandListening(radio, startTime, endTime, startPosition, endPosition, loRaRadio->loRaCF, loRaRadio->loRaBW, loRaRadio->loRaSF);
+-    }
+-    else {
+-        return new LoRaBandListening(radio, startTime, endTime, startPosition, endPosition, LoRaCF, LoRaBW, LoRaSF);
+-    }
++        auto loRaApp = check_and_cast<SimpleLoRaApp *>(node->getSubmodule("SimpleLoRaApp"));
++        return new LoRaBandListening(radio, startTime, endTime, startPosition, endPosition,
++                loRaApp->getLoRaCF(), loRaApp->getLoRaBW(), loRaApp->getLoRaSF());
++    }
++    else return new LoRaBandListening(radio, startTime, endTime, startPosition, endPosition, LoRaCF, LoRaBW, LoRaSF);
+ }
+ 
+ const IListeningDecision *LoRaReceiver::computeListeningDecision(const IListening *listening, const IInterference *interference) const
+--- flora-1.1/src/LoRaPhy/LoRaTransmitter.cc
++++ enhanced-rc11/src/LoRaPhy/LoRaTransmitter.cc
+@@ -1,51 +1,87 @@
+-//
+-// This program is free software: you can redistribute it and/or modify
+-// it under the terms of the GNU Lesser General Public License as published by
+-// the Free Software Foundation, either version 3 of the License, or
+-// (at your option) any later version.
+-// 
+-// This program is distributed in the hope that it will be useful,
+-// but WITHOUT ANY WARRANTY; without even the implied warranty of
+-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-// GNU Lesser General Public License for more details.
+-// 
+-// You should have received a copy of the GNU Lesser General Public License
+-// along with this program.  If not, see http://www.gnu.org/licenses/.
+-// 
++// Copyright (C) 2026
++// SPDX-License-Identifier: LGPL-3.0-or-later
+ 
+ #include "LoRaTransmitter.h"
+-#include "inet/physicallayer/wireless/common/analogmodel/packetlevel/ScalarTransmission.h"
++
++#include "inet/common/packet/Packet.h"
++
+ #include "LoRaModulation.h"
+ #include "LoRaPhyPreamble_m.h"
+-#include <algorithm>
+-
+ 
+ namespace flora {
+ 
++using namespace inet;
++using namespace inet::physicallayer;
++using namespace omnetpp;
++
+ Define_Module(LoRaTransmitter);
+-
+-LoRaTransmitter::LoRaTransmitter() :
+-    FlatTransmitterBase()
+-{
+-}
+ 
+ void LoRaTransmitter::initialize(int stage)
+ {
++    // LoRa uses its own LoRaTransmission representation, so only initialize
++    // TransmitterBase here; FlatTransmitterBase would try to resolve the
++    // string "LoRaModulation" through INET's generic modulation registry.
+     TransmitterBase::initialize(stage);
+     if (stage == INITSTAGE_LOCAL) {
+-        preambleDuration = 0.001; //par("preambleDuration");
+         headerLength = b(par("headerLength"));
+         bitrate = bps(par("bitrate"));
+         power = W(par("power"));
+         centerFrequency = Hz(par("centerFrequency"));
+         bandwidth = Hz(par("bandwidth"));
+-        LoRaTransmissionCreated = registerSignal("LoRaTransmissionCreated");
+ 
+-        if(strcmp(getParentModule()->getClassName(), "flora::LoRaGWRadio") == 0)
+-        {
+-            iAmGateway = true;
+-        } else iAmGateway = false;
++        isGateway = !strcmp(getParentModule()->getClassName(), "flora::LoRaGWRadio");
++        airtimeModel = par("airtimeModel").stdstringValue();
++        if (airtimeModel != "semtech" && airtimeModel != "legacyFixedPayload")
++            throw cRuntimeError("airtimeModel must be semtech or legacyFixedPayload");
++        referencePayloadSize = B(par("referencePayloadSize")).get();
++        referenceCodeRedundance = par("referenceCodeRedundance");
++        referenceUseHeader = par("referenceUseHeader");
++        referenceBandwidth = Hz(par("referenceBandwidth"));
++
++        transmissionCreatedSignal = registerSignal("LoRaTransmissionCreated");
++        timeOnAirSignal = registerSignal("timeOnAir");
+     }
++}
++
++const ITransmission *LoRaTransmitter::createTransmission(const IRadio *transmitter,
++        const Packet *macFrame, const simtime_t startTime) const
++{
++    const auto& preamble = macFrame->peekAtFront<LoRaPhyPreamble>();
++
++    // The PHY payload is the packet actually put on air: MAC header plus application
++    // data. The simulator-only LoRaPhyPreamble chunk is removed from this byte count.
++    const b phyPayloadBits = macFrame->getDataLength() - preamble->getChunkLength();
++    const int payloadBytes = static_cast<int>((b(phyPayloadBits).get() + 7) / 8);
++    const LoRaAirtime airtime = airtimeModel == "semtech" ?
++            calculateLoRaAirtime(preamble->getSpreadFactor(),
++                    preamble->getBandwidth().get(), payloadBytes,
++                    preamble->getCodeRendundance(), preamble->getUseHeader()) :
++            calculateLegacyLoRaAirtime(preamble->getSpreadFactor(),
++                    preamble->getBandwidth().get(), isGateway ? 15 : 20,
++                    preamble->getCodeRendundance());
++
++    const simtime_t endTime = startTime + airtime.total();
++    IMobility *mobility = transmitter->getAntenna()->getMobility();
++    const Coord position = mobility->getCurrentPosition();
++    const Quaternion orientation = mobility->getCurrentAngularPosition();
++    const W transmissionPower = computeTransmissionPower(macFrame);
++
++    // The energy consumer converts this radiated power to the corresponding
++    // supply current from energyConsumptionParameters.xml.
++    if (!isGateway)
++        check_and_cast<LoRaRadio *>(getParentModule())->setCurrentTxPower(transmissionPower.get());
++
++    transmissionCount++;
++    accumulatedTimeOnAir += airtime.total();
++    auto self = const_cast<LoRaTransmitter *>(this);
++    self->emit(transmissionCreatedSignal, true);
++    self->emit(timeOnAirSignal, airtime.total());
++
++    return new LoRaTransmission(transmitter, macFrame, startTime, endTime,
++            airtime.preamble, airtime.header, airtime.payload,
++            position, position, orientation, orientation, transmissionPower,
++            preamble->getCenterFrequency(), preamble->getSpreadFactor(),
++            preamble->getBandwidth(), preamble->getCodeRendundance());
+ }
+ 
+ std::ostream& LoRaTransmitter::printToStream(std::ostream& stream, int level, int evFlags) const
+@@ -54,64 +90,25 @@
+     return FlatTransmitterBase::printToStream(stream, level, evFlags);
+ }
+ 
+-const ITransmission *LoRaTransmitter::createTransmission(const IRadio *transmitter, const Packet *macFrame, const simtime_t startTime) const
++void LoRaTransmitter::finish()
+ {
+-//    TransmissionBase *controlInfo = dynamic_cast<TransmissionBase *>(macFrame->getControlInfo());
+-    //W transmissionPower = controlInfo && !std::isnan(controlInfo->getPower().get()) ? controlInfo->getPower() : power;
+-    const_cast<LoRaTransmitter* >(this)->emit(LoRaTransmissionCreated, true);
+-//    const LoRaMacFrame *frame = check_and_cast<const LoRaMacFrame *>(macFrame);
+-    EV << macFrame->getDetailStringRepresentation(evFlags) << endl;
+-    const auto &frame = macFrame->peekAtFront<LoRaPhyPreamble>();
++    recordScalar("airtimeModelCode", airtimeModel == "semtech" ? 1 : 0);
++    recordScalar("transmissionCount", transmissionCount);
++    recordScalar("totalTimeOnAir", accumulatedTimeOnAir.dbl(), "s");
++    recordScalar("meanTimeOnAir",
++            transmissionCount == 0 ? 0 : accumulatedTimeOnAir.dbl() / transmissionCount, "s");
+ 
+-    int nPreamble = 8;
+-    simtime_t Tsym = (pow(2, frame->getSpreadFactor()))/(frame->getBandwidth().get()/1000);
+-    simtime_t Tpreamble = (nPreamble + 4.25) * Tsym / 1000;
++    // Reference scalars make formula regressions visible without transmitting six packets.
++    // Their payload/CR/header assumptions are explicit NED parameters.
++    for (int sf = 7; sf <= 12; sf++) {
++        const LoRaAirtime reference = airtimeModel == "semtech" ?
++                calculateLoRaAirtime(sf, referenceBandwidth.get(), referencePayloadSize,
++                        referenceCodeRedundance, referenceUseHeader) :
++                calculateLegacyLoRaAirtime(sf, referenceBandwidth.get(), isGateway ? 15 : 20,
++                        referenceCodeRedundance);
++        std::string name = "referenceToA_SF" + std::to_string(sf);
++        recordScalar(name.c_str(), reference.total().dbl(), "s");
++    }
++}
+ 
+-    //preambleDuration = Tpreamble;
+-    int payloadBytes = 0;
+-    if(iAmGateway) payloadBytes = 15;
+-    else payloadBytes = 20;
+-    int payloadSymbNb = 8;
+-    payloadSymbNb += std::ceil((8*payloadBytes - 4*frame->getSpreadFactor() + 28 + 16 - 20*0)/(4*(frame->getSpreadFactor()-2*0)))*(frame->getCodeRendundance() + 4);
+-    if(payloadSymbNb < 8) payloadSymbNb = 8;
+-    simtime_t Theader = 0.5 * (8+payloadSymbNb) * Tsym / 1000;
+-    simtime_t Tpayload = 0.5 * (8+payloadSymbNb) * Tsym / 1000;
+-
+-    const simtime_t duration = Tpreamble + Theader + Tpayload;
+-    const simtime_t endTime = startTime + duration;
+-    IMobility *mobility = transmitter->getAntenna()->getMobility();
+-    const Coord startPosition = mobility->getCurrentPosition();
+-    const Coord endPosition = mobility->getCurrentPosition();
+-    const Quaternion startOrientation = mobility->getCurrentAngularPosition();
+-    const Quaternion endOrientation = mobility->getCurrentAngularPosition();
+-    W transmissionPower = computeTransmissionPower(macFrame);
+-
+-    if(!iAmGateway) {
+-        LoRaRadio *radio = check_and_cast<LoRaRadio *>(getParentModule());
+-        transmissionPower = mW(math::dBmW2mW(radio->loRaTP));
+-    }
+-    else
+-        transmissionPower = mW(math::dBmW2mW(14));
+-
+-    EV << "[MSDebug] I am sending packet with TP: " << transmissionPower << endl;
+-    EV << "[MSDebug] I am sending packet with SF: " << frame->getSpreadFactor() << endl;
+-
+-
+-    return new LoRaTransmission(transmitter,
+-            macFrame,
+-            startTime,
+-            endTime,
+-            Tpreamble,
+-            Theader,
+-            Tpayload,
+-            startPosition,
+-            endPosition,
+-            startOrientation,
+-            endOrientation,
+-            transmissionPower,
+-            frame->getCenterFrequency(),
+-            frame->getSpreadFactor(),
+-            frame->getBandwidth(),
+-            frame->getCodeRendundance());}
+-
+-}
++} // namespace flora

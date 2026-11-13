@@ -1,0 +1,57 @@
+{
+  "status": "PASS",
+  "commands": [
+    {
+      "command": [
+        "make",
+        "makefiles"
+      ],
+      "cwd": "/tmp/enhanced-flora-native-reproduction-v2/candidate-source"
+    },
+    {
+      "command": [
+        "make",
+        "MODE=release",
+        "INET_PROJ=/tmp/enhanced-flora-independent-20261030-v4/inet",
+        "-j8"
+      ],
+      "cwd": "/tmp/enhanced-flora-native-reproduction-v2/candidate-source"
+    },
+    {
+      "command": [
+        "/tmp/enhanced-flora-independent-20261030-v4/omnetpp/bin/opp_run",
+        "-u",
+        "Cmdenv",
+        "-c",
+        "ComponentAuditPortable",
+        "-r",
+        "0",
+        "-n",
+        "/tmp/enhanced-flora-native-reproduction-v2/candidate-source/src:/tmp/enhanced-flora-native-reproduction-v2/candidate-source/simulations:/tmp/enhanced-flora-independent-20261030-v4/inet/src",
+        "-l",
+        "/tmp/enhanced-flora-native-reproduction-v2/candidate-source/src/libflora.so",
+        "-l",
+        "/tmp/enhanced-flora-independent-20261030-v4/inet/src/libINET.so",
+        "--output-scalar-file=/tmp/enhanced-flora-native-reproduction-v2/native-components/run.sca",
+        "/tmp/enhanced-flora-native-reproduction-v2/native-components/component.ini"
+      ],
+      "cwd": "/tmp/enhanced-flora-native-reproduction-v2/candidate-source/simulations/examples"
+    },
+    {
+      "command": [
+        "/home/juan/miniconda3/bin/python3",
+        "/tmp/enhanced-flora-reproducer-stage-v2/observation-4/component_oracle.py",
+        "analyze",
+        "/tmp/enhanced-flora-native-reproduction-v2/native-components"
+      ],
+      "cwd": "/tmp/enhanced-flora-reproducer-stage-v2/observation-4"
+    }
+  ],
+  "hashes": {
+    "/tmp/enhanced-flora-native-reproduction-v2/candidate-source/src/libflora.so": "5b4f2f3c54d270682aaf877e99335c83e7a73c840807a4c5749ef41aa9345ccc",
+    "/tmp/enhanced-flora-independent-20261030-v4/inet/src/libINET.so": "3beae14cef4fa0868033e9298702809df39ddfcce546cc96d32b64863a496efe",
+    "/tmp/enhanced-flora-independent-20261030-v4/omnetpp/bin/opp_run": "18c990a70e332e6d683d17b7c15dd54be1bc0b756de2edf6aac9516933834c40",
+    "/tmp/enhanced-flora-reproducer-stage-v2/observation-4/component_oracle.py": "578993790c09173d1942a7b9b73bfe927b7f573284c34780e156d60528d66d3c",
+    "/tmp/enhanced-flora-reproducer-stage-v2/observation-4/run_component_suite.py": "180690bd7490c1f2de695d0cf693dd9b67d26a7a76ac8a18216d0ae6f8c8c9ee"
+  }
+}

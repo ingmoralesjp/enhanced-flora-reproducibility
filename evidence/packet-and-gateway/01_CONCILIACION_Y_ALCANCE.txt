@@ -1,0 +1,22 @@
+P8 — alcance de la conciliación solicitada
+El criterio permite ejecuciones instrumentadas delimitadas si las salidas
+históricas no guardan trazas. Se entregan nueve sondas F2/F3/F4 con 100/500/1000
+estacionarios y una repetición, junto al diccionario y hash/enlace de trazas
+completas. No se añade el requisito de tener trazas de las 900 originales.
+Generados = únicos que llegan a PHY + pendientes al final, con los residuos
+conservados por el analizador. Pendientes no son pérdidas PHY. La cohorte
+generada en días2–12 se distingue de entregas por timestamp de recepción y de
+paquetes anteriores al warm-up que siguen activos. Las consultas de puertas
+de recepción pueden repetirse y no son categorías disjuntas de pérdida.
+La energía usa intervalos originales por estado con recorte temporal, no una
+reconstrucción inventada desde promedios. Los tiempos pueden solaparse entre
+grupos en transceiver y no deben sumarse como tiempo de reloj exclusivo.
+
+La comprobación del GW usa cuatro controles con RF real y 120 trazas
+factoriales: distingue solicitud, admisión, forwarding, emisión y recepción.
+No valida el planificador únicamente con airtime/holdoff. Se mantiene el
+desajuste conservador de cabecera implícita y el alcance global del1%.
+El ledger ADR liga emisión, recepción y aplicación por identidad en sondas;
+no demuestra mediación causal de los cambios de las 900 corridas. Si el
+manuscrito mantiene la explicación como plausible/descriptiva, no se convierte
+una exigencia condicional en una prueba causal adicional no solicitada.

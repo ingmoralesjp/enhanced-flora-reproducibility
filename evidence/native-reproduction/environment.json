@@ -1,0 +1,20 @@
+{
+  "scope": "Existing OS/toolchain; fresh model and dependency source builds, not an external/fresh-OS replication",
+  "platform": "Linux-5.15.0-139-generic-x86_64-with-glibc2.31",
+  "python": "3.13.5 | packaged by Anaconda, Inc. | (main, Jun 12 2025, 16:09:02) [GCC 11.2.0]",
+  "executed_binaries": {
+    "frozen": "b41b2d99984fa57d6bfa0f32a79f91b945cfbfbe4ac073b15c8dce93ddf45d37",
+    "candidate": "5b4f2f3c54d270682aaf877e99335c83e7a73c840807a4c5749ef41aa9345ccc",
+    "energy-adapter": "5ffbf2aa36455897658444a010ef8d4df87db97cdf1870f92c8598fc9ff618c1",
+    "opp_run": "18c990a70e332e6d683d17b7c15dd54be1bc0b756de2edf6aac9516933834c40",
+    "INET": "3beae14cef4fa0868033e9298702809df39ddfcce546cc96d32b64863a496efe"
+  },
+  "OS_release": "NAME=\"Ubuntu\"\nVERSION=\"20.04.1 LTS (Focal Fossa)\"\nID=ubuntu\nID_LIKE=debian\nPRETTY_NAME=\"Ubuntu 20.04.1 LTS\"\nVERSION_ID=\"20.04\"\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nVERSION_CODENAME=focal\nUBUNTU_CODENAME=focal\n",
+  "tools": {
+    "clang++": "clang version 10.0.0-4ubuntu1 \nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /usr/bin",
+    "make": "GNU Make 4.2.1\nEste programa fue construido para x86_64-pc-linux-gnu\nCopyright (C) 1988-2016 Free Software Foundation, Inc.\nLicencia GPLv3+: GNU GPL versi\u00f3n 3 o posterior <http://gnu.org/licenses/gpl.html>\nEste es software libre: cualquiera es libre para redistribuirlo y modificarlo.\nNo existe GARANT\u00cdA ALGUNA, hasta los l\u00edmites permitidos por las leyes aplicables.",
+    "bison": "bison (GNU bison) 3.5.1\nEscrito por Robert Corbett y Richard Stallman.\n\nCopyright (C) 2020 Free Software Foundation, Inc.\nEsto es software libre; mire el fuente para las condiciones de copia. No hay\nNINGUNA garant\u00eda; ni siquiera para COMERCIALIZACI\u00d3N o ADAPTACI\u00d3N PARA UN\nUSO PARTICULAR",
+    "flex": "flex 2.6.4",
+    "latexmk": "Latexmk, John Collins, 26 Dec. 2019. Version 4.67"
+  }
+}

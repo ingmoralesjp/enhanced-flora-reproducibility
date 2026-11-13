@@ -1,0 +1,67 @@
+{
+  "status": "PASS",
+  "groups": {
+    "F1": {
+      "cases": 12,
+      "failed": 0
+    },
+    "F2_SNIR": {
+      "cases": 30,
+      "failed": 0
+    },
+    "F2_capture": {
+      "cases": 216,
+      "failed": 0
+    },
+    "F2_interference_SNIR": {
+      "cases": 216,
+      "failed": 0
+    },
+    "F2_joint_decision": {
+      "cases": 216,
+      "failed": 0
+    },
+    "F2_power": {
+      "cases": 30,
+      "failed": 0
+    },
+    "F2_sensitivity": {
+      "cases": 6,
+      "failed": 0
+    },
+    "F3": {
+      "cases": 6048,
+      "failed": 0
+    },
+    "F3_archived_default": {
+      "cases": 1008,
+      "failed": 0
+    },
+    "F5_current": {
+      "cases": 73,
+      "failed": 0
+    },
+    "F5_energy": {
+      "cases": 73,
+      "failed": 0
+    },
+    "F5_legacy": {
+      "cases": 13,
+      "failed": 0
+    },
+    "MAC_progress": {
+      "cases": 3,
+      "failed": 0
+    },
+    "identity": {
+      "cases": 1,
+      "failed": 0
+    }
+  },
+  "scheduler_attempts": 108,
+  "scheduler_failed": 0,
+  "oracle_sha256": "578993790c09173d1942a7b9b73bfe927b7f573284c34780e156d60528d66d3c",
+  "failures": [],
+  "threshold_boundary_rule": "Exact dB equality is reported, not assumed bit-exact after log/pow conversions; below/above sweeps require exact decisions.",
+  "scheduler_tie_rule": "Preloaded attempt runs before the duty-release timer at the identical timestamp and is rejected; no early acceptance is allowed."
+}

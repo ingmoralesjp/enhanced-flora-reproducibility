@@ -1,0 +1,3 @@
+patching file src/LoRa/LoRaMac.cc
+Hunk #1 succeeded at 26 with fuzz 1.
+Hunk #2 succeeded at 432 with fuzz 1.

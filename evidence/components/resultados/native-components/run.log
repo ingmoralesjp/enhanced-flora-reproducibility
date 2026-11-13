@@ -1,0 +1,29 @@
+OMNeT++ Discrete Event Simulation  (C) 1992-2021 Andras Varga, OpenSim Ltd.
+Version: 6.0pre11, build: 210423-26668997ef, edition: Academic Public License -- NOT FOR COMMERCIAL USE
+See the license for distribution terms and warranty disclaimer
+
+Setting up Cmdenv...
+
+Loading NED files from /tmp/enhanced-flora-native-reproduction-v2/candidate-source/src:  23
+Loading NED files from /tmp/enhanced-flora-native-reproduction-v2/candidate-source/simulations:  1
+Loading NED files from /tmp/enhanced-flora-independent-20261030-v4/inet/src:  1053
+
+Preparing for running configuration ComponentAuditPortable, run #0...
+Scenario: $nodes=100, $repetition=0
+Assigned runID=ComponentAuditPortable-0-20261030-19:00:20-350
+Setting up network "flora.ComponentAuditNetwork"...
+Initializing...
+
+Running simulation...
+** Event #0   t=0   Elapsed: 7e-06s (0m 00s)  0% completed  (0% total)
+     Speed:     ev/sec=0   simsec/sec=0   ev/simsec=0
+     Messages:  created: 219   present: 219   in FES: 113
+** Event #325   t=2000   Elapsed: 0.006599s (0m 00s)  100% completed  (100% total)
+     Speed:     ev/sec=0   simsec/sec=0   ev/simsec=0
+     Messages:  created: 646   present: 108   in FES: 1
+
+<!> Simulation time limit reached -- at t=2000s, event #325
+
+Calling finish() at end of Run #0...
+
+End.

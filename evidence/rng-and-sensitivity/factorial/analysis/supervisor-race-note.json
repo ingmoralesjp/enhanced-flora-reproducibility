@@ -1,0 +1,10 @@
+{
+  "initial_notice": "Numeral 3 requiere revision",
+  "observed_worker_status": "FAILED: Not all final paired gates passed",
+  "observed_campaign_status": "RUNNING with 120 accepted and zero failed",
+  "observed_aggregate_status": "PASS, 120 analyzed, 162 contrasts and all 15 paired-input checks passed",
+  "cause": "The analysis worker treated the runner's ongoing final scalar audit as failure instead of waiting for its final status",
+  "resolution": "Wait for the runner's final PASS/FAIL; do not restart any accepted simulation",
+  "simulation_changes": false,
+  "accepted_outputs_modified": false
+}

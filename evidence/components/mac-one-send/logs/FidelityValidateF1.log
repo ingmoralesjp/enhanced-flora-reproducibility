@@ -1,0 +1,73 @@
+OMNeT++ Discrete Event Simulation  (C) 1992-2021 Andras Varga, OpenSim Ltd.
+Version: 6.0pre11, build: 210423-26668997ef, edition: Academic Public License -- NOT FOR COMMERCIAL USE
+See the license for distribution terms and warranty disclaimer
+
+Setting up Cmdenv...
+
+Loading NED files from /tmp/flora-mac-regression-ri1fcwqx/enhanced-flora/src:  22
+Loading NED files from /tmp/flora-mac-regression-ri1fcwqx/enhanced-flora/simulations:  1
+Loading NED files from /home/juan/omnetpp-6.0pre11/samples/inet/src:  1053
+
+Preparing for running configuration FidelityValidateF1, run #0...
+Scenario: $nodes=100, $repetition=0
+Assigned runID=FidelityValidateF1-0-20261012-08:21:09-1700039
+Setting up network "flora.simulations.LoRaNetworkTest"...
+Initializing...
+
+Running simulation...
+** Event #0   t=0   Elapsed: 7e-06s (0m 00s)  0% completed  (0% total)
+     Speed:     ev/sec=0   simsec/sec=0   ev/simsec=0
+     Messages:  created: 296   present: 296   in FES: 15
+** Event #14213   t=1800   Elapsed: 0.028842s (0m 00s)  100% completed  (100% total)
+     Speed:     ev/sec=492840   simsec/sec=20388.2   ev/simsec=24.1728
+     Messages:  created: 15651   present: 294   in FES: 0
+
+<!> Simulation time limit reached -- at t=1800s, event #14213
+
+Calling finish() at end of Run #0...
+[INFO]	Radio signal arrival computation count = 4320
+[INFO]	Transmission count = 360
+[INFO]	Signal send count = 4320
+[INFO]	Reception computation count = 4320
+[INFO]	Interference computation count = 1164
+[INFO]	Reception decision computation count = 83
+[INFO]	Listening decision computation count = 721
+[INFO]	Reception cache hit = 57.8331 %
+[INFO]	Interference cache hit = 66.6667 %
+[INFO]	Noise cache hit = 0 %
+[INFO]	SNIR cache hit = 50 %
+[INFO]	Reception decision cache hit = 50 %
+[INFO]	Reception result cache hit = 0 %
+[INFO]	LoRaNetworkTest.networkServer.tcp: finishing with 0 connections open.
+[INFO]	** Signal at T=1800 to LoRaNetworkTest.gwRouter[0].ipv4.routingTable: interfaceStateChanged eth0 ID:102 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-10 Ipv4:{inet_addr:10.0.0.6/30 mcastgrps:224.0.0.1,224.0.0.2} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=1800 to LoRaNetworkTest.gwRouter[0].ipv4.configurator: interfaceStateChanged eth0 ID:102 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-10 Ipv4:{inet_addr:10.0.0.6/30 mcastgrps:224.0.0.1,224.0.0.2} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=1800 to LoRaNetworkTest.gwRouter[0].ipv4.routingTable: interfaceConfigChanged eth0 ID:102 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-10 Ipv4:{inet_addr:10.0.0.6/30 mcastgrps:224.0.0.1,224.0.0.2} changed field: 10
+[INFO]	 
+[INFO]	** Signal at T=1800 to LoRaNetworkTest.loRaGW[0].ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-0E Ipv4:{inet_addr:10.0.0.5/30 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=1800 to LoRaNetworkTest.loRaGW[0].routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-0E Ipv4:{inet_addr:10.0.0.5/30 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=1800 to LoRaNetworkTest.loRaGW[0].ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-0E Ipv4:{inet_addr:10.0.0.5/30 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=1800 to LoRaNetworkTest.loRaGW[0].ipv4.routingTable: interfaceConfigChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-0E Ipv4:{inet_addr:10.0.0.5/30 mcastgrps:224.0.0.1} changed field: 10
+[INFO]	 
+[INFO]	** Signal at T=1800 to LoRaNetworkTest.loRaGW[0].routingTable: interfaceConfigChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-0E Ipv4:{inet_addr:10.0.0.5/30 mcastgrps:224.0.0.1} changed field: 10
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	** Signal at T=1800 to LoRaNetworkTest.nsRouter.ipv4.routingTable: interfaceStateChanged eth0 ID:102 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-11 Ipv4:{inet_addr:10.0.0.10/30 mcastgrps:224.0.0.1,224.0.0.2} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=1800 to LoRaNetworkTest.nsRouter.ipv4.configurator: interfaceStateChanged eth0 ID:102 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-11 Ipv4:{inet_addr:10.0.0.10/30 mcastgrps:224.0.0.1,224.0.0.2} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=1800 to LoRaNetworkTest.nsRouter.ipv4.routingTable: interfaceConfigChanged eth0 ID:102 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-11 Ipv4:{inet_addr:10.0.0.10/30 mcastgrps:224.0.0.1,224.0.0.2} changed field: 10
+[INFO]	 
+[INFO]	** Signal at T=1800 to LoRaNetworkTest.networkServer.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-0F Ipv4:{inet_addr:10.0.0.9/30 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=1800 to LoRaNetworkTest.networkServer.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-0F Ipv4:{inet_addr:10.0.0.9/30 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=1800 to LoRaNetworkTest.networkServer.ipv4.routingTable: interfaceConfigChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-0F Ipv4:{inet_addr:10.0.0.9/30 mcastgrps:224.0.0.1} changed field: 10
+[INFO]	 
+[INFO]	Clear all sockets
+
+End.

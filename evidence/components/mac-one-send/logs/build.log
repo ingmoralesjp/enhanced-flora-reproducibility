@@ -1,0 +1,30 @@
+make[1]: se entra en el directorio '/tmp/flora-mac-regression-ri1fcwqx/enhanced-flora/src'
+LoRa/LoRaGWMac.cc
+LoRa/LoRaGWRadio.cc
+LoRa/LoRaMac.cc
+LoRa/LoRaRadio.cc
+LoRa/NetworkServerApp.cc
+LoRa/PacketForwarder.cc
+LoRaApp/SimpleLoRaApp.cc
+LoRaEnergyModules/LoRaEnergyConsumer.cc
+LoRaPhy/LoRaAnalogModel.cc
+LoRaPhy/LoRaBandListening.cc
+LoRaPhy/LoRaHataOkumura.cc
+LoRaPhy/LoRaLogNormalShadowing.cc
+LoRaPhy/LoRaMedium.cc
+LoRaPhy/LoRaMediumCache.cc
+LoRaPhy/LoRaModulation.cc
+LoRaPhy/LoRaNeighborCache.cc
+LoRaPhy/LoRaPathLossOulu.cc
+LoRaPhy/LoRaReceiver.cc
+LoRaPhy/LoRaReception.cc
+LoRaPhy/LoRaTransmission.cc
+LoRaPhy/LoRaTransmitter.cc
+LoRa/LoRaMacControlInfo_m.cc
+LoRa/LoRaMacFrame_m.cc
+LoRa/LoRaTagInfo_m.cc
+LoRaApp/LoRaAppPacket_m.cc
+LoRaPhy/LoRaPhyPreamble_m.cc
+LoRaPhy/LoRaRadioControlInfo_m.cc
+Creating shared library: out/clang-release//libflora.so
+make[1]: se sale del directorio '/tmp/flora-mac-regression-ri1fcwqx/enhanced-flora/src'

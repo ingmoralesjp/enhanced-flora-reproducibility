@@ -1,0 +1,16 @@
+{
+  "artifact_version": "1.0.0-rc2",
+  "simulator_version": "0.2.0-dev-rc11",
+  "remote_repository_created": true,
+  "remote_url": "https://github.com/ingmoralesjp/enhanced-flora-reproducibility",
+  "remote_visibility": "PUBLIC",
+  "default_branch": "main",
+  "version_tag": "v1.0.0-rc2",
+  "commit_identity": "Resolve the checkout with git rev-parse HEAD; a commit cannot contain its own hash.",
+  "doi": null,
+  "requested_repository_name": "enhanced-flora-reproducibility",
+  "publication_state": "SOURCE_AND_EXPERIMENT_EVIDENCE_ONLY",
+  "manuscript_drafts_included": false,
+  "historical_campaign_modified": false,
+  "archive_projection": "PUBLICATION_FILTER.json"
+}

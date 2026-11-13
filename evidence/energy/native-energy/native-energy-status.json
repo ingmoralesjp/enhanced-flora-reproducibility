@@ -1,0 +1,7 @@
+{
+  "status": "PASS",
+  "cases": 77,
+  "failures": [],
+  "oracle_sha256": "5a70036309779e9d24907c5166c91eeea0ff1b956a54977bce630cca19559ca2",
+  "model_boundary": "Controlled state input with actual initialized XML parameters, production computePowerBreakdown and integrateEnergyUntil; not a hardware measurement."
+}

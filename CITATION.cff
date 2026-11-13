@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "Cite this artifact, its associated research paper, and the upstream FLoRa work."
+title: "Enhanced FLoRa: reproducibility artifact for Cross-Layer Changes in FLoRa"
+type: software
+version: "1.0.0-rc2"
+date-released: "2026-11-12"
+repository-code: "https://github.com/ingmoralesjp/enhanced-flora-reproducibility"
+url: "https://github.com/ingmoralesjp/enhanced-flora-reproducibility"
+authors:
+  - family-names: "Morales-Alvarez"
+    given-names: "Juan P."
+  - family-names: "Rodríguez-Abdalá"
+    given-names: "Víktor I."
+  - family-names: "Sandoval-Arechiga"
+    given-names: "Remberto"
+  - family-names: "Ibarra-Delgado"
+    given-names: "Salvador"
+  - family-names: "Gómez-Rodríguez"
+    given-names: "José Ricardo"
+abstract: "Version-separated sources, configuration, compact campaign data and checks for the historical Enhanced FLoRa implementation, including 900 Enhanced runs and the separately recorded official FLoRa reference."
+keywords:
+  - LoRaWAN
+  - FLoRa
+  - reproducibility
+  - simulation

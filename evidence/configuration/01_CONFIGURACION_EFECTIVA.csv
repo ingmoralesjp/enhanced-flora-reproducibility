@@ -1,0 +1,27 @@
+parameter,effective_value,source
+SF inicial,"Discreta uniforme en {7,8,9,10,11,12}","SimpleLoRaApp.cc: intuniform(7,12)"
+TP inicial,"Discreta uniforme en {2,4,6,8,10,12,14} dBm","SimpleLoRaApp.cc: allowedPowers[intuniform(0,6)]"
+Canal inicial,"Discreto uniforme: 868.1,868.3,868.5 MHz; no rotación balanceada de ocho canales en esta campaña",SimpleLoRaApp.cc; useAllEu868Channels=false en Analisis-fidelity-ablation.ini
+Tráfico,Primer envío y siguientes exponential(1000 s); aplicación 20 B; heartbeat=0,Cadena fidelity-ablation.ini → Analisis-fidelity-ablation.ini → Analisis-mi-PROPOSAL-ADR.ini
+PHY,"BW=125 kHz; CR=4, que representa 4/8",INI heredado; LoRaAirtimeCalculator.h
+Bytes de uplink,20 B aplicación + 17 B MAC = 37 B ordinarios; includePosition=false,SimpleLoRaApp.ned; CsmaCaMac.ned fijado; LoRaMac::encapsulate
+Cabecera,Uplink explícito; controles GW pueden ser implícitos; el scheduler usa explícito conservador,initialUseHeader=true; LoRaGWMac.cc; P8/gateway/REPORT.md
+CRC y preámbulo,CRC habilitado fijo; ocho símbolos + 4.25,calculateLoRaAirtime de rc11
+DE,Automático si 2^SF/BW >= 16 ms en F3–F5; DE=0 heredado en F0–F2,LoRaAirtimeCalculator.h
+ToA heredado,"20 B ED / 15 B GW fijos, aunque la trama ordinaria real tenga 37 B",airtimeModel=legacyFixedPayload; F0–F2
+Ruido,Densidad -174 dBm/Hz y NF=6 dB; no hay parámetro independiente de temperatura,LoRaAnalogModel.ned/.cc; F1–F5
+Sensibilidad,Tabla por SF/BW de LoRaReceiver::getSensitivity; separada del ruido,LoRaReceiver.cc
+SNIR requerido,"SF7–12: -7.5,-10,-12.5,-15,-17.5,-20 dB; activo F2–F5",LoRaReceiver.cc; enforceRequiredSnr
+Captura,Matriz 6×6 de 02_MATRIZ_CAPTURA_dB.csv; diagonal 1 dB; no umbral único,LoRaReceiver.h: nonOrthDelta
+Colisión,Solapamiento temporal estricto y misma frecuencia; ALOHA=false: rechaza si falla captura y condición temporal del preámbulo,LoRaReceiver::isPacketCollided; últimas seis unidades simbólicas de preámbulo
+Energy detection,"-90 dBm declarado en NED, no cargado por initialize del receptor archivado; valor efectivo no acreditado",LoRaRadio.ned; LoRaReceiver.cc/.h
+Estáticos,"Uniforme en área de círculo R=15000 m; r=sqrt(U(0,R²)), ángulo U(0,2π)",SimpleLoRaApp::generateUniformCircleCoordinates
+Móviles iniciales,X/Y uniformes 0–30000 m; Z=0; initFromDisplayString=false,RandomWaypointMobility.ned fijado y área del INI
+Móviles destinos,Uniformes en el área cuadrada; no confinados al disco de 15 km,RandomWaypointMobility.cc; MobilityBase::getRandomPosition
+Móviles velocidad/espera,Uniforme 0.5–3 m/s por tramo y uniforme 0–60 s; actualización 1 s,INI heredado y parámetros volatile del NED
+Mixta,Primer 50% de índices móviles; resto estáticos; misma política ADR,simulations/package.ned; mixedMobility=true; mobileNodeFraction=0.5
+ADR,"lorawanReference en todas las poblaciones; SNIR en dB, max ventana20, margen15 dB, divisor2.5, cast truncado hacia cero",Analisis-fidelity-ablation.ini; NetworkServerApp.cc
+Duty GW,"Global 1%; F0–F3 constantes SF, F4–F5 ToA/0.01 entre inicios",LoRaGWMac.cc; un flag y un timer
+Duty ED,No hay regulador separado; exponencial no equivale a cumplimiento de 1%,SimpleLoRaApp.cc
+Ventana/escala,12 días totales; warm-up2; medida10; un GW; 100–1000 ED; cinco repeticiones,Analisis-fidelity-ablation.ini
+Propagación y ganancias,Friis en d0=1000m; gamma=2.32; sigma=7.08dB; referenceFrequency=868MHz; systemLoss=0dB; transmitterGain=receiverGain=1dBi (2dB conjuntos),"INI heredado y LoRaLogNormalShadowing.ned/.cc rc11; aclaración documental, parámetros no modificados"

@@ -1,0 +1,43 @@
+{
+  "status": "PASS",
+  "scope": "Fresh headless OMNeT++ and INET source builds on existing OS/toolchain; not a fresh OS installation",
+  "commands": [
+    {
+      "command": [
+        "./configure"
+      ],
+      "cwd": "/tmp/enhanced-flora-independent-20261030-v4/omnetpp",
+      "log": "logs/configure-omnet.log"
+    },
+    {
+      "command": [
+        "make",
+        "MODE=release",
+        "-j8"
+      ],
+      "cwd": "/tmp/enhanced-flora-independent-20261030-v4/omnetpp",
+      "log": "logs/build-omnet.log"
+    },
+    {
+      "command": [
+        "make",
+        "makefiles"
+      ],
+      "cwd": "/tmp/enhanced-flora-independent-20261030-v4/inet",
+      "log": "logs/makefiles-inet.log"
+    },
+    {
+      "command": [
+        "make",
+        "MODE=release",
+        "-j8"
+      ],
+      "cwd": "/tmp/enhanced-flora-independent-20261030-v4/inet",
+      "log": "logs/build-inet.log"
+    }
+  ],
+  "binaries": {
+    "omnetpp/bin/opp_run": "18c990a70e332e6d683d17b7c15dd54be1bc0b756de2edf6aac9516933834c40",
+    "inet/src/libINET.so": "3beae14cef4fa0868033e9298702809df39ddfcce546cc96d32b64863a496efe"
+  }
+}

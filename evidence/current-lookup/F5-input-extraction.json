@@ -1,0 +1,5 @@
+{
+  "upstream_device_summary_sha256": "b5af6c5b65b1d91df66411430247e7afcbdb5479dde9c52879bbe011afdc0033",
+  "filter": "run_id prefix enhanced-f4- or enhanced-f5-",
+  "fields": "unchanged CSV schema and values; rows retain source order"
+}

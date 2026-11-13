@@ -1,0 +1,13 @@
+{
+  "assets": [
+    {
+      "name": "enhanced-flora-reviewer-compendium-20261030-v1.zip",
+      "bytes": 511212466,
+      "sha256": "f251e86eed087176fdd1032bb3f375785ae06e49b757e7802fcea9590b67b5b3",
+      "url": null,
+      "state": "NOT_UPLOADED_REQUIRES_PUBLICATION_REVIEW",
+      "purpose": "Native dependency source/build inputs, six reference replays, larger diagnostics; distinct from the compact Git tree"
+    }
+  ],
+  "note": "No external asset or DOI is claimed public until upload, access and readback are verified. Reviewer correspondence and notification records are not included in this Git tree."
+}

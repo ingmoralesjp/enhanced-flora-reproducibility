@@ -1,0 +1,27 @@
+{
+  "status": "PASS",
+  "accepted_analyzed": 120,
+  "target": 120,
+  "paired_checks": {
+    "complete_n100": true,
+    "paired_inputs_n100_r0": true,
+    "paired_inputs_n100_r1": true,
+    "paired_inputs_n100_r2": true,
+    "paired_inputs_n100_r3": true,
+    "paired_inputs_n100_r4": true,
+    "complete_n500": true,
+    "paired_inputs_n500_r0": true,
+    "paired_inputs_n500_r1": true,
+    "paired_inputs_n500_r2": true,
+    "paired_inputs_n500_r3": true,
+    "paired_inputs_n500_r4": true,
+    "complete_n1000": true,
+    "paired_inputs_n1000_r0": true,
+    "paired_inputs_n1000_r1": true,
+    "paired_inputs_n1000_r2": true,
+    "paired_inputs_n1000_r3": true,
+    "paired_inputs_n1000_r4": true
+  },
+  "contrasts": 162,
+  "analyzer_sha256": "b740eb8e4cd36fff5ab4cb31f5e98ce865b8eb25e73e5cd3e58d2632407fc997"
+}

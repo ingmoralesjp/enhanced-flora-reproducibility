@@ -1,0 +1,9 @@
+nodes,repetition,seedset,kind,log_sha256
+400,1,31,preserved-pristine-failure,0d9552cf94a33b055f490a17121fdcc30130066a30eb2d2b2031598d7e98dad2
+500,2,42,runtime-or-audit-failure,d1b41791014008b3790791782ea79cb854f39c0e67416183a4ab9c52da49e8ac
+800,5,75,runtime-or-audit-failure,5b917772586eb8c083c00eebf72dcd7040b1f8407b7522c089506d9960e0fde1
+800,8,78,runtime-or-audit-failure,65a5867424a05ce99cf35421587d7429b9f57cd5475dca942bffcd4afe16fcc2
+900,1,81,runtime-or-audit-failure,bfdcdc32979a9fde390ee759a841e2e9a6b16f4cf50768bf6eb5ebfa6d257847
+900,5,85,runtime-or-audit-failure,b56772701f7a9c16570735804309b03d5c51a325ae587d9211865c9fd12ce8a3
+1000,1,91,runtime-or-audit-failure,65bc5be50d87faf355357d1e9013ade094c94532540331af55dfb9de07a9a0a7
+1000,9,99,runtime-or-audit-failure,be85b1807e1abcdd9f1a346f1d2a9b1dcc88b12cec733e0c75d3940504e4fc02

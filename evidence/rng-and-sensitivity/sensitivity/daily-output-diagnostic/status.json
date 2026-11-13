@@ -1,0 +1,37 @@
+{
+  "status": "PASS",
+  "source_cases": [
+    {
+      "case": "F2-static-n500-r0",
+      "checks": {
+        "generation_reconciles": true,
+        "delivery_reconciles": true,
+        "energy_reconciles": true
+      },
+      "trace_sha256": "bd0f5b8c1a1fff75c109a8acc5c67b5a3449b99f20ae4a68007f5d62378ce2b2",
+      "energy_trace_sha256": "cb0f9420c7801b77998a8bd1c3ceebefdd1770e40db3df9177094708e396f5cf"
+    },
+    {
+      "case": "F3-static-n500-r0",
+      "checks": {
+        "generation_reconciles": true,
+        "delivery_reconciles": true,
+        "energy_reconciles": true
+      },
+      "trace_sha256": "5ccafb7955c1c08c159880a9704f2adad63dfa666dda7a856cdbcf5e736a5aa4",
+      "energy_trace_sha256": "8b6882c5c0a29bd1b5f1f40c150f6293f9be79c2c5fbf91c98df519d26b34027"
+    },
+    {
+      "case": "F4-static-n500-r0",
+      "checks": {
+        "generation_reconciles": true,
+        "delivery_reconciles": true,
+        "energy_reconciles": true
+      },
+      "trace_sha256": "6ea7c5b509a7e263c74293a26040cb1a5f8b677ce14816ccfd193bb1e91cd0ea",
+      "energy_trace_sha256": "f5b867d107791eda6375a17f889f0dc96ab85332d9dd74f217fbd5da3933ef8d"
+    }
+  ],
+  "rows": 30,
+  "scope": "Three existing 500-ED single-seed probes from the original RNG/config campaign, distinct from the new paired sensitivity design. Days 2\u201312 only. Generation-day PDR observes delivery through day 12 and retains right-censoring; daily arrival rate and RF/energy rates are separate quantities. No stationarity proof is inferred from a flat aggregate contrast."
+}

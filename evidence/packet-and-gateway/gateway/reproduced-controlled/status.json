@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "runs": 4,
+  "expected": 4,
+  "checks": {
+    "GatewayHighExplicit": true,
+    "GatewayHighImplicit": true,
+    "GatewayLowExplicit": true,
+    "GatewayLowImplicit": true
+  },
+  "interval_union_self_check": true,
+  "tolerance_s": 1e-08,
+  "definition": "RF occupancy = duration(union of actual RF transmission intervals clipped to measurement window))/window duration. Admission counts use event timestamps; carry-in RF intervals are clipped, not lost."
+}

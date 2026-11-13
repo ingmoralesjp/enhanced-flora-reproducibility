@@ -1,0 +1,1006 @@
+{
+  "files": [
+    {
+      "file": "fuentes/enhanced-rc11/simulations/cloudDelays.xml",
+      "sha256": "c8b35d93c83644c9b45b5ee142c6349f742add213a0d917843ce9ff2aef81ae9",
+      "bytes": 184,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/simulations/package.ned",
+      "sha256": "68e76f79bbe538d01697a5cabdad57e662b41b07263e3f455a065e23ae50669f",
+      "bytes": 2315,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/simulations/examples/Analisis-fidelity-ablation.ini",
+      "sha256": "b6f481e96606dfc56311cc317de5e4f9f37cb239139279362ff9e65fa3aebf9d",
+      "bytes": 13403,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/simulations/examples/Analisis-mi-PROPOSAL-ADR.ini",
+      "sha256": "cb7401e54b913be484b8e5246eabfcfa93be88ba0412ea6515551ec224c3780f",
+      "bytes": 15980,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/simulations/examples/fidelity-ablation.ini",
+      "sha256": "8f4e78d918ecdf750f55daf5dadd653945c450a24790be6a2be63ca5afc5abd9",
+      "bytes": 112,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/simulations/energyConsumptionParameters.xml",
+      "sha256": "e81b8f0290a842597a8a47b1cdd4d35c794b73e196aefe3026e17610a066c368",
+      "bytes": 1052,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoraNode/LoRaNode.ned",
+      "sha256": "7ce0eff5f844d7beca727f3b70247410ab500d23a774e464a4fbe3ae7d82227b",
+      "bytes": 2061,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoraNode/LoRaGW.ned",
+      "sha256": "8966c7d93c5725acf45455c7aaf3849f01a269eb2db35fef7530851ce92496ad",
+      "bytes": 3947,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/package.ned",
+      "sha256": "cef89d70e0637296440d0dffd0dbc911212574f0b180ebb3f3f078dd3a9f5478",
+      "bytes": 52,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRaEnergyModules/LoRaEnergyConsumer.cc",
+      "sha256": "48d8f2330248c794f56d877b3acb1fe6c1b226a79655d737539054a8bd0d7852",
+      "bytes": 10649,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRaEnergyModules/LoRaEnergyConsumer.ned",
+      "sha256": "36f3f821bc9184794d853ab7744dd249cbb6e373e243c7822af6ff183952a268",
+      "bytes": 1066,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRaEnergyModules/LoRaEnergyConsumer.h",
+      "sha256": "fd613a12e5d9517bf772c71197c34da9c063f80c984e8cb0053c59aec0aa9ae3",
+      "bytes": 2464,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRaPhy/LoRaReceiver.h",
+      "sha256": "2d302be819dee45bbe12ffb631d3f440f7f4ba2d5f081091e1be5926d176c1b1",
+      "bytes": 5883,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRaPhy/LoRaLogNormalShadowing.ned",
+      "sha256": "9b984c495beea9e1cb6d326b706a41cd2aa4a37858b1048d5cd6a91300be4109",
+      "bytes": 1546,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRaPhy/LoRaMediumCache.cc",
+      "sha256": "3c0218fd364dafa9355e40b3f44be0eb517d7671bf7a2bdf9f8c12eca597301e",
+      "bytes": 8511,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRaPhy/LoRaMedium.ned",
+      "sha256": "6384dadcef94c80ba80a5bb911655c4fc321842436364536bc27b16ef77ed234",
+      "bytes": 1414,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRaPhy/LoRaReception.cc",
+      "sha256": "f3aee6358f4bc211b320fa1f77ef25ba48cb9fecce4ca69e46da4fdfde8e101c",
+      "bytes": 864,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRaPhy/LoRaRadioControlInfo_m.h",
+      "sha256": "641eb59cd6f0c46288113d2126648e9e8a06ab9f2571f6cbe8c9382073b70346",
+      "bytes": 7952,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRaPhy/LoRaTransmission.h",
+      "sha256": "149eb545130338d14e9c404dc6f533c925bf0f6445e299d7bc7d22893fc7c6f5",
+      "bytes": 1723,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRaPhy/LoRaBandListening.h",
+      "sha256": "500cca6419de2d5f960e1c0c0bb3bd898ff14675dcfa951daed6028f33e6126c",
+      "bytes": 1721,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRaPhy/LoRaTransmission.cc",
+      "sha256": "a9d4a0cb6926cc129021bd644430f474a3ab727b3b271dce45254716d14c082f",
+      "bytes": 1081,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRaPhy/LoRaNeighborCache.cc",
+      "sha256": "9f072216ffa0ea9012a8b27676b77e26b0e74d5eeecbd0de12b7b054a41e430f",
+      "bytes": 5219,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRaPhy/LoRaTransmitter.cc",
+      "sha256": "e54626164577802140b56cbab4f28c48d9c5f0a861e80e55eb5c57df71477078",
+      "bytes": 5109,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRaPhy/LoRaTransmitter.h",
+      "sha256": "424d8547a5d7fb7de59c333b755cec5887fd0694112b54dc89994119b28f84e2",
+      "bytes": 1438,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRaPhy/LoRaReceiver.cc",
+      "sha256": "8bc68362d8f3b2f384d1244a68fd10cba78dc2136ddedd624f93f98569e387f1",
+      "bytes": 26370,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRaPhy/LoRaPathLossOulu.cc",
+      "sha256": "8d69eb095019b28fcaeba9db46d129a1b4680c6cd3315dd846b6f77a883cc122",
+      "bytes": 1484,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRaPhy/LoRaPhyPreamble.msg",
+      "sha256": "5eb08e95edf97e5751a903f55907ea91d8810f05a1d2d267808d890cf239b266",
+      "bytes": 1185,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRaPhy/LoRaHataOkumura.ned",
+      "sha256": "65d2cd04324f05dcc99a3b2277512b30755c10b00400d905536e368306e96e09",
+      "bytes": 989,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRaPhy/LoRaNeighborCache.h",
+      "sha256": "d2bfbca69ada2c856c837d271ba8abed00f891248d4b3bcbcf6ad888fb935e7e",
+      "bytes": 2510,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRaPhy/LoRaBandListening.cc",
+      "sha256": "080e93beb6f4d6fcffb6c2dad91157de6570cfa5dbef28e00ce20dc7cf5c1052",
+      "bytes": 1443,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRaPhy/LoRaReception.h",
+      "sha256": "3355dcf4d168feae6caa233b14b79ba14c359fe13f045626c6229ce4f060af21",
+      "bytes": 1210,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRaPhy/LoRaPathLossOulu.ned",
+      "sha256": "b982ada4700e06a443eb4110ed6addc62604aaaf7c9d6b471903274e657cfa42",
+      "bytes": 1132,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRaPhy/LoRaMedium.h",
+      "sha256": "da3bab3077b53008789076c84d09b49f51987b3f790df7b17f4fa25f2b222dc0",
+      "bytes": 2276,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRaPhy/LoRaMediumCache.ned",
+      "sha256": "0cea79c49394167c823fdc2eb6e8a697d2de3b6bc5d7b1cdf870e388c81c828e",
+      "bytes": 2238,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRaPhy/LoRaHataOkumura.h",
+      "sha256": "b7525be06727c196d758484056895155011049bd6c7e2cda194bae55d8087d5d",
+      "bytes": 1415,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRaPhy/LoRaAirtimeCalculator.h",
+      "sha256": "eda4fa64a55e16468a1f0bf6806a421bd027e851de487fbd9a85713f11c04e7b",
+      "bytes": 4188,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRaPhy/LoRaPhyPreamble_m.h",
+      "sha256": "d02d5868ed11a543042814be93e932cb184cea3fed233afd031324eb417fe1e8",
+      "bytes": 3625,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRaPhy/LoRaReceiver.ned",
+      "sha256": "f5571f7ce18c77e316a1af37b319ed530db754c4c44b725ceb00570b5a0cc268",
+      "bytes": 2223,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRaPhy/LoRaAnalogModel.h",
+      "sha256": "9b694b5499d38976678906baf2510508a41aa73d5b0bba253edffe09df2136b9",
+      "bytes": 1895,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRaPhy/LoRaHataOkumura.cc",
+      "sha256": "cbbe85093bb402fff3170ad6d596f0da12a9926d897d0ff4e6163d69ce4afb0e",
+      "bytes": 1378,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRaPhy/LoRaTransmitter.ned",
+      "sha256": "2a69e9baf76018c9245e7efed8269347b1f6d41009a904d2a9606beeba224165",
+      "bytes": 1906,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRaPhy/LoRaModulation.cc",
+      "sha256": "f06568337f8e35f5eaf3784788701f7314d8c59c8e6f42c9f82c7fa98921eddb",
+      "bytes": 2978,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRaPhy/LoRaMedium.cc",
+      "sha256": "f92bee7884c6260796f6e66ade0fc4e48c658f2810c4fefe6a55441867b8fd54",
+      "bytes": 4261,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRaPhy/LoRaNeighborCache.ned",
+      "sha256": "f9853b2d88974bf625373dfdba4d0772f734681c890d0129bb1782c22db98794",
+      "bytes": 1143,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRaPhy/LoRaModulation.h",
+      "sha256": "54429f35182925b5e6c172b34f2e46ed6d9b761264b2efb40aec4182532bd90b",
+      "bytes": 1758,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRaPhy/LoRaPhyPreamble_m.cc",
+      "sha256": "1532958ffa57b55e63993afdd3e681ac477dc1061c562832cb5126531b56c9cd",
+      "bytes": 22904,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRaPhy/LoRaPathLossOulu.h",
+      "sha256": "de3d59b9c75efef5a1e35748d7d9d1cd6047d2706dba514169db5191d7d8681d",
+      "bytes": 1375,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRaPhy/LoRaAnalogModel.cc",
+      "sha256": "553d716cba0012f7fa49bf293dad4a31e9acce228dbec108e0200b40d791f3f5",
+      "bytes": 10784,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRaPhy/LoRaRadioControlInfo_m.cc",
+      "sha256": "ae7aa86616e9f220ac61c5029dc6be953f357dab5ec670c3c4e3bd09fa147cc7",
+      "bytes": 48339,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRaPhy/LoRaAnalogModel.ned",
+      "sha256": "d6fa3bbac514646bed3525e243c5d3c112331234a16e835a64955ac1890a12f8",
+      "bytes": 1546,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRaPhy/LoRaRadioControlInfo.msg",
+      "sha256": "c5b20b405a5e98ad3a15be4259f344ff6339ae88c10cfdd619d8086df3aa2078",
+      "bytes": 3294,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRaPhy/LoRaMediumCache.h",
+      "sha256": "5748c0e681732493c7d326cb248eceae1333e008b004bfc8bdd40ee8baa18095",
+      "bytes": 5670,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRaPhy/LoRaLogNormalShadowing.cc",
+      "sha256": "65518010993ee321828ca9a2a248b836128ed895ddc5fbb3a54753d3ce10f3ec",
+      "bytes": 3363,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRaPhy/LoRaLogNormalShadowing.h",
+      "sha256": "bd717498f818c04812866d63f8701e1b1edd0c6c9268b9f90001b54e9ee91cef",
+      "bytes": 1636,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRaApp/LoRaAppPacket_m.h",
+      "sha256": "4c7e5df09ce32f79dc89608832e01d38da4bcd3e7d782405a83368b713f7bdf4",
+      "bytes": 7258,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRaApp/LoRaAppPacket.msg",
+      "sha256": "da1edbbad88854c09e31c587c5fe46a00eaaf20282ee575579a8e7baf19111a0",
+      "bytes": 2070,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRaApp/LoRaAppPacket_m.cc",
+      "sha256": "4d3d0f20d537fb8ddc8666bd58824e22c78755a092db5058bd1f5c95a04554c0",
+      "bytes": 41545,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRaApp/SimpleLoRaApp.ned",
+      "sha256": "5ae636b05595fb27d85937d404b16a4a6fd608fb270e1cc1a0b6881fd190a0b9",
+      "bytes": 3167,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRaApp/SimpleLoRaApp.cc",
+      "sha256": "78bbbdbb5ba05c9b157d25cbfa85ad6146e00a139cec6322b889a4799f208013",
+      "bytes": 23201,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRaApp/SimpleLoRaApp.h",
+      "sha256": "a1cf9b0d869910795b9527672cab1a609cb175f3e2ce209f7af0430d90a0a51a",
+      "bytes": 4760,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRa/NetworkServerApp.h",
+      "sha256": "c17cf51f8708e5423492673dc648cba3786af36792bf7cd4382461e97d78403e",
+      "bytes": 9205,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRa/LoRaMacFrame_m.cc",
+      "sha256": "f3c9332597adc725b736538e2a26d177bbe4666a3b04f1eee8beb00839b86ed0",
+      "bytes": 25829,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRa/NetworkServerApp.cc",
+      "sha256": "78b9dada8e4e85babb3280c6f645f0d767ced39233df98ce86d2367db1b8fdd1",
+      "bytes": 51385,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRa/LoRaGWRadio.cc",
+      "sha256": "fe15c7075c69eef2efe85a915df378848639b020048d6074a31e6a368a7f4db9",
+      "bytes": 12700,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRa/LoRaMacControlInfo_m.cc",
+      "sha256": "3e6f1bef6ebc770f7db2bbb8bc9dbd48d22d10475dace3519ed8c7a50521a4d9",
+      "bytes": 21424,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRa/LoRaGWMac.h",
+      "sha256": "c3aea69ec39a9d9b428de258d54f2d7bd87e8793ac24aa26ff71e8f593bef3f2",
+      "bytes": 2587,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRa/LoRaTagInfo.msg",
+      "sha256": "05bcf955185435e2ff95ad529f7f452a0d2098710c10199004602adacc11d68a",
+      "bytes": 1457,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRa/LoRaGWMac.cc",
+      "sha256": "9e72c8dbfd5a8e16496b00a2866cf2cc2cdb8eefc80c07a86ac068a8befee052",
+      "bytes": 8526,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRa/LoRaMacControlInfo.msg",
+      "sha256": "19e186ec37df32601ab8565e05b20137aa7ba6ea173cf071c6b40d756055ac8b",
+      "bytes": 1149,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRa/LoRaGWMac.ned",
+      "sha256": "537827eeee91941c35f746cea9c2d057506b6351ad1b736a939b25a105863757",
+      "bytes": 2623,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRa/LoRaMac.h",
+      "sha256": "7d0113708444d9b1e8a8699dd4c2544615c67c0e0a5364bd0fe1ad730bf4a094",
+      "bytes": 5170,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRa/LoRaGWNic.ned",
+      "sha256": "2aefd2e8d070ee339fe02fa7c87bd7ab9d50e679ac87c0cf1b211731a14911e9",
+      "bytes": 1295,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRa/LoRaNic.ned",
+      "sha256": "5d48c2e745e438d15a558bc192c80b9c283322d318c5d58edfd6aa97d0401237",
+      "bytes": 1204,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRa/LoRaGWRadio.ned",
+      "sha256": "788f1393afcccbc1b4f4628fde59853536e740f6d617cedc56a7a41c9848d9e9",
+      "bytes": 5207,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRa/LoRaGWRadio.h",
+      "sha256": "be533efef9145a5a1efb5dfe960a9e5313bef34e954157cb0de885d3b6b49c13",
+      "bytes": 2548,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRa/LoRaRadio.h",
+      "sha256": "6b972dc93d1e1b68fcead27c4ad8ef2fd7fb6eba4f410d64a35747a015cd9a42",
+      "bytes": 5053,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRa/LoRaRadio.cc",
+      "sha256": "bea7abfb95e4b8ea90af9a6d93de7d7d309fabfcf9c5fc6f3bbebf7d4cf72038",
+      "bytes": 22994,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRa/PacketForwarder.h",
+      "sha256": "8a1e3bb3adf96fd3ec6f28441c531fbf3ba63f0f516b6b02ae6d74a82328130f",
+      "bytes": 1046,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRa/PacketForwarder.cc",
+      "sha256": "ca69233d6526ceb4306a3a0e5978adae5f17b1f449a72ad83ec61f31366bdcd7",
+      "bytes": 2819,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRa/NetworkServerApp.ned",
+      "sha256": "961b99426d095736af1766cced661cc4f0b9d2187408c005256a36f773d84f1f",
+      "bytes": 4791,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRa/LoRaMac.cc",
+      "sha256": "d636bf12cfedde9f76805255b456a52ff03fd061a054fe33c26866787cc49a73",
+      "bytes": 18515,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRa/LoRaMacControlInfo_m.h",
+      "sha256": "a28a29827c443cfb0ff17950603a765d36661090324c8211e9b4fc91c31ece71",
+      "bytes": 3075,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRa/LoRaMacFrame_m.h",
+      "sha256": "255b835b54dac5babd3b78d88941e5b9b7128fe85458840f218c2889f9235c73",
+      "bytes": 4505,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRa/LoRaRadio.ned",
+      "sha256": "718fcdd713cc2443e5fac204c110d9b28ee702a2d7402380a6a8dc0600db022b",
+      "bytes": 3923,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRa/LoRaMac.ned",
+      "sha256": "f60a98f17e0bc7590912a14987432dc89fd04b4f129e1a110b6e12eb6f5a6664",
+      "bytes": 944,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRa/PacketForwarder.ned",
+      "sha256": "63a1e7574ea810ad5fda74f5ceae24cfe669893fffac78d236f4e5a4083c3385",
+      "bytes": 1386,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRa/LoRaTagInfo_m.h",
+      "sha256": "0179f02c937b1e2724adaf7211e9da1dd73e21245674291bcf65919bd900b382",
+      "bytes": 3575,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRa/LoRaTagInfo_m.cc",
+      "sha256": "e9b780bd7824f6824a999b516754d8dc6256f35ee947beb013a23849f05a528f",
+      "bytes": 22295,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/enhanced-rc11/src/LoRa/LoRaMacFrame.msg",
+      "sha256": "8a5f6e2fbaf77b246dacf646de3d28fe1c066920b0cb4e82560feaf63ff98f30",
+      "bytes": 1415,
+      "origin": "frozen-rc11-tar"
+    },
+    {
+      "file": "fuentes/flora-1.1/simulations/cloudDelays.xml",
+      "sha256": "c8b35d93c83644c9b45b5ee142c6349f742add213a0d917843ce9ff2aef81ae9",
+      "bytes": 184,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/simulations/energyConsumptionParameters.xml",
+      "sha256": "540204e540a737481f857a6ee35d317c1922dc2c268f9c51a2ee498ae5c296d3",
+      "bytes": 932,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/simulations/examples/n100-gw1.ini",
+      "sha256": "f35c875a2cdfcf8a08c65e98b8c009e9f0c7cc24021bec6301d05ccf2b3f1e5e",
+      "bytes": 18360,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/simulations/examples/n1000-gw1-ADR.ini",
+      "sha256": "7d1bc36ab78b8970659ee009aa6c96722383a212105692404beeec5f764541db",
+      "bytes": 163179,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/simulations/examples/n1000-gw1-noADR.ini",
+      "sha256": "264ca0bfb8b411ece9f2ab245eab4d953eecec8665a874aad18f4b0bcf431eaa",
+      "bytes": 163185,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/simulations/examples/n1000-gw2.ini",
+      "sha256": "5c1305dee2a716cb0615fa678d46d2c1188c4115dd1d74714772212e2a742d8b",
+      "bytes": 163714,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/simulations/omnetpp.ini",
+      "sha256": "481a4423f3ee416c6f513786976496ec1c2805c69b024dc2e2dab75ff62c5128",
+      "bytes": 2820,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/simulations/package.ned",
+      "sha256": "965305076c346748511920d872eb7a6ca542ae9012a5b598e7da4b052afad8b4",
+      "bytes": 1769,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRa/LoRaGWMac.cc",
+      "sha256": "6f1d6f1df46e692a2481e329b77c2c7ba6c533ebc549baa33bd6691ac992112f",
+      "bytes": 6144,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRa/LoRaGWMac.h",
+      "sha256": "984d5421013e6f39da3d09e1c58c3e867005c07fc661f144d9fad19f4bc8b91f",
+      "bytes": 2383,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRa/LoRaGWMac.ned",
+      "sha256": "1549bf76cfc863829a3b346ed1219b6aa7f768943d7656f66c4a566890c4b62e",
+      "bytes": 2067,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRa/LoRaGWNic.ned",
+      "sha256": "f586010fc7c76503f3fd87587ef41bad31b5bee9c3e951e726029074c964b43c",
+      "bytes": 1299,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRa/LoRaGWRadio.cc",
+      "sha256": "83ae5bd44df0348f84c160f3f67d969510a69e40e73bca8df60d052ea39f5d07",
+      "bytes": 13714,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRa/LoRaGWRadio.h",
+      "sha256": "78b82a7ca27f88761b1d7f8e73fe00e848f3813e08194350e014edc5a25feca2",
+      "bytes": 2609,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRa/LoRaGWRadio.ned",
+      "sha256": "bb3b55193cfea676ece200b00c184f8ac160c834e02317fa72a9ca22d8fbbbd6",
+      "bytes": 4834,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRa/LoRaMac.cc",
+      "sha256": "dbc833aaabcf25b56cfbca5b1f1455c5d18c7fd2148eff5658720075ea4994b2",
+      "bytes": 18790,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRa/LoRaMac.h",
+      "sha256": "48bb25258b81005ff0ced5f5c36ac4086d7ded9429f981c9a5438c3d65946b40",
+      "bytes": 5989,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRa/LoRaMac.ned",
+      "sha256": "f60a98f17e0bc7590912a14987432dc89fd04b4f129e1a110b6e12eb6f5a6664",
+      "bytes": 944,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRa/LoRaMacControlInfo.msg",
+      "sha256": "19e186ec37df32601ab8565e05b20137aa7ba6ea173cf071c6b40d756055ac8b",
+      "bytes": 1149,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRa/LoRaMacFrame.msg",
+      "sha256": "03b9556eec5ab027ff56a970dd48f4ab637e5e3367d14d34cb327983f70b9331",
+      "bytes": 1211,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRa/LoRaNic.ned",
+      "sha256": "4c0145be874db02ca150c20b779a64ad69c9d1d329c200a2a20f3495b1be4c29",
+      "bytes": 1312,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRa/LoRaRadio.cc",
+      "sha256": "2b344e35b4ea4a22c7326dcdf34d2ed68eb593c70009ae543e02996a7074e393",
+      "bytes": 22972,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRa/LoRaRadio.h",
+      "sha256": "ca4ef8cec5eefea9aad84530fc07de7cad91c058c5237988959f7453ff42a9d1",
+      "bytes": 5301,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRa/LoRaRadio.ned",
+      "sha256": "8f279ae6fe78d001ab2e934e5b5db80dcb2cf98c969af30fe4a21cb424bd5ebb",
+      "bytes": 4026,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRa/LoRaTagInfo.msg",
+      "sha256": "5262a0b23e0fb14d1033ce156f220964cfd24fc16235027a2aded21cb3537364",
+      "bytes": 1084,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRa/NetworkServerApp.cc",
+      "sha256": "35a4b2033bc321442135e3d4e83eee8091d89577b7f95c2ff3ee6d15b8d00631",
+      "bytes": 16874,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRa/NetworkServerApp.h",
+      "sha256": "1fddcd4d7a42ce0bd1ee728db6e1540b8a8efaadb35305f36ddef7f328074e45",
+      "bytes": 3317,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRa/NetworkServerApp.ned",
+      "sha256": "674c4264b5a264e18053ad9cf0c513d9d7ca6bb16cf5bf4c24df192dffd55f25",
+      "bytes": 1356,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRa/PacketForwarder.cc",
+      "sha256": "718864849c21ab3ea7188390b39c11c6cb1669a437e1eda17db5d4a4e0ca8cdd",
+      "bytes": 5927,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRa/PacketForwarder.h",
+      "sha256": "bae5dbeeeafc39eba0c98cd6fa396df2ff07b817f5fe77664faa4e271e867e02",
+      "bytes": 1957,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRa/PacketForwarder.ned",
+      "sha256": "63a1e7574ea810ad5fda74f5ceae24cfe669893fffac78d236f4e5a4083c3385",
+      "bytes": 1386,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRaApp/LoRaAppPacket.msg",
+      "sha256": "56b7abb1cbd290170ee1449d94989fa03c6ce1fdb1875c563aa472df5521b187",
+      "bytes": 1231,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRaApp/SimpleLoRaApp.cc",
+      "sha256": "9d5a85096f84e9c13240a3e9052982453cb72461c31229d5cb8fc83161b3d750",
+      "bytes": 9954,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRaApp/SimpleLoRaApp.h",
+      "sha256": "2ba577f57ec891f7247204408fb81804c8076714abbc32bfc53cfdef8fbd326c",
+      "bytes": 2888,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRaApp/SimpleLoRaApp.ned",
+      "sha256": "e5fc4dd65be0592174d54f844b6d885d38d185993ce691b5c0109c2e0e94b465",
+      "bytes": 1669,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRaEnergyModules/LoRaEnergyConsumer.cc",
+      "sha256": "8e0604d42fbae75729bc196c5c0dfe2d2ed7d0515897bdf3bf1966176d687ca4",
+      "bytes": 10212,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRaEnergyModules/LoRaEnergyConsumer.h",
+      "sha256": "2c32bf4128eaf30a4cc0c683e5d05360a88ac5c35280454c5f352d27afd973d7",
+      "bytes": 1983,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRaEnergyModules/LoRaEnergyConsumer.ned",
+      "sha256": "41128acc31737123e70eb83d99ecbf90b4ef6a73658c1fc3e8277674f9c60d8b",
+      "bytes": 936,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRaPhy/LoRaAnalogModel.cc",
+      "sha256": "1379cea0cd3cc8c26c3a756f3f4f83cb7b3ee86c119bd3bd83b640e6bfefda26",
+      "bytes": 11107,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRaPhy/LoRaAnalogModel.h",
+      "sha256": "5676c31cc030c0f5903b08ea44ebc18fd4dfd9e566e542d3a988896561a50143",
+      "bytes": 1860,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRaPhy/LoRaAnalogModel.ned",
+      "sha256": "dbf141432b136bb2ec48a79741027e59023f6cba160858c6b13df1b8099f1895",
+      "bytes": 1161,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRaPhy/LoRaBandListening.cc",
+      "sha256": "080e93beb6f4d6fcffb6c2dad91157de6570cfa5dbef28e00ce20dc7cf5c1052",
+      "bytes": 1443,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRaPhy/LoRaBandListening.h",
+      "sha256": "500cca6419de2d5f960e1c0c0bb3bd898ff14675dcfa951daed6028f33e6126c",
+      "bytes": 1721,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRaPhy/LoRaHataOkumura.cc",
+      "sha256": "cbbe85093bb402fff3170ad6d596f0da12a9926d897d0ff4e6163d69ce4afb0e",
+      "bytes": 1378,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRaPhy/LoRaHataOkumura.h",
+      "sha256": "b7525be06727c196d758484056895155011049bd6c7e2cda194bae55d8087d5d",
+      "bytes": 1415,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRaPhy/LoRaHataOkumura.ned",
+      "sha256": "65d2cd04324f05dcc99a3b2277512b30755c10b00400d905536e368306e96e09",
+      "bytes": 989,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRaPhy/LoRaLogNormalShadowing.cc",
+      "sha256": "04224ae6a73fe5cc0ca0bc32103c6470f4aaebf83bc542a6a192f5fd2d76be08",
+      "bytes": 2343,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRaPhy/LoRaLogNormalShadowing.h",
+      "sha256": "724a5fc13162841c3672540a32a39f5d9ea602db3731a00da6bc76a5b6532ffb",
+      "bytes": 1637,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRaPhy/LoRaLogNormalShadowing.ned",
+      "sha256": "e18943fe1aa43f5cfe68d4e6250782691433284b1bc7e6cb13343f725dde50b2",
+      "bytes": 1051,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRaPhy/LoRaMedium.cc",
+      "sha256": "98dec3fb39958ee2e94cf8b8cb5e0a84b180c96151d4c0b4c9859dedf57b5f48",
+      "bytes": 6316,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRaPhy/LoRaMedium.h",
+      "sha256": "77c0b7df9d9be84036e008e7b8b4258783b863e196a5d96a122a274cd78a4e5f",
+      "bytes": 2374,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRaPhy/LoRaMedium.ned",
+      "sha256": "0b72d0450d76e8845cd0b627529c0a29ed1b6ec3578f3aeed3d3f961965a7f56",
+      "bytes": 1418,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRaPhy/LoRaMediumCache.cc",
+      "sha256": "953ee7e555d9393464cc4d72693e5d826e4bfc6859f685f7663ff870b63bdf5c",
+      "bytes": 8507,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRaPhy/LoRaMediumCache.h",
+      "sha256": "5748c0e681732493c7d326cb248eceae1333e008b004bfc8bdd40ee8baa18095",
+      "bytes": 5670,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRaPhy/LoRaMediumCache.ned",
+      "sha256": "0cea79c49394167c823fdc2eb6e8a697d2de3b6bc5d7b1cdf870e388c81c828e",
+      "bytes": 2238,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRaPhy/LoRaModulation.cc",
+      "sha256": "f06568337f8e35f5eaf3784788701f7314d8c59c8e6f42c9f82c7fa98921eddb",
+      "bytes": 2978,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRaPhy/LoRaModulation.h",
+      "sha256": "54429f35182925b5e6c172b34f2e46ed6d9b761264b2efb40aec4182532bd90b",
+      "bytes": 1758,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRaPhy/LoRaNeighborCache.cc",
+      "sha256": "9f072216ffa0ea9012a8b27676b77e26b0e74d5eeecbd0de12b7b054a41e430f",
+      "bytes": 5219,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRaPhy/LoRaNeighborCache.h",
+      "sha256": "d2bfbca69ada2c856c837d271ba8abed00f891248d4b3bcbcf6ad888fb935e7e",
+      "bytes": 2510,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRaPhy/LoRaNeighborCache.ned",
+      "sha256": "f9853b2d88974bf625373dfdba4d0772f734681c890d0129bb1782c22db98794",
+      "bytes": 1143,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRaPhy/LoRaPathLossOulu.cc",
+      "sha256": "8d69eb095019b28fcaeba9db46d129a1b4680c6cd3315dd846b6f77a883cc122",
+      "bytes": 1484,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRaPhy/LoRaPathLossOulu.h",
+      "sha256": "de3d59b9c75efef5a1e35748d7d9d1cd6047d2706dba514169db5191d7d8681d",
+      "bytes": 1375,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRaPhy/LoRaPathLossOulu.ned",
+      "sha256": "b982ada4700e06a443eb4110ed6addc62604aaaf7c9d6b471903274e657cfa42",
+      "bytes": 1132,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRaPhy/LoRaPhyPreamble.msg",
+      "sha256": "342dd59843341bfda550bd1e60d286773d992b9e3372e61fb9d5a0e73d0799c5",
+      "bytes": 1096,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRaPhy/LoRaRadioControlInfo.msg",
+      "sha256": "c5b20b405a5e98ad3a15be4259f344ff6339ae88c10cfdd619d8086df3aa2078",
+      "bytes": 3294,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRaPhy/LoRaReceiver.cc",
+      "sha256": "fa70f7d6851306a791934d6560039c16e8a868a7e7a9dd0efff07461d692478d",
+      "bytes": 17191,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRaPhy/LoRaReceiver.h",
+      "sha256": "624ca7e984da76739cc8913add311e25c0f65e088ac18e0d540d924133c88673",
+      "bytes": 4700,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRaPhy/LoRaReceiver.ned",
+      "sha256": "f0959cf23014b1421358a7ba917ecfb61dc8da68b8f011797adc4889eebda183",
+      "bytes": 1336,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRaPhy/LoRaReception.cc",
+      "sha256": "f3aee6358f4bc211b320fa1f77ef25ba48cb9fecce4ca69e46da4fdfde8e101c",
+      "bytes": 864,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRaPhy/LoRaReception.h",
+      "sha256": "3355dcf4d168feae6caa233b14b79ba14c359fe13f045626c6229ce4f060af21",
+      "bytes": 1210,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRaPhy/LoRaTransmission.cc",
+      "sha256": "a9d4a0cb6926cc129021bd644430f474a3ab727b3b271dce45254716d14c082f",
+      "bytes": 1081,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRaPhy/LoRaTransmission.h",
+      "sha256": "149eb545130338d14e9c404dc6f533c925bf0f6445e299d7bc7d22893fc7c6f5",
+      "bytes": 1723,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRaPhy/LoRaTransmitter.cc",
+      "sha256": "f46bb9f56705859c326451ef18f53ce221918255d0a43ea86c7a72fb43bb73a4",
+      "bytes": 4578,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRaPhy/LoRaTransmitter.h",
+      "sha256": "e2f0233e0ce994da8aaed92759ce954a2ed569df7035d11917c7be9c6c95ad82",
+      "bytes": 1501,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoRaPhy/LoRaTransmitter.ned",
+      "sha256": "01a23f9af45eebdd8bd8e6cd2023245920b202448404ef9885bd044c21048d69",
+      "bytes": 1099,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoraNode/LoRaGW.ned",
+      "sha256": "7421dece7c2895791761a01c991b7136e5fc199ed450dcee3e5fb9795dd55dd7",
+      "bytes": 6086,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/LoraNode/LoRaNode.ned",
+      "sha256": "ab5750008d836f394e116f5d3baac5e2e3cd6d7fd8d204d55e1d988b92c94a76",
+      "bytes": 1820,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    },
+    {
+      "file": "fuentes/flora-1.1/src/package.ned",
+      "sha256": "cef89d70e0637296440d0dffd0dbc911212574f0b180ebb3f3f078dd3a9f5478",
+      "bytes": 52,
+      "origin": "git:51018f80fdafc562d8f9fa022e551f835c8969ee"
+    }
+  ]
+}

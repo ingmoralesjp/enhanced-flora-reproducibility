@@ -1,0 +1,1985 @@
+{
+  "artifact_version": "1.0.0-rc2",
+  "files": {
+    ".gitignore": {
+      "sha256": "ad520b03e3f176ca5dee5ca26c169ef5ebac2e4a0431bcf2899752f5525ddcb8",
+      "bytes": 198
+    },
+    "CITATION.cff": {
+      "sha256": "2ba97d3d2eef094098e194a630a456c1f6456fd228c6a38c8c32a272c90fbd4a",
+      "bytes": 1036
+    },
+    "COPYING": {
+      "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903",
+      "bytes": 35147
+    },
+    "LICENSE.md": {
+      "sha256": "1e950a32358912876fcd3ea0bdd975c9ea8a7822eddc3cda662817c3abe99b1c",
+      "bytes": 7642
+    },
+    "NOTICE.md": {
+      "sha256": "671037704f3623e6040b74b050acffbedf0cceac84881f215fc83d6271a5c8cf",
+      "bytes": 1670
+    },
+    "PUBLICATION_FILTER.json": {
+      "sha256": "19d657dfdd2a69f94a4956cf1c7b14fbd906909197d1f10390a841b5bc5d10ea",
+      "bytes": 238239
+    },
+    "PUBLICATION_STATUS.json": {
+      "sha256": "c843fa02335953f141a28e4a80a7ee4bb41e9b0951eb49338e9235b3ae95a229",
+      "bytes": 671
+    },
+    "README.md": {
+      "sha256": "6380cd3b0abfb2fdada85cafc52c660f9b80c8a3043107134692159a9831b13a",
+      "bytes": 4923
+    },
+    "SOURCE_MAP.json": {
+      "sha256": "0aa3deacd9e141c64da850927263ff8d2d91ed6521175d4b36bbc07cdcabbc01",
+      "bytes": 87327
+    },
+    "archives/P3_propagacion_rc11_verificada_20261108_v1-source-only.zip": {
+      "sha256": "c80d55b46cf7e9a40246f82a7d6d28010f8d942e99b67a0a05edd6ba4d4d0306",
+      "bytes": 3953406
+    },
+    "archives/enhanced-flora-0.2.0-dev-rc11-source-only.tar.gz": {
+      "sha256": "22fe9ebf6bde13cf9fc39eef6a17b0a4bb54c3027c1a8b0cff65c760401e4713",
+      "bytes": 1098114
+    },
+    "archives/pruebas-componentes-v1.zip": {
+      "sha256": "ee51bb62efd5a09dfb49cde818f7035b1b90b2a366312c26e784f2ca194d3b74",
+      "bytes": 10888961
+    },
+    "data/LICENSE.md": {
+      "sha256": "98e5ec1963a6d2fb32730f0e70725db518168e225de869f95725f2648e751568",
+      "bytes": 660
+    },
+    "data/historical/DATA_DICTIONARY.md": {
+      "sha256": "81e7742dc13a88ac89c1a4f13a7f9b7530bc52813d742b0005efbc3fc77c9fe7",
+      "bytes": 7151
+    },
+    "data/historical/enhanced-device-summary.csv": {
+      "sha256": "b5af6c5b65b1d91df66411430247e7afcbdb5479dde9c52879bbe011afdc0033",
+      "bytes": 32208416
+    },
+    "data/historical/enhanced-downlink-counters.csv": {
+      "sha256": "a175c900b9837d6b8a76ae205881fb4560bfc3140d20ff8707ef4956a6e1e662",
+      "bytes": 43298
+    },
+    "data/historical/enhanced-runs.csv": {
+      "sha256": "adba4ab132f064c9756c272d432b2467b1fb1f8986e3034b6ca9d33d6e8340bf",
+      "bytes": 732010
+    },
+    "data/historical/export-manifest.json": {
+      "sha256": "f247ec3a9a3ec51daa938eff7cf87da7d0832d58422912802de8801cc25fe70f",
+      "bytes": 1292
+    },
+    "data/historical/export_device_summary.py": {
+      "sha256": "fa88d7c59d52ba618e8be471ce95be5c2b8ec45abcc5fb67d4d870790acf879d",
+      "bytes": 3988
+    },
+    "data/historical/export_paper_data.py": {
+      "sha256": "b0a6d0fee1fe160127b60e83628e2e21d7149f154576aeecd3bbb16a4d0ea808",
+      "bytes": 10778
+    },
+    "data/historical/official-flora-1.1-runs.csv": {
+      "sha256": "9600fb659b60624b0aa5625075a9bf0c033e12aa79dcf9cb5dbf7360f751876b",
+      "bytes": 76734
+    },
+    "data/mechanisms/POLICY_AND_METRICS.md": {
+      "sha256": "4076dfaba25b8824ab314579da80a4799003f15a2b042c9757d26ae97b58eaa6",
+      "bytes": 10400
+    },
+    "data/mechanisms/enhanced-mechanisms.csv": {
+      "sha256": "9d89c8d5aad847f58896696aebaacf4684e4630fdebbe90856e0f55e90e2a065",
+      "bytes": 620383
+    },
+    "data/mechanisms/export-manifest.json": {
+      "sha256": "4f702b5ee471addd6a14d587eadb1bb5032a03729d32d0df6a019c1a77a8dce6",
+      "bytes": 685
+    },
+    "data/mechanisms/export_mechanisms.py": {
+      "sha256": "761be4b0b62304d08d514df242b47a03bae660724bb9a824322029b44b58b270",
+      "bytes": 10451
+    },
+    "docs/ORIGINAL_PROVENANCE_LIMITS.md": {
+      "sha256": "d10871050d0fbc5320b6914722d796e6ed2f488de18e02ec9777fa89b767d89e",
+      "bytes": 4375
+    },
+    "docs/PUBLISHING.md": {
+      "sha256": "75853e602fe9bc8ad284ef7085be32a019a306682cc5758f0d228840d060d316",
+      "bytes": 1565
+    },
+    "docs/REPRODUCING.md": {
+      "sha256": "facbf124fc950b08c2ff1d7e43b6de6d2cee3b0a541926478259c3424f2dc2b2",
+      "bytes": 2958
+    },
+    "docs/SCOPE.md": {
+      "sha256": "2af04434438cf688e72b58d231f1e5eed1cbde9168f24c04646aaf331feb3dee",
+      "bytes": 2352
+    },
+    "evidence/components/01_COBERTURA_DE_PRUEBAS.csv": {
+      "sha256": "985a8b39549f52fea56859be0791a50a7d73c243fa9a09217cb96674ae7e35b3",
+      "bytes": 3933
+    },
+    "evidence/components/README_COMPONENTES.md": {
+      "sha256": "2b45297bf0f058ab5b8cfced6b3be29a4b700c8b48cd4fd45bcd8dadc512fb4c",
+      "bytes": 9395
+    },
+    "evidence/components/mac-one-send/0001-assert-one-mac-send-per-event.patch": {
+      "sha256": "71b7b334331363387302ddf75e8a523a6a685a21847c13d7fd90ca1d321eeb34",
+      "bytes": 651
+    },
+    "evidence/components/mac-one-send/archived-receipt.json": {
+      "sha256": "3d488a0c677d721d5285435fa559431a2c2b7bb9bef57e063c1b5f1e1617e465",
+      "bytes": 738
+    },
+    "evidence/components/mac-one-send/logs/FidelityValidateF0.log": {
+      "sha256": "5f0e41fffd255fee429cdf3d1717d0e47f719bc2b55d9e152bb907eeef4814ab",
+      "bytes": 5533
+    },
+    "evidence/components/mac-one-send/logs/FidelityValidateF1.log": {
+      "sha256": "b8e37a3932a8ebe03bd775c62480906582193cda9fb3ec34e2f4129c7379967f",
+      "bytes": 5535
+    },
+    "evidence/components/mac-one-send/logs/FidelityValidateF2.log": {
+      "sha256": "884fb2f755e90e089e19e5797ff12f65b98092b8a95001a5fc7db68dd9902d01",
+      "bytes": 5535
+    },
+    "evidence/components/mac-one-send/logs/FidelityValidateF3.log": {
+      "sha256": "e21a742f40bfdc762039192a495a48dc84129f8fefe6fd80f0c3a030a5b60298",
+      "bytes": 5535
+    },
+    "evidence/components/mac-one-send/logs/FidelityValidateF4.log": {
+      "sha256": "37a14d70fc460a56544d9767254aa0379e19bf31e095683b0415a7045153abc3",
+      "bytes": 5535
+    },
+    "evidence/components/mac-one-send/logs/FidelityValidateF5.log": {
+      "sha256": "a48223b53cc3d161fc7900c324dce07776e097968bfbca60f8f3592d235a8727",
+      "bytes": 5535
+    },
+    "evidence/components/mac-one-send/logs/FidelityValidateF5Mixed.log": {
+      "sha256": "6b67843bac66f6450ce90b9f4ff8d88b4690ba8c1568c5e0f66732c91685f922",
+      "bytes": 5476
+    },
+    "evidence/components/mac-one-send/logs/FidelityValidateF5Mobile.log": {
+      "sha256": "1c82a6b2f2ff038eab5de32647df01aa57b5428c9eb7073e6c40f4e04955d394",
+      "bytes": 5480
+    },
+    "evidence/components/mac-one-send/logs/FidelityValidateLegacyDuty.log": {
+      "sha256": "f681edd7876dd1d50e02c12be12bba92eb9ac683628d0b7c4f7f8c398abda096",
+      "bytes": 5530
+    },
+    "evidence/components/mac-one-send/logs/FidelityValidateToaDuty.log": {
+      "sha256": "34b8a0efd00b26f6e4dedfccb6626362a3439ac7d350f313c75f7af75b7bf969",
+      "bytes": 5525
+    },
+    "evidence/components/mac-one-send/logs/build.log": {
+      "sha256": "5b1e074b8a13d4bddafeeee7dd78eb16b0c6e60a5e0dd184e7e4a74344749158",
+      "bytes": 938
+    },
+    "evidence/components/mac-one-send/logs/makefiles.log": {
+      "sha256": "28f85e7ba2fa3a2cd1c5259b9f906c1cee33df512b68271132d238a778aff505",
+      "bytes": 78
+    },
+    "evidence/components/mac-one-send/logs/patch.log": {
+      "sha256": "e70083da9fcf421c22a5a63e061c6860bdce50a286a3d55e95ce1ca19a01e113",
+      "bytes": 109
+    },
+    "evidence/components/mac-one-send/receipt.json": {
+      "sha256": "6e47d8b189735f0c2c09888737adad1469e1b7b57c3845f011cc4b3b88219659",
+      "bytes": 738
+    },
+    "evidence/components/mac-one-send/run_mac_one_send_regression.py": {
+      "sha256": "dc7238d8b131f523422e0a47c43a939c2b496b5b1a599fae382a113e12680e1c",
+      "bytes": 5122
+    },
+    "evidence/components/resultados/native-components/build.log": {
+      "sha256": "c09f14f7f883d5bb31257a85a7acb606960b2ae29be81c744f32bc88d65badc1",
+      "bytes": 990
+    },
+    "evidence/components/resultados/native-components/component-comparison.csv": {
+      "sha256": "711ca65b97b5637436da0787d0e75f3db8d9e3d4fd74c2c08d75e23217ca8328",
+      "bytes": 791020
+    },
+    "evidence/components/resultados/native-components/component-observed.csv": {
+      "sha256": "12006b4f8a0cfe14fddbbe910af395622a7348ba91446970493722fa312ddb15",
+      "bytes": 509662
+    },
+    "evidence/components/resultados/native-components/makefiles.log": {
+      "sha256": "160dcd0c4f636154de02b3f095b8755c2da35f8eecb68568e4cf62c4b0bd9841",
+      "bytes": 88
+    },
+    "evidence/components/resultados/native-components/oracle.log": {
+      "sha256": "433f03bdffe3bada1d04871a3bea4bbb603d39e8a24ad65735667b08f7cefe90",
+      "bytes": 1419
+    },
+    "evidence/components/resultados/native-components/receipt.json": {
+      "sha256": "72968243c1ff2ac4ac35ce0c95fa229c0a07c71880139f99e77e065882efe5ba",
+      "bytes": 2422
+    },
+    "evidence/components/resultados/native-components/run.log": {
+      "sha256": "202e0b10db2e5b1599d79bb9e5f72185958e7bd10f498277f38f191f4ab48f76",
+      "bytes": 1281
+    },
+    "evidence/components/resultados/native-components/scheduler-comparison.csv": {
+      "sha256": "a57bce5cc0a7b41e0c6bdc2944ddd1622e27a2eacfebf93fe0d1c037ba456bf0",
+      "bytes": 4291
+    },
+    "evidence/components/resultados/native-components/scheduler-input.csv": {
+      "sha256": "15b6411e13a1ef19d433a3ef5a8286b3f3356524ab93c3b3161c607f5903f14f",
+      "bytes": 2422
+    },
+    "evidence/components/resultados/native-components/scheduler-observed.csv": {
+      "sha256": "e2685ad786f646e869e392f203dfac5f8408801042abbac3f65d6cd391958618",
+      "bytes": 3125
+    },
+    "evidence/components/resultados/native-components/status.json": {
+      "sha256": "433f03bdffe3bada1d04871a3bea4bbb603d39e8a24ad65735667b08f7cefe90",
+      "bytes": 1419
+    },
+    "evidence/components/resultados/native-energy/component-observed.csv": {
+      "sha256": "91970df1f59ac9225d6c7f70e0ba7064a164e7d233ace38581f3c478a925c63a",
+      "bytes": 513615
+    },
+    "evidence/components/resultados/native-energy/native-energy-comparison.csv": {
+      "sha256": "0033b2faa8203c3cac7e2237ed98a722e649e36c0a70536549c4062bb18d1b11",
+      "bytes": 6109
+    },
+    "evidence/components/resultados/native-energy/native-energy-status.json": {
+      "sha256": "f765e9893d89fb7fe21ff2d6f41ae64bf996263842e16357db4f279b646e769c",
+      "bytes": 316
+    },
+    "evidence/components/resultados/native-energy/run.log": {
+      "sha256": "3876b5feef80ee56e06f86538de5239eeb61ab12b6d53776498612e9b56cddd0",
+      "bytes": 1275
+    },
+    "evidence/components/resultados/native-energy/scheduler-input.csv": {
+      "sha256": "15b6411e13a1ef19d433a3ef5a8286b3f3356524ab93c3b3161c607f5903f14f",
+      "bytes": 2422
+    },
+    "evidence/components/resultados/native-energy/scheduler-observed.csv": {
+      "sha256": "e2685ad786f646e869e392f203dfac5f8408801042abbac3f65d6cd391958618",
+      "bytes": 3125
+    },
+    "evidence/components/version-archivada/component-comparison.csv": {
+      "sha256": "2b455a926c77e77b769da8ea1db41c35167eaa9ff420a93e8aa1e06eeab3032c",
+      "bytes": 791024
+    },
+    "evidence/components/version-archivada/status.json": {
+      "sha256": "8faba24638b84e6841856ae10103ac2cd2815b9bc2a194257a26c086b4bdc297",
+      "bytes": 2454
+    },
+    "evidence/configuration/01_CONFIGURACION_EFECTIVA.csv": {
+      "sha256": "671c852fa073ab347f1d0e4ebdbe6133a83ed39ac57fc5d300777b3edf3acc45",
+      "bytes": 3612
+    },
+    "evidence/configuration/02_MATRIZ_CAPTURA_dB.csv": {
+      "sha256": "ebc0c9cea902b851e466962024d8239b63e3184dbf253d9b3e4d566d24d6112c",
+      "bytes": 331
+    },
+    "evidence/configuration/03_ACLARACION_GANANCIAS_dBi.txt": {
+      "sha256": "6aa46029010cc8712c81ff988a86d9e73a49bc94431cac863169292094888387",
+      "bytes": 672
+    },
+    "evidence/configuration/PARAMETERS.md": {
+      "sha256": "9f17dc4a2cc658523826286d003e140f6b5e00cde303a6376186d75446799312",
+      "bytes": 7915
+    },
+    "evidence/configuration/defaults-INET/CsmaCaMac.ned": {
+      "sha256": "94ce1e6fe045a10095ae99a7aa569707067e3e033d846421285d4d8786a41c19",
+      "bytes": 5697
+    },
+    "evidence/configuration/defaults-INET/RandomWaypointMobility.ned": {
+      "sha256": "f70ebe256510d0ba69a11a7b5306b37c322f826ee80af22c3a2ea685fc95dba1",
+      "bytes": 2683
+    },
+    "evidence/configuration/frozen/simulations/cloudDelays.xml": {
+      "sha256": "c8b35d93c83644c9b45b5ee142c6349f742add213a0d917843ce9ff2aef81ae9",
+      "bytes": 184
+    },
+    "evidence/configuration/frozen/simulations/energyConsumptionParameters.xml": {
+      "sha256": "e81b8f0290a842597a8a47b1cdd4d35c794b73e196aefe3026e17610a066c368",
+      "bytes": 1052
+    },
+    "evidence/configuration/frozen/simulations/examples/Analisis-fidelity-ablation.ini": {
+      "sha256": "b6f481e96606dfc56311cc317de5e4f9f37cb239139279362ff9e65fa3aebf9d",
+      "bytes": 13403
+    },
+    "evidence/configuration/frozen/simulations/examples/Analisis-mi-PROPOSAL-ADR.ini": {
+      "sha256": "cb7401e54b913be484b8e5246eabfcfa93be88ba0412ea6515551ec224c3780f",
+      "bytes": 15980
+    },
+    "evidence/configuration/frozen/simulations/examples/fidelity-ablation.ini": {
+      "sha256": "8f4e78d918ecdf750f55daf5dadd653945c450a24790be6a2be63ca5afc5abd9",
+      "bytes": 112
+    },
+    "evidence/configuration/frozen/simulations/package.ned": {
+      "sha256": "68e76f79bbe538d01697a5cabdad57e662b41b07263e3f455a065e23ae50669f",
+      "bytes": 2315
+    },
+    "evidence/configuration/frozen/src/LoRa/LoRaGWMac.cc": {
+      "sha256": "9e72c8dbfd5a8e16496b00a2866cf2cc2cdb8eefc80c07a86ac068a8befee052",
+      "bytes": 8526
+    },
+    "evidence/configuration/frozen/src/LoRa/LoRaGWMac.ned": {
+      "sha256": "537827eeee91941c35f746cea9c2d057506b6351ad1b736a939b25a105863757",
+      "bytes": 2623
+    },
+    "evidence/configuration/frozen/src/LoRa/LoRaGWNic.ned": {
+      "sha256": "2aefd2e8d070ee339fe02fa7c87bd7ab9d50e679ac87c0cf1b211731a14911e9",
+      "bytes": 1295
+    },
+    "evidence/configuration/frozen/src/LoRa/LoRaGWRadio.ned": {
+      "sha256": "788f1393afcccbc1b4f4628fde59853536e740f6d617cedc56a7a41c9848d9e9",
+      "bytes": 5207
+    },
+    "evidence/configuration/frozen/src/LoRa/LoRaMac.ned": {
+      "sha256": "f60a98f17e0bc7590912a14987432dc89fd04b4f129e1a110b6e12eb6f5a6664",
+      "bytes": 944
+    },
+    "evidence/configuration/frozen/src/LoRa/LoRaNic.ned": {
+      "sha256": "5d48c2e745e438d15a558bc192c80b9c283322d318c5d58edfd6aa97d0401237",
+      "bytes": 1204
+    },
+    "evidence/configuration/frozen/src/LoRa/LoRaRadio.ned": {
+      "sha256": "718fcdd713cc2443e5fac204c110d9b28ee702a2d7402380a6a8dc0600db022b",
+      "bytes": 3923
+    },
+    "evidence/configuration/frozen/src/LoRa/NetworkServerApp.cc": {
+      "sha256": "78b9dada8e4e85babb3280c6f645f0d767ced39233df98ce86d2367db1b8fdd1",
+      "bytes": 51385
+    },
+    "evidence/configuration/frozen/src/LoRa/NetworkServerApp.ned": {
+      "sha256": "961b99426d095736af1766cced661cc4f0b9d2187408c005256a36f773d84f1f",
+      "bytes": 4791
+    },
+    "evidence/configuration/frozen/src/LoRa/PacketForwarder.ned": {
+      "sha256": "63a1e7574ea810ad5fda74f5ceae24cfe669893fffac78d236f4e5a4083c3385",
+      "bytes": 1386
+    },
+    "evidence/configuration/frozen/src/LoRaApp/SimpleLoRaApp.cc": {
+      "sha256": "78bbbdbb5ba05c9b157d25cbfa85ad6146e00a139cec6322b889a4799f208013",
+      "bytes": 23201
+    },
+    "evidence/configuration/frozen/src/LoRaApp/SimpleLoRaApp.h": {
+      "sha256": "a1cf9b0d869910795b9527672cab1a609cb175f3e2ce209f7af0430d90a0a51a",
+      "bytes": 4760
+    },
+    "evidence/configuration/frozen/src/LoRaApp/SimpleLoRaApp.ned": {
+      "sha256": "5ae636b05595fb27d85937d404b16a4a6fd608fb270e1cc1a0b6881fd190a0b9",
+      "bytes": 3167
+    },
+    "evidence/configuration/frozen/src/LoRaPhy/LoRaAirtimeCalculator.h": {
+      "sha256": "eda4fa64a55e16468a1f0bf6806a421bd027e851de487fbd9a85713f11c04e7b",
+      "bytes": 4188
+    },
+    "evidence/configuration/frozen/src/LoRaPhy/LoRaAnalogModel.ned": {
+      "sha256": "d6fa3bbac514646bed3525e243c5d3c112331234a16e835a64955ac1890a12f8",
+      "bytes": 1546
+    },
+    "evidence/configuration/frozen/src/LoRaPhy/LoRaHataOkumura.ned": {
+      "sha256": "65d2cd04324f05dcc99a3b2277512b30755c10b00400d905536e368306e96e09",
+      "bytes": 989
+    },
+    "evidence/configuration/frozen/src/LoRaPhy/LoRaLogNormalShadowing.cc": {
+      "sha256": "65518010993ee321828ca9a2a248b836128ed895ddc5fbb3a54753d3ce10f3ec",
+      "bytes": 3363
+    },
+    "evidence/configuration/frozen/src/LoRaPhy/LoRaLogNormalShadowing.ned": {
+      "sha256": "9b984c495beea9e1cb6d326b706a41cd2aa4a37858b1048d5cd6a91300be4109",
+      "bytes": 1546
+    },
+    "evidence/configuration/frozen/src/LoRaPhy/LoRaMedium.ned": {
+      "sha256": "6384dadcef94c80ba80a5bb911655c4fc321842436364536bc27b16ef77ed234",
+      "bytes": 1414
+    },
+    "evidence/configuration/frozen/src/LoRaPhy/LoRaMediumCache.ned": {
+      "sha256": "0cea79c49394167c823fdc2eb6e8a697d2de3b6bc5d7b1cdf870e388c81c828e",
+      "bytes": 2238
+    },
+    "evidence/configuration/frozen/src/LoRaPhy/LoRaNeighborCache.ned": {
+      "sha256": "f9853b2d88974bf625373dfdba4d0772f734681c890d0129bb1782c22db98794",
+      "bytes": 1143
+    },
+    "evidence/configuration/frozen/src/LoRaPhy/LoRaPathLossOulu.ned": {
+      "sha256": "b982ada4700e06a443eb4110ed6addc62604aaaf7c9d6b471903274e657cfa42",
+      "bytes": 1132
+    },
+    "evidence/configuration/frozen/src/LoRaPhy/LoRaReceiver.cc": {
+      "sha256": "8bc68362d8f3b2f384d1244a68fd10cba78dc2136ddedd624f93f98569e387f1",
+      "bytes": 26370
+    },
+    "evidence/configuration/frozen/src/LoRaPhy/LoRaReceiver.h": {
+      "sha256": "2d302be819dee45bbe12ffb631d3f440f7f4ba2d5f081091e1be5926d176c1b1",
+      "bytes": 5883
+    },
+    "evidence/configuration/frozen/src/LoRaPhy/LoRaReceiver.ned": {
+      "sha256": "f5571f7ce18c77e316a1af37b319ed530db754c4c44b725ceb00570b5a0cc268",
+      "bytes": 2223
+    },
+    "evidence/configuration/frozen/src/LoRaPhy/LoRaTransmitter.ned": {
+      "sha256": "2a69e9baf76018c9245e7efed8269347b1f6d41009a904d2a9606beeba224165",
+      "bytes": 1906
+    },
+    "evidence/configuration/frozen/src/LoraNode/LoRaGW.ned": {
+      "sha256": "8966c7d93c5725acf45455c7aaf3849f01a269eb2db35fef7530851ce92496ad",
+      "bytes": 3947
+    },
+    "evidence/configuration/frozen/src/LoraNode/LoRaNode.ned": {
+      "sha256": "7ce0eff5f844d7beca727f3b70247410ab500d23a774e464a4fbe3ae7d82227b",
+      "bytes": 2061
+    },
+    "evidence/current-lookup/01_RESPUESTA_AL_CRITERIO.txt": {
+      "sha256": "772afe60542fc00444eb9b11e444dccd37241f458fc3a68c2478e30cec420924",
+      "bytes": 830
+    },
+    "evidence/current-lookup/F5-campaign-audit.json": {
+      "sha256": "9b8000b19693ae1b6bafe54c7437ad1b965ed901d9ba28dd2e3499c1056aec72",
+      "bytes": 60778
+    },
+    "evidence/current-lookup/F5-component-cases.csv": {
+      "sha256": "a1e0a6b05d0072bf22d7ce483923b77ef3d5e94d0e249de0ac1bf8aa03fd4059",
+      "bytes": 10346
+    },
+    "evidence/current-lookup/F5-input-extraction.json": {
+      "sha256": "a3375d4fca1025ec07fb2a294be0f805798ed56338e806ba9757136682f1944f",
+      "bytes": 238
+    },
+    "evidence/current-lookup/F5-inputs-checkpoint-metrics.csv": {
+      "sha256": "e3b2870ec481afee1f0437fc2c65b22ca5a81d60e42abf4912de48455fcf0786",
+      "bytes": 485042
+    },
+    "evidence/current-lookup/F5-inputs-device-summary.csv": {
+      "sha256": "718eb3b4c152010006edf5871f2140254675d7a9029a9753f8da8e3889656f5b",
+      "bytes": 10641494
+    },
+    "evidence/current-lookup/README_COMPONENTES.md": {
+      "sha256": "2b45297bf0f058ab5b8cfced6b3be29a4b700c8b48cd4fd45bcd8dadc512fb4c",
+      "bytes": 9395
+    },
+    "evidence/current-lookup/audit_F5_campaign.py": {
+      "sha256": "45872d4dfaf11ab78efd8e6d89336ca82fd4689d47ea6727aabafc87f5ce4fd2",
+      "bytes": 2160
+    },
+    "evidence/current-lookup/frozen/simulations/energyConsumptionParameters.xml": {
+      "sha256": "e81b8f0290a842597a8a47b1cdd4d35c794b73e196aefe3026e17610a066c368",
+      "bytes": 1052
+    },
+    "evidence/current-lookup/frozen/src/LoRa/NetworkServerApp.cc": {
+      "sha256": "78b9dada8e4e85babb3280c6f645f0d767ced39233df98ce86d2367db1b8fdd1",
+      "bytes": 51385
+    },
+    "evidence/current-lookup/frozen/src/LoRaApp/SimpleLoRaApp.cc": {
+      "sha256": "78bbbdbb5ba05c9b157d25cbfa85ad6146e00a139cec6322b889a4799f208013",
+      "bytes": 23201
+    },
+    "evidence/current-lookup/frozen/src/LoRaEnergyModules/LoRaEnergyConsumer.cc": {
+      "sha256": "48d8f2330248c794f56d877b3acb1fe6c1b226a79655d737539054a8bd0d7852",
+      "bytes": 10649
+    },
+    "evidence/energy/01_ESPECIFICACION_Y_FUENTES.txt": {
+      "sha256": "8c7ae8a8b0410cb66cd7a22dba5f804349fa7758ef334679b913b793777d5169",
+      "bytes": 2061
+    },
+    "evidence/energy/02_CORRIENTES_TX_mA.csv": {
+      "sha256": "5b51c65d5937dd6044c7deacba9dcd2dab2202fed5b842c018caf2962fab1182",
+      "bytes": 184
+    },
+    "evidence/energy/defaults-INET/StateBasedEpEnergyConsumer.ned": {
+      "sha256": "0937d6bda3c716a9e1ea2e7f7dbafdd659abc3b6f83345188dfb3162d83b47bc",
+      "bytes": 2464
+    },
+    "evidence/energy/energy_boundary_oracle.py": {
+      "sha256": "5a70036309779e9d24907c5166c91eeea0ff1b956a54977bce630cca19559ca2",
+      "bytes": 1680
+    },
+    "evidence/energy/frozen/simulations/energyConsumptionParameters.xml": {
+      "sha256": "e81b8f0290a842597a8a47b1cdd4d35c794b73e196aefe3026e17610a066c368",
+      "bytes": 1052
+    },
+    "evidence/energy/frozen/src/LoRaEnergyModules/LoRaEnergyConsumer.cc": {
+      "sha256": "48d8f2330248c794f56d877b3acb1fe6c1b226a79655d737539054a8bd0d7852",
+      "bytes": 10649
+    },
+    "evidence/energy/frozen/src/LoRaEnergyModules/LoRaEnergyConsumer.h": {
+      "sha256": "fd613a12e5d9517bf772c71197c34da9c063f80c984e8cb0053c59aec0aa9ae3",
+      "bytes": 2464
+    },
+    "evidence/energy/frozen/src/LoRaEnergyModules/LoRaEnergyConsumer.ned": {
+      "sha256": "36f3f821bc9184794d853ab7744dd249cbb6e373e243c7822af6ff183952a268",
+      "bytes": 1066
+    },
+    "evidence/energy/native-energy/component-observed.csv": {
+      "sha256": "91970df1f59ac9225d6c7f70e0ba7064a164e7d233ace38581f3c478a925c63a",
+      "bytes": 513615
+    },
+    "evidence/energy/native-energy/component.ini": {
+      "sha256": "62c3ea4cae11fb35145dd31a1526685fdd8521a013c4a2844a5f7968459d090b",
+      "bytes": 668
+    },
+    "evidence/energy/native-energy/native-energy-comparison.csv": {
+      "sha256": "0033b2faa8203c3cac7e2237ed98a722e649e36c0a70536549c4062bb18d1b11",
+      "bytes": 6109
+    },
+    "evidence/energy/native-energy/native-energy-status.json": {
+      "sha256": "f765e9893d89fb7fe21ff2d6f41ae64bf996263842e16357db4f279b646e769c",
+      "bytes": 316
+    },
+    "evidence/energy/native-energy/run.sca": {
+      "sha256": "0bc714831c91c0f6683136217149c1d97bcd75545db42f13ca89dc26207bf499",
+      "bytes": 229863
+    },
+    "evidence/energy/native-energy/scheduler-input.csv": {
+      "sha256": "15b6411e13a1ef19d433a3ef5a8286b3f3356524ab93c3b3161c607f5903f14f",
+      "bytes": 2422
+    },
+    "evidence/energy/native-energy/scheduler-observed.csv": {
+      "sha256": "e2685ad786f646e869e392f203dfac5f8408801042abbac3f65d6cd391958618",
+      "bytes": 3125
+    },
+    "evidence/energy/packet-probes/run-summary.csv": {
+      "sha256": "43cc60c4a87cb0c91229378b8b4509566b0caad62ec4d677127c105d7ec7f8c6",
+      "bytes": 1747
+    },
+    "evidence/native-reproduction/dependency-status.json": {
+      "sha256": "7142fd12a430638c94b32ac1b5f96485799edcbd95c4176912d57716c54010a2",
+      "bytes": 1113
+    },
+    "evidence/native-reproduction/environment.json": {
+      "sha256": "18d3d0c8959de73c65512e2fd2eea700cbd428669f44a309881ffe1b1fa3a751",
+      "bytes": 2118
+    },
+    "evidence/native-reproduction/native-frozen-build.log": {
+      "sha256": "c3fdcc5d769aa2db3748817c790dfa9244e1d3df904c8d00cc16687d6ffbcca1",
+      "bytes": 952
+    },
+    "evidence/native-reproduction/native-status.json": {
+      "sha256": "8d9f8b12a9c79da3492d854ded319d138e11cc1ae687bbcc3ef4ad92e623cad4",
+      "bytes": 11211
+    },
+    "evidence/packet-and-gateway/01_CONCILIACION_Y_ALCANCE.txt": {
+      "sha256": "0154c784d92866db837c6a4c26077458b7fab9023a71f369961145fa1e432612",
+      "bytes": 1571
+    },
+    "evidence/packet-and-gateway/MAC_PROGRESS_FINDING.md": {
+      "sha256": "c1b536ab10b07dd404a4c419cf2874bb4ada653fc974fc7b45868d8d584bd8ce",
+      "bytes": 4192
+    },
+    "evidence/packet-and-gateway/gateway/README.md": {
+      "sha256": "99df1c6f212514779fee816003e57d6e19f32be435f8eb7c3fdd9e95e6c2a9da",
+      "bytes": 5130
+    },
+    "evidence/packet-and-gateway/gateway/REPORT.md": {
+      "sha256": "d5e2ea301dc206224bad595d1aec3e0d052dd1e2adb747b300f68f03d95e77de",
+      "bytes": 2420
+    },
+    "evidence/packet-and-gateway/gateway/analyze_gateway_occupancy.py": {
+      "sha256": "54c660fc86b61d061e0098c637237b74f708f11c11fc1e4d37089336b42212c3",
+      "bytes": 7776
+    },
+    "evidence/packet-and-gateway/gateway/reproduced-controlled/RF-intervals.csv": {
+      "sha256": "fee66971c9852fc8f3c35c0fb0d8cee1979e796da96335ee191996c79846cd40",
+      "bytes": 43682
+    },
+    "evidence/packet-and-gateway/gateway/reproduced-controlled/gateway-occupancy.csv": {
+      "sha256": "5e3b61414bd4dbea5ff6b3c9be44ad559f6809a69ed1b7daa07445f339b2a3a8",
+      "bytes": 1714
+    },
+    "evidence/packet-and-gateway/gateway/reproduced-controlled/status.json": {
+      "sha256": "7c0130a6726effbfabd5457a7a592637a18a18e5b608217466a0da3f824060cb",
+      "bytes": 480
+    },
+    "evidence/packet-and-gateway/gateway/reproduced-factorial/RF-intervals.csv": {
+      "sha256": "f8abd588ed14848df1ccfa0de46969b45065bdbe12398741bf07dd5a8b9e4c2b",
+      "bytes": 17986157
+    },
+    "evidence/packet-and-gateway/gateway/reproduced-factorial/gateway-occupancy.csv": {
+      "sha256": "dbb316033763da04b558f0b0a9c86e3657a4c9efc96a14e0d115fc720074ebd6",
+      "bytes": 31406
+    },
+    "evidence/packet-and-gateway/gateway/reproduced-factorial/status.json": {
+      "sha256": "f9020a07b52ada2e762a0b572efe50fa9b95e62fb99bd9e722f187b1900e13fd",
+      "bytes": 3754
+    },
+    "evidence/packet-and-gateway/packet-probes/EVENT_DICTIONARY.md": {
+      "sha256": "4198a6fcd3168e933dc8426c7523823dbd128ba6e59d188c533982a8be07251a",
+      "bytes": 6142
+    },
+    "evidence/packet-and-gateway/packet-probes/README.md": {
+      "sha256": "fb2d40bddf9bfe7955fd34ec2deb3a33840240decdf92a885a3ca6fbd4c44814",
+      "bytes": 2391
+    },
+    "evidence/packet-and-gateway/packet-probes/run-summary.csv": {
+      "sha256": "43cc60c4a87cb0c91229378b8b4509566b0caad62ec4d677127c105d7ec7f8c6",
+      "bytes": 1747
+    },
+    "evidence/rng-and-sensitivity/01_RNG_CAMPANA_ORIGINAL.csv": {
+      "sha256": "8b152bcbf4ccc51ad93d3fd4303b8cf6911642f6c964d87cbdf05e460e7269a0",
+      "bytes": 974
+    },
+    "evidence/rng-and-sensitivity/02_PAREAMIENTO_ORIGINAL.json": {
+      "sha256": "320d1db4e177c66e2c36929187fca85eb8f415d2a34d3fd5a40cd9c9e37156ec",
+      "bytes": 674
+    },
+    "evidence/rng-and-sensitivity/03_PRECISION_PAREADA_ORIGINAL.csv": {
+      "sha256": "ab61b1b9d9a819a3885893d4a2156a1570b41ad0f445311dc1364eb989854453",
+      "bytes": 29153
+    },
+    "evidence/rng-and-sensitivity/04_PRECISION_Y_ALCANCE.txt": {
+      "sha256": "52797f4965cb974bf9f893fd3d097ecf40124abfa4f1e937f86d6430c85493e6",
+      "bytes": 1751
+    },
+    "evidence/rng-and-sensitivity/INTERPRETATION.md": {
+      "sha256": "d5a7295c1df3d2b891a4acd02d839440ee37d86b73cb9003ef53ee9bf862bfcb",
+      "bytes": 3997
+    },
+    "evidence/rng-and-sensitivity/factorial/analysis/REPORT.md": {
+      "sha256": "95fa9bd85c7d3ff5a901a2414f682507ae2a24dfc3b77425e529c3de0b120d2f",
+      "bytes": 4689
+    },
+    "evidence/rng-and-sensitivity/factorial/analysis/RESULTS_INTERPRETATION.md": {
+      "sha256": "20160848513c5232a4f5bf42147811e72d6c0f7ddbfde12c961d48701973b047",
+      "bytes": 4004
+    },
+    "evidence/rng-and-sensitivity/factorial/analysis/aggregate-status.json": {
+      "sha256": "f52f6e294d158842e00677943a1290dc20bdfcfa650d40861cb8f8811e50f763",
+      "bytes": 814
+    },
+    "evidence/rng-and-sensitivity/factorial/analysis/analysis-status.json": {
+      "sha256": "84b37609c4bc38f44c432e4d9ea64c44ceaf0e0521d4905d1b5d19ffdfaa9e9b",
+      "bytes": 320
+    },
+    "evidence/rng-and-sensitivity/factorial/analysis/factorial-contrasts-ci95.csv": {
+      "sha256": "5e0d00cfbefa722d3fc808e5a05ee1edd3a863e646cdc133ae8dd829be6c85ba",
+      "bytes": 24666
+    },
+    "evidence/rng-and-sensitivity/factorial/analysis/factorial-outcomes.pdf": {
+      "sha256": "e49831fd1e1008dd1a931a0e4b5ecfeb268d4d8f13b5a5af7b88a8757dae0b3a",
+      "bytes": 39132
+    },
+    "evidence/rng-and-sensitivity/factorial/analysis/factorial-outcomes.png": {
+      "sha256": "ec8f668196659494ca0081253cebc89c277333a567ca67f9b48b778d6b3a5ad6",
+      "bytes": 327609
+    },
+    "evidence/rng-and-sensitivity/factorial/analysis/independent-final-check.json": {
+      "sha256": "b68705d40ae94763efcab9009e3b972ed494e77b73963b68cee230092eed0617",
+      "bytes": 8201
+    },
+    "evidence/rng-and-sensitivity/factorial/analysis/paired-factorial-PDR-effects.pdf": {
+      "sha256": "a396217d78f24d55b2720c96d00b7fca72cfa8a7840b17a7f10f464525e45707",
+      "bytes": 18080
+    },
+    "evidence/rng-and-sensitivity/factorial/analysis/paired-factorial-PDR-effects.png": {
+      "sha256": "b01d61234ba801be3599014948c37eacc373074ce0769a1cc8e9b77ebbd49fce",
+      "bytes": 35840
+    },
+    "evidence/rng-and-sensitivity/factorial/analysis/paired-seed-contrasts.csv": {
+      "sha256": "8aa196fabcf1523597969c59bf8a613cf4ffc41fc5cfe97486df3b48e6a41e66",
+      "bytes": 38768
+    },
+    "evidence/rng-and-sensitivity/factorial/analysis/run-results.csv": {
+      "sha256": "6d5eeaad00c505dad52ba9481667c796723ab0aec11b1e1457566c5c142b4b94",
+      "bytes": 51328
+    },
+    "evidence/rng-and-sensitivity/factorial/analysis/supervisor-race-note.json": {
+      "sha256": "7d3c62af12a68aa1057f0431b8ce5cbf61821c64d64773d24420ed3a8cd9d09f",
+      "bytes": 607
+    },
+    "evidence/rng-and-sensitivity/prepare_factorial.py": {
+      "sha256": "1c4309904ec4c48906f00cb7bf720943be68d74b694c17a85bcc4baf03ee9a7a",
+      "bytes": 6939
+    },
+    "evidence/rng-and-sensitivity/prepare_sensitivity.py": {
+      "sha256": "dd9db1e3e9b6d9d61472d3e3e9d0ad1c89d3b4a61ddbcba2c46179a636653503",
+      "bytes": 6749
+    },
+    "evidence/rng-and-sensitivity/rng-source/MobilityBase.cc": {
+      "sha256": "b38ba455ff6f5943b258a7c8738f63f8ac38107d7bf92d6eed967e9732b13346",
+      "bytes": 15764
+    },
+    "evidence/rng-and-sensitivity/rng-source/RandomWaypointMobility.cc": {
+      "sha256": "f8e74bb63f4d55563aa98e81bf9289507d18b19f659738ebba16bbb9d5107272",
+      "bytes": 2271
+    },
+    "evidence/rng-and-sensitivity/rng-source/envirbase.cc": {
+      "sha256": "18cb97a073ddddeeb79b3006667f2b4ad5f8744c4fb8fcc44d7f23c68d478d06",
+      "bytes": 91572
+    },
+    "evidence/rng-and-sensitivity/rng-source/run_corrected_fidelity_ablation.py": {
+      "sha256": "0bcd1f396fc7bd3c79f20ae80667e441efe3b14e98b7b96eb71115dd29bf2789",
+      "bytes": 13101
+    },
+    "evidence/rng-and-sensitivity/sensitivity/DESIGN.json": {
+      "sha256": "eb5a3fd4166b28319128e2d2e2aff7d1608635d596aa9c997b46f0e72364cbfb",
+      "bytes": 145967
+    },
+    "evidence/rng-and-sensitivity/sensitivity/DESIGN.md": {
+      "sha256": "30220c976717f9d70892a62b6caf652746975b2c2f99f9ed742738535f33ac24",
+      "bytes": 2179
+    },
+    "evidence/rng-and-sensitivity/sensitivity/analysis/REPORT.md": {
+      "sha256": "ba64cfaa0e195a9580aa8a77bfb31efcc5283d8c55784b5fc7aa0d722b87704d",
+      "bytes": 2152
+    },
+    "evidence/rng-and-sensitivity/sensitivity/analysis/paired-change-from-baseline-ci95.csv": {
+      "sha256": "1d92c4eba78a0aa54266c20f659a070b8ed0b9bc22f1b557811626f2dd92fe46",
+      "bytes": 10855
+    },
+    "evidence/rng-and-sensitivity/sensitivity/analysis/paired-seed-contrasts.csv": {
+      "sha256": "2cbc2235842ccfcc2696223a0c2f4441f699f644e8a79d3ac891ed2dc33ba814",
+      "bytes": 39380
+    },
+    "evidence/rng-and-sensitivity/sensitivity/analysis/run-results.csv": {
+      "sha256": "d2ab3d3dee1a5ac56b5f668411ca31ccfb6379f7c238a60249f2f84e2fccdf1f",
+      "bytes": 126303
+    },
+    "evidence/rng-and-sensitivity/sensitivity/analysis/sensitivity-effects-ci95.csv": {
+      "sha256": "b2c7ecec52dc418a929c9bd46d0984874651c0cbc58dac377faf15b59ea68df4",
+      "bytes": 12668
+    },
+    "evidence/rng-and-sensitivity/sensitivity/analysis/status.json": {
+      "sha256": "20dbf61e0f7dc233d87e7fa9363c507c709a14773811383f57aa8da6308fa2b1",
+      "bytes": 2498
+    },
+    "evidence/rng-and-sensitivity/sensitivity/analyze_sensitivity.py": {
+      "sha256": "9930393371b96dcfff3bec66f193cbe12010ab891ac4cb8216099b617aeacd77",
+      "bytes": 7812
+    },
+    "evidence/rng-and-sensitivity/sensitivity/daily-output-diagnostic/REPORT.md": {
+      "sha256": "8afd7725e7673cfb7af5534014b8ea2be7680a5e1f90e5e26643290458b5b84a",
+      "bytes": 1392
+    },
+    "evidence/rng-and-sensitivity/sensitivity/daily-output-diagnostic/daily-output-diagnostic.pdf": {
+      "sha256": "5207793c45352f83a2503ae8f6c5aa762f3db0dd95880f4c3695eca61f782e17",
+      "bytes": 18829
+    },
+    "evidence/rng-and-sensitivity/sensitivity/daily-output-diagnostic/daily-output-diagnostic.png": {
+      "sha256": "bd5150aa0f83b8d727fe023329201a6866f1a6420ffcc73a90903598aadd8410",
+      "bytes": 67594
+    },
+    "evidence/rng-and-sensitivity/sensitivity/daily-output-diagnostic/daily-results.csv": {
+      "sha256": "1a3fba5fe8b38f5daca4ead5f1488bee57b644e204a057a1664c8d293858c660",
+      "bytes": 3479
+    },
+    "evidence/rng-and-sensitivity/sensitivity/daily-output-diagnostic/status.json": {
+      "sha256": "2d772c522827df55661478d84a97b8b2ff4d9ac613cbaedb02c1a36f644fb906",
+      "bytes": 1549
+    },
+    "evidence/source-comparison/01_CAMBIOS_FLoRa_1_1_A_ENHANCED.csv": {
+      "sha256": "3d5225c4fe0c7d347705ec63ba12a403c1f9367e0a9fc1b1478be299c3dcfaca",
+      "bytes": 15256
+    },
+    "evidence/source-comparison/01_CAMBIOS_FLoRa_1_1_A_ENHANCED.json": {
+      "sha256": "69d6d2190eb44ef23d529e580d5ae027592ffe3fb5a6b6390cd32a92cf9cb833",
+      "bytes": 19310
+    },
+    "evidence/source-comparison/01_CAMBIOS_FLoRa_1_1_A_ENHANCED.pdf": {
+      "sha256": "48997b9aca2365fd8065ac1bda0cd3a4e7bc7483f8c7cdf44b7ed62aeb841b27",
+      "bytes": 177558
+    },
+    "evidence/source-comparison/01_CAMBIOS_FLoRa_1_1_A_ENHANCED.tex": {
+      "sha256": "998afcd2a9fd8726f23efc4c8b0ae17280531f2fb37c16ed32737c9956a230bf",
+      "bytes": 19167
+    },
+    "evidence/source-comparison/02_DIFERENCIAS_DE_CODIGO.patch": {
+      "sha256": "d4c9b03b60cf21c9460929fbf2949cc43a7700a86f45858e76c4ea65413e675c",
+      "bytes": 182188
+    },
+    "evidence/source-comparison/FUENTES_SHA256.json": {
+      "sha256": "9504b4c4f2ba46bcc2eb18128cd7ef1a4a59691d5e29d432466b8536f91fe8e4",
+      "bytes": 38864
+    },
+    "evidence/source-comparison/VERSIONES_Y_ALCANCE.json": {
+      "sha256": "0e00541941dfa0052e5859fbe5c5f4bf7b2a270089ecda5aa55ff2c785a284f7",
+      "bytes": 997
+    },
+    "evidence/source-comparison/evidencia/checkpoint-metrics.csv": {
+      "sha256": "e3b2870ec481afee1f0437fc2c65b22ca5a81d60e42abf4912de48455fcf0786",
+      "bytes": 485042
+    },
+    "evidence/source-comparison/evidencia/paired-contrasts-ci95.csv": {
+      "sha256": "9d9a72492c5f9525160b1f2833138cea931434936bcc78a003ef906ad111826a",
+      "bytes": 134410
+    },
+    "evidence/source-comparison/evidencia/summary-ci95.csv": {
+      "sha256": "00e53cb3b8f0347d6ef1dbffa0bda229d03c93dcc48624142765f82871d2abf4",
+      "bytes": 85211
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/simulations/cloudDelays.xml": {
+      "sha256": "c8b35d93c83644c9b45b5ee142c6349f742add213a0d917843ce9ff2aef81ae9",
+      "bytes": 184
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/simulations/energyConsumptionParameters.xml": {
+      "sha256": "e81b8f0290a842597a8a47b1cdd4d35c794b73e196aefe3026e17610a066c368",
+      "bytes": 1052
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/simulations/examples/Analisis-fidelity-ablation.ini": {
+      "sha256": "b6f481e96606dfc56311cc317de5e4f9f37cb239139279362ff9e65fa3aebf9d",
+      "bytes": 13403
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/simulations/examples/Analisis-mi-PROPOSAL-ADR.ini": {
+      "sha256": "cb7401e54b913be484b8e5246eabfcfa93be88ba0412ea6515551ec224c3780f",
+      "bytes": 15980
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/simulations/examples/fidelity-ablation.ini": {
+      "sha256": "8f4e78d918ecdf750f55daf5dadd653945c450a24790be6a2be63ca5afc5abd9",
+      "bytes": 112
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/simulations/package.ned": {
+      "sha256": "68e76f79bbe538d01697a5cabdad57e662b41b07263e3f455a065e23ae50669f",
+      "bytes": 2315
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRa/LoRaGWMac.cc": {
+      "sha256": "9e72c8dbfd5a8e16496b00a2866cf2cc2cdb8eefc80c07a86ac068a8befee052",
+      "bytes": 8526
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRa/LoRaGWMac.h": {
+      "sha256": "c3aea69ec39a9d9b428de258d54f2d7bd87e8793ac24aa26ff71e8f593bef3f2",
+      "bytes": 2587
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRa/LoRaGWMac.ned": {
+      "sha256": "537827eeee91941c35f746cea9c2d057506b6351ad1b736a939b25a105863757",
+      "bytes": 2623
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRa/LoRaGWNic.ned": {
+      "sha256": "2aefd2e8d070ee339fe02fa7c87bd7ab9d50e679ac87c0cf1b211731a14911e9",
+      "bytes": 1295
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRa/LoRaGWRadio.cc": {
+      "sha256": "fe15c7075c69eef2efe85a915df378848639b020048d6074a31e6a368a7f4db9",
+      "bytes": 12700
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRa/LoRaGWRadio.h": {
+      "sha256": "be533efef9145a5a1efb5dfe960a9e5313bef34e954157cb0de885d3b6b49c13",
+      "bytes": 2548
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRa/LoRaGWRadio.ned": {
+      "sha256": "788f1393afcccbc1b4f4628fde59853536e740f6d617cedc56a7a41c9848d9e9",
+      "bytes": 5207
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRa/LoRaMac.cc": {
+      "sha256": "d636bf12cfedde9f76805255b456a52ff03fd061a054fe33c26866787cc49a73",
+      "bytes": 18515
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRa/LoRaMac.h": {
+      "sha256": "7d0113708444d9b1e8a8699dd4c2544615c67c0e0a5364bd0fe1ad730bf4a094",
+      "bytes": 5170
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRa/LoRaMac.ned": {
+      "sha256": "f60a98f17e0bc7590912a14987432dc89fd04b4f129e1a110b6e12eb6f5a6664",
+      "bytes": 944
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRa/LoRaMacControlInfo.msg": {
+      "sha256": "19e186ec37df32601ab8565e05b20137aa7ba6ea173cf071c6b40d756055ac8b",
+      "bytes": 1149
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRa/LoRaMacControlInfo_m.cc": {
+      "sha256": "3e6f1bef6ebc770f7db2bbb8bc9dbd48d22d10475dace3519ed8c7a50521a4d9",
+      "bytes": 21424
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRa/LoRaMacControlInfo_m.h": {
+      "sha256": "a28a29827c443cfb0ff17950603a765d36661090324c8211e9b4fc91c31ece71",
+      "bytes": 3075
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRa/LoRaMacFrame.msg": {
+      "sha256": "8a5f6e2fbaf77b246dacf646de3d28fe1c066920b0cb4e82560feaf63ff98f30",
+      "bytes": 1415
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRa/LoRaMacFrame_m.cc": {
+      "sha256": "f3c9332597adc725b736538e2a26d177bbe4666a3b04f1eee8beb00839b86ed0",
+      "bytes": 25829
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRa/LoRaMacFrame_m.h": {
+      "sha256": "255b835b54dac5babd3b78d88941e5b9b7128fe85458840f218c2889f9235c73",
+      "bytes": 4505
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRa/LoRaNic.ned": {
+      "sha256": "5d48c2e745e438d15a558bc192c80b9c283322d318c5d58edfd6aa97d0401237",
+      "bytes": 1204
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRa/LoRaRadio.cc": {
+      "sha256": "bea7abfb95e4b8ea90af9a6d93de7d7d309fabfcf9c5fc6f3bbebf7d4cf72038",
+      "bytes": 22994
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRa/LoRaRadio.h": {
+      "sha256": "6b972dc93d1e1b68fcead27c4ad8ef2fd7fb6eba4f410d64a35747a015cd9a42",
+      "bytes": 5053
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRa/LoRaRadio.ned": {
+      "sha256": "718fcdd713cc2443e5fac204c110d9b28ee702a2d7402380a6a8dc0600db022b",
+      "bytes": 3923
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRa/LoRaTagInfo.msg": {
+      "sha256": "05bcf955185435e2ff95ad529f7f452a0d2098710c10199004602adacc11d68a",
+      "bytes": 1457
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRa/LoRaTagInfo_m.cc": {
+      "sha256": "e9b780bd7824f6824a999b516754d8dc6256f35ee947beb013a23849f05a528f",
+      "bytes": 22295
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRa/LoRaTagInfo_m.h": {
+      "sha256": "0179f02c937b1e2724adaf7211e9da1dd73e21245674291bcf65919bd900b382",
+      "bytes": 3575
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRa/NetworkServerApp.cc": {
+      "sha256": "78b9dada8e4e85babb3280c6f645f0d767ced39233df98ce86d2367db1b8fdd1",
+      "bytes": 51385
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRa/NetworkServerApp.h": {
+      "sha256": "c17cf51f8708e5423492673dc648cba3786af36792bf7cd4382461e97d78403e",
+      "bytes": 9205
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRa/NetworkServerApp.ned": {
+      "sha256": "961b99426d095736af1766cced661cc4f0b9d2187408c005256a36f773d84f1f",
+      "bytes": 4791
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRa/PacketForwarder.cc": {
+      "sha256": "ca69233d6526ceb4306a3a0e5978adae5f17b1f449a72ad83ec61f31366bdcd7",
+      "bytes": 2819
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRa/PacketForwarder.h": {
+      "sha256": "8a1e3bb3adf96fd3ec6f28441c531fbf3ba63f0f516b6b02ae6d74a82328130f",
+      "bytes": 1046
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRa/PacketForwarder.ned": {
+      "sha256": "63a1e7574ea810ad5fda74f5ceae24cfe669893fffac78d236f4e5a4083c3385",
+      "bytes": 1386
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRaApp/LoRaAppPacket.msg": {
+      "sha256": "da1edbbad88854c09e31c587c5fe46a00eaaf20282ee575579a8e7baf19111a0",
+      "bytes": 2070
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRaApp/LoRaAppPacket_m.cc": {
+      "sha256": "4d3d0f20d537fb8ddc8666bd58824e22c78755a092db5058bd1f5c95a04554c0",
+      "bytes": 41545
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRaApp/LoRaAppPacket_m.h": {
+      "sha256": "4c7e5df09ce32f79dc89608832e01d38da4bcd3e7d782405a83368b713f7bdf4",
+      "bytes": 7258
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRaApp/SimpleLoRaApp.cc": {
+      "sha256": "78bbbdbb5ba05c9b157d25cbfa85ad6146e00a139cec6322b889a4799f208013",
+      "bytes": 23201
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRaApp/SimpleLoRaApp.h": {
+      "sha256": "a1cf9b0d869910795b9527672cab1a609cb175f3e2ce209f7af0430d90a0a51a",
+      "bytes": 4760
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRaApp/SimpleLoRaApp.ned": {
+      "sha256": "5ae636b05595fb27d85937d404b16a4a6fd608fb270e1cc1a0b6881fd190a0b9",
+      "bytes": 3167
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRaEnergyModules/LoRaEnergyConsumer.cc": {
+      "sha256": "48d8f2330248c794f56d877b3acb1fe6c1b226a79655d737539054a8bd0d7852",
+      "bytes": 10649
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRaEnergyModules/LoRaEnergyConsumer.h": {
+      "sha256": "fd613a12e5d9517bf772c71197c34da9c063f80c984e8cb0053c59aec0aa9ae3",
+      "bytes": 2464
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRaEnergyModules/LoRaEnergyConsumer.ned": {
+      "sha256": "36f3f821bc9184794d853ab7744dd249cbb6e373e243c7822af6ff183952a268",
+      "bytes": 1066
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRaPhy/LoRaAirtimeCalculator.h": {
+      "sha256": "eda4fa64a55e16468a1f0bf6806a421bd027e851de487fbd9a85713f11c04e7b",
+      "bytes": 4188
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRaPhy/LoRaAnalogModel.cc": {
+      "sha256": "553d716cba0012f7fa49bf293dad4a31e9acce228dbec108e0200b40d791f3f5",
+      "bytes": 10784
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRaPhy/LoRaAnalogModel.h": {
+      "sha256": "9b694b5499d38976678906baf2510508a41aa73d5b0bba253edffe09df2136b9",
+      "bytes": 1895
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRaPhy/LoRaAnalogModel.ned": {
+      "sha256": "d6fa3bbac514646bed3525e243c5d3c112331234a16e835a64955ac1890a12f8",
+      "bytes": 1546
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRaPhy/LoRaBandListening.cc": {
+      "sha256": "080e93beb6f4d6fcffb6c2dad91157de6570cfa5dbef28e00ce20dc7cf5c1052",
+      "bytes": 1443
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRaPhy/LoRaBandListening.h": {
+      "sha256": "500cca6419de2d5f960e1c0c0bb3bd898ff14675dcfa951daed6028f33e6126c",
+      "bytes": 1721
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRaPhy/LoRaHataOkumura.cc": {
+      "sha256": "cbbe85093bb402fff3170ad6d596f0da12a9926d897d0ff4e6163d69ce4afb0e",
+      "bytes": 1378
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRaPhy/LoRaHataOkumura.h": {
+      "sha256": "b7525be06727c196d758484056895155011049bd6c7e2cda194bae55d8087d5d",
+      "bytes": 1415
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRaPhy/LoRaHataOkumura.ned": {
+      "sha256": "65d2cd04324f05dcc99a3b2277512b30755c10b00400d905536e368306e96e09",
+      "bytes": 989
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRaPhy/LoRaLogNormalShadowing.cc": {
+      "sha256": "65518010993ee321828ca9a2a248b836128ed895ddc5fbb3a54753d3ce10f3ec",
+      "bytes": 3363
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRaPhy/LoRaLogNormalShadowing.h": {
+      "sha256": "bd717498f818c04812866d63f8701e1b1edd0c6c9268b9f90001b54e9ee91cef",
+      "bytes": 1636
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRaPhy/LoRaLogNormalShadowing.ned": {
+      "sha256": "9b984c495beea9e1cb6d326b706a41cd2aa4a37858b1048d5cd6a91300be4109",
+      "bytes": 1546
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRaPhy/LoRaMedium.cc": {
+      "sha256": "f92bee7884c6260796f6e66ade0fc4e48c658f2810c4fefe6a55441867b8fd54",
+      "bytes": 4261
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRaPhy/LoRaMedium.h": {
+      "sha256": "da3bab3077b53008789076c84d09b49f51987b3f790df7b17f4fa25f2b222dc0",
+      "bytes": 2276
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRaPhy/LoRaMedium.ned": {
+      "sha256": "6384dadcef94c80ba80a5bb911655c4fc321842436364536bc27b16ef77ed234",
+      "bytes": 1414
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRaPhy/LoRaMediumCache.cc": {
+      "sha256": "3c0218fd364dafa9355e40b3f44be0eb517d7671bf7a2bdf9f8c12eca597301e",
+      "bytes": 8511
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRaPhy/LoRaMediumCache.h": {
+      "sha256": "5748c0e681732493c7d326cb248eceae1333e008b004bfc8bdd40ee8baa18095",
+      "bytes": 5670
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRaPhy/LoRaMediumCache.ned": {
+      "sha256": "0cea79c49394167c823fdc2eb6e8a697d2de3b6bc5d7b1cdf870e388c81c828e",
+      "bytes": 2238
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRaPhy/LoRaModulation.cc": {
+      "sha256": "f06568337f8e35f5eaf3784788701f7314d8c59c8e6f42c9f82c7fa98921eddb",
+      "bytes": 2978
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRaPhy/LoRaModulation.h": {
+      "sha256": "54429f35182925b5e6c172b34f2e46ed6d9b761264b2efb40aec4182532bd90b",
+      "bytes": 1758
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRaPhy/LoRaNeighborCache.cc": {
+      "sha256": "9f072216ffa0ea9012a8b27676b77e26b0e74d5eeecbd0de12b7b054a41e430f",
+      "bytes": 5219
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRaPhy/LoRaNeighborCache.h": {
+      "sha256": "d2bfbca69ada2c856c837d271ba8abed00f891248d4b3bcbcf6ad888fb935e7e",
+      "bytes": 2510
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRaPhy/LoRaNeighborCache.ned": {
+      "sha256": "f9853b2d88974bf625373dfdba4d0772f734681c890d0129bb1782c22db98794",
+      "bytes": 1143
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRaPhy/LoRaPathLossOulu.cc": {
+      "sha256": "8d69eb095019b28fcaeba9db46d129a1b4680c6cd3315dd846b6f77a883cc122",
+      "bytes": 1484
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRaPhy/LoRaPathLossOulu.h": {
+      "sha256": "de3d59b9c75efef5a1e35748d7d9d1cd6047d2706dba514169db5191d7d8681d",
+      "bytes": 1375
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRaPhy/LoRaPathLossOulu.ned": {
+      "sha256": "b982ada4700e06a443eb4110ed6addc62604aaaf7c9d6b471903274e657cfa42",
+      "bytes": 1132
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRaPhy/LoRaPhyPreamble.msg": {
+      "sha256": "5eb08e95edf97e5751a903f55907ea91d8810f05a1d2d267808d890cf239b266",
+      "bytes": 1185
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRaPhy/LoRaPhyPreamble_m.cc": {
+      "sha256": "1532958ffa57b55e63993afdd3e681ac477dc1061c562832cb5126531b56c9cd",
+      "bytes": 22904
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRaPhy/LoRaPhyPreamble_m.h": {
+      "sha256": "d02d5868ed11a543042814be93e932cb184cea3fed233afd031324eb417fe1e8",
+      "bytes": 3625
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRaPhy/LoRaRadioControlInfo.msg": {
+      "sha256": "c5b20b405a5e98ad3a15be4259f344ff6339ae88c10cfdd619d8086df3aa2078",
+      "bytes": 3294
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRaPhy/LoRaRadioControlInfo_m.cc": {
+      "sha256": "ae7aa86616e9f220ac61c5029dc6be953f357dab5ec670c3c4e3bd09fa147cc7",
+      "bytes": 48339
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRaPhy/LoRaRadioControlInfo_m.h": {
+      "sha256": "641eb59cd6f0c46288113d2126648e9e8a06ab9f2571f6cbe8c9382073b70346",
+      "bytes": 7952
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRaPhy/LoRaReceiver.cc": {
+      "sha256": "8bc68362d8f3b2f384d1244a68fd10cba78dc2136ddedd624f93f98569e387f1",
+      "bytes": 26370
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRaPhy/LoRaReceiver.h": {
+      "sha256": "2d302be819dee45bbe12ffb631d3f440f7f4ba2d5f081091e1be5926d176c1b1",
+      "bytes": 5883
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRaPhy/LoRaReceiver.ned": {
+      "sha256": "f5571f7ce18c77e316a1af37b319ed530db754c4c44b725ceb00570b5a0cc268",
+      "bytes": 2223
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRaPhy/LoRaReception.cc": {
+      "sha256": "f3aee6358f4bc211b320fa1f77ef25ba48cb9fecce4ca69e46da4fdfde8e101c",
+      "bytes": 864
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRaPhy/LoRaReception.h": {
+      "sha256": "3355dcf4d168feae6caa233b14b79ba14c359fe13f045626c6229ce4f060af21",
+      "bytes": 1210
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRaPhy/LoRaTransmission.cc": {
+      "sha256": "a9d4a0cb6926cc129021bd644430f474a3ab727b3b271dce45254716d14c082f",
+      "bytes": 1081
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRaPhy/LoRaTransmission.h": {
+      "sha256": "149eb545130338d14e9c404dc6f533c925bf0f6445e299d7bc7d22893fc7c6f5",
+      "bytes": 1723
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRaPhy/LoRaTransmitter.cc": {
+      "sha256": "e54626164577802140b56cbab4f28c48d9c5f0a861e80e55eb5c57df71477078",
+      "bytes": 5109
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRaPhy/LoRaTransmitter.h": {
+      "sha256": "424d8547a5d7fb7de59c333b755cec5887fd0694112b54dc89994119b28f84e2",
+      "bytes": 1438
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoRaPhy/LoRaTransmitter.ned": {
+      "sha256": "2a69e9baf76018c9245e7efed8269347b1f6d41009a904d2a9606beeba224165",
+      "bytes": 1906
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoraNode/LoRaGW.ned": {
+      "sha256": "8966c7d93c5725acf45455c7aaf3849f01a269eb2db35fef7530851ce92496ad",
+      "bytes": 3947
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/LoraNode/LoRaNode.ned": {
+      "sha256": "7ce0eff5f844d7beca727f3b70247410ab500d23a774e464a4fbe3ae7d82227b",
+      "bytes": 2061
+    },
+    "evidence/source-comparison/fuentes/enhanced-rc11/src/package.ned": {
+      "sha256": "cef89d70e0637296440d0dffd0dbc911212574f0b180ebb3f3f078dd3a9f5478",
+      "bytes": 52
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/LICENSE.md": {
+      "sha256": "1e950a32358912876fcd3ea0bdd975c9ea8a7822eddc3cda662817c3abe99b1c",
+      "bytes": 7642
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/simulations/cloudDelays.xml": {
+      "sha256": "c8b35d93c83644c9b45b5ee142c6349f742add213a0d917843ce9ff2aef81ae9",
+      "bytes": 184
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/simulations/energyConsumptionParameters.xml": {
+      "sha256": "540204e540a737481f857a6ee35d317c1922dc2c268f9c51a2ee498ae5c296d3",
+      "bytes": 932
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/simulations/examples/n100-gw1.ini": {
+      "sha256": "f35c875a2cdfcf8a08c65e98b8c009e9f0c7cc24021bec6301d05ccf2b3f1e5e",
+      "bytes": 18360
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/simulations/examples/n1000-gw1-ADR.ini": {
+      "sha256": "7d1bc36ab78b8970659ee009aa6c96722383a212105692404beeec5f764541db",
+      "bytes": 163179
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/simulations/examples/n1000-gw1-noADR.ini": {
+      "sha256": "264ca0bfb8b411ece9f2ab245eab4d953eecec8665a874aad18f4b0bcf431eaa",
+      "bytes": 163185
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/simulations/examples/n1000-gw2.ini": {
+      "sha256": "5c1305dee2a716cb0615fa678d46d2c1188c4115dd1d74714772212e2a742d8b",
+      "bytes": 163714
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/simulations/omnetpp.ini": {
+      "sha256": "481a4423f3ee416c6f513786976496ec1c2805c69b024dc2e2dab75ff62c5128",
+      "bytes": 2820
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/simulations/package.ned": {
+      "sha256": "965305076c346748511920d872eb7a6ca542ae9012a5b598e7da4b052afad8b4",
+      "bytes": 1769
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRa/LoRaGWMac.cc": {
+      "sha256": "6f1d6f1df46e692a2481e329b77c2c7ba6c533ebc549baa33bd6691ac992112f",
+      "bytes": 6144
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRa/LoRaGWMac.h": {
+      "sha256": "984d5421013e6f39da3d09e1c58c3e867005c07fc661f144d9fad19f4bc8b91f",
+      "bytes": 2383
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRa/LoRaGWMac.ned": {
+      "sha256": "1549bf76cfc863829a3b346ed1219b6aa7f768943d7656f66c4a566890c4b62e",
+      "bytes": 2067
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRa/LoRaGWNic.ned": {
+      "sha256": "f586010fc7c76503f3fd87587ef41bad31b5bee9c3e951e726029074c964b43c",
+      "bytes": 1299
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRa/LoRaGWRadio.cc": {
+      "sha256": "83ae5bd44df0348f84c160f3f67d969510a69e40e73bca8df60d052ea39f5d07",
+      "bytes": 13714
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRa/LoRaGWRadio.h": {
+      "sha256": "78b82a7ca27f88761b1d7f8e73fe00e848f3813e08194350e014edc5a25feca2",
+      "bytes": 2609
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRa/LoRaGWRadio.ned": {
+      "sha256": "bb3b55193cfea676ece200b00c184f8ac160c834e02317fa72a9ca22d8fbbbd6",
+      "bytes": 4834
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRa/LoRaMac.cc": {
+      "sha256": "dbc833aaabcf25b56cfbca5b1f1455c5d18c7fd2148eff5658720075ea4994b2",
+      "bytes": 18790
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRa/LoRaMac.h": {
+      "sha256": "48bb25258b81005ff0ced5f5c36ac4086d7ded9429f981c9a5438c3d65946b40",
+      "bytes": 5989
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRa/LoRaMac.ned": {
+      "sha256": "f60a98f17e0bc7590912a14987432dc89fd04b4f129e1a110b6e12eb6f5a6664",
+      "bytes": 944
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRa/LoRaMacControlInfo.msg": {
+      "sha256": "19e186ec37df32601ab8565e05b20137aa7ba6ea173cf071c6b40d756055ac8b",
+      "bytes": 1149
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRa/LoRaMacFrame.msg": {
+      "sha256": "03b9556eec5ab027ff56a970dd48f4ab637e5e3367d14d34cb327983f70b9331",
+      "bytes": 1211
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRa/LoRaNic.ned": {
+      "sha256": "4c0145be874db02ca150c20b779a64ad69c9d1d329c200a2a20f3495b1be4c29",
+      "bytes": 1312
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRa/LoRaRadio.cc": {
+      "sha256": "2b344e35b4ea4a22c7326dcdf34d2ed68eb593c70009ae543e02996a7074e393",
+      "bytes": 22972
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRa/LoRaRadio.h": {
+      "sha256": "ca4ef8cec5eefea9aad84530fc07de7cad91c058c5237988959f7453ff42a9d1",
+      "bytes": 5301
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRa/LoRaRadio.ned": {
+      "sha256": "8f279ae6fe78d001ab2e934e5b5db80dcb2cf98c969af30fe4a21cb424bd5ebb",
+      "bytes": 4026
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRa/LoRaTagInfo.msg": {
+      "sha256": "5262a0b23e0fb14d1033ce156f220964cfd24fc16235027a2aded21cb3537364",
+      "bytes": 1084
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRa/NetworkServerApp.cc": {
+      "sha256": "35a4b2033bc321442135e3d4e83eee8091d89577b7f95c2ff3ee6d15b8d00631",
+      "bytes": 16874
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRa/NetworkServerApp.h": {
+      "sha256": "1fddcd4d7a42ce0bd1ee728db6e1540b8a8efaadb35305f36ddef7f328074e45",
+      "bytes": 3317
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRa/NetworkServerApp.ned": {
+      "sha256": "674c4264b5a264e18053ad9cf0c513d9d7ca6bb16cf5bf4c24df192dffd55f25",
+      "bytes": 1356
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRa/PacketForwarder.cc": {
+      "sha256": "718864849c21ab3ea7188390b39c11c6cb1669a437e1eda17db5d4a4e0ca8cdd",
+      "bytes": 5927
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRa/PacketForwarder.h": {
+      "sha256": "bae5dbeeeafc39eba0c98cd6fa396df2ff07b817f5fe77664faa4e271e867e02",
+      "bytes": 1957
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRa/PacketForwarder.ned": {
+      "sha256": "63a1e7574ea810ad5fda74f5ceae24cfe669893fffac78d236f4e5a4083c3385",
+      "bytes": 1386
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRaApp/LoRaAppPacket.msg": {
+      "sha256": "56b7abb1cbd290170ee1449d94989fa03c6ce1fdb1875c563aa472df5521b187",
+      "bytes": 1231
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRaApp/SimpleLoRaApp.cc": {
+      "sha256": "9d5a85096f84e9c13240a3e9052982453cb72461c31229d5cb8fc83161b3d750",
+      "bytes": 9954
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRaApp/SimpleLoRaApp.h": {
+      "sha256": "2ba577f57ec891f7247204408fb81804c8076714abbc32bfc53cfdef8fbd326c",
+      "bytes": 2888
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRaApp/SimpleLoRaApp.ned": {
+      "sha256": "e5fc4dd65be0592174d54f844b6d885d38d185993ce691b5c0109c2e0e94b465",
+      "bytes": 1669
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRaEnergyModules/LoRaEnergyConsumer.cc": {
+      "sha256": "8e0604d42fbae75729bc196c5c0dfe2d2ed7d0515897bdf3bf1966176d687ca4",
+      "bytes": 10212
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRaEnergyModules/LoRaEnergyConsumer.h": {
+      "sha256": "2c32bf4128eaf30a4cc0c683e5d05360a88ac5c35280454c5f352d27afd973d7",
+      "bytes": 1983
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRaEnergyModules/LoRaEnergyConsumer.ned": {
+      "sha256": "41128acc31737123e70eb83d99ecbf90b4ef6a73658c1fc3e8277674f9c60d8b",
+      "bytes": 936
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRaPhy/LoRaAnalogModel.cc": {
+      "sha256": "1379cea0cd3cc8c26c3a756f3f4f83cb7b3ee86c119bd3bd83b640e6bfefda26",
+      "bytes": 11107
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRaPhy/LoRaAnalogModel.h": {
+      "sha256": "5676c31cc030c0f5903b08ea44ebc18fd4dfd9e566e542d3a988896561a50143",
+      "bytes": 1860
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRaPhy/LoRaAnalogModel.ned": {
+      "sha256": "dbf141432b136bb2ec48a79741027e59023f6cba160858c6b13df1b8099f1895",
+      "bytes": 1161
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRaPhy/LoRaBandListening.cc": {
+      "sha256": "080e93beb6f4d6fcffb6c2dad91157de6570cfa5dbef28e00ce20dc7cf5c1052",
+      "bytes": 1443
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRaPhy/LoRaBandListening.h": {
+      "sha256": "500cca6419de2d5f960e1c0c0bb3bd898ff14675dcfa951daed6028f33e6126c",
+      "bytes": 1721
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRaPhy/LoRaHataOkumura.cc": {
+      "sha256": "cbbe85093bb402fff3170ad6d596f0da12a9926d897d0ff4e6163d69ce4afb0e",
+      "bytes": 1378
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRaPhy/LoRaHataOkumura.h": {
+      "sha256": "b7525be06727c196d758484056895155011049bd6c7e2cda194bae55d8087d5d",
+      "bytes": 1415
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRaPhy/LoRaHataOkumura.ned": {
+      "sha256": "65d2cd04324f05dcc99a3b2277512b30755c10b00400d905536e368306e96e09",
+      "bytes": 989
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRaPhy/LoRaLogNormalShadowing.cc": {
+      "sha256": "04224ae6a73fe5cc0ca0bc32103c6470f4aaebf83bc542a6a192f5fd2d76be08",
+      "bytes": 2343
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRaPhy/LoRaLogNormalShadowing.h": {
+      "sha256": "724a5fc13162841c3672540a32a39f5d9ea602db3731a00da6bc76a5b6532ffb",
+      "bytes": 1637
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRaPhy/LoRaLogNormalShadowing.ned": {
+      "sha256": "e18943fe1aa43f5cfe68d4e6250782691433284b1bc7e6cb13343f725dde50b2",
+      "bytes": 1051
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRaPhy/LoRaMedium.cc": {
+      "sha256": "98dec3fb39958ee2e94cf8b8cb5e0a84b180c96151d4c0b4c9859dedf57b5f48",
+      "bytes": 6316
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRaPhy/LoRaMedium.h": {
+      "sha256": "77c0b7df9d9be84036e008e7b8b4258783b863e196a5d96a122a274cd78a4e5f",
+      "bytes": 2374
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRaPhy/LoRaMedium.ned": {
+      "sha256": "0b72d0450d76e8845cd0b627529c0a29ed1b6ec3578f3aeed3d3f961965a7f56",
+      "bytes": 1418
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRaPhy/LoRaMediumCache.cc": {
+      "sha256": "953ee7e555d9393464cc4d72693e5d826e4bfc6859f685f7663ff870b63bdf5c",
+      "bytes": 8507
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRaPhy/LoRaMediumCache.h": {
+      "sha256": "5748c0e681732493c7d326cb248eceae1333e008b004bfc8bdd40ee8baa18095",
+      "bytes": 5670
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRaPhy/LoRaMediumCache.ned": {
+      "sha256": "0cea79c49394167c823fdc2eb6e8a697d2de3b6bc5d7b1cdf870e388c81c828e",
+      "bytes": 2238
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRaPhy/LoRaModulation.cc": {
+      "sha256": "f06568337f8e35f5eaf3784788701f7314d8c59c8e6f42c9f82c7fa98921eddb",
+      "bytes": 2978
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRaPhy/LoRaModulation.h": {
+      "sha256": "54429f35182925b5e6c172b34f2e46ed6d9b761264b2efb40aec4182532bd90b",
+      "bytes": 1758
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRaPhy/LoRaNeighborCache.cc": {
+      "sha256": "9f072216ffa0ea9012a8b27676b77e26b0e74d5eeecbd0de12b7b054a41e430f",
+      "bytes": 5219
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRaPhy/LoRaNeighborCache.h": {
+      "sha256": "d2bfbca69ada2c856c837d271ba8abed00f891248d4b3bcbcf6ad888fb935e7e",
+      "bytes": 2510
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRaPhy/LoRaNeighborCache.ned": {
+      "sha256": "f9853b2d88974bf625373dfdba4d0772f734681c890d0129bb1782c22db98794",
+      "bytes": 1143
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRaPhy/LoRaPathLossOulu.cc": {
+      "sha256": "8d69eb095019b28fcaeba9db46d129a1b4680c6cd3315dd846b6f77a883cc122",
+      "bytes": 1484
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRaPhy/LoRaPathLossOulu.h": {
+      "sha256": "de3d59b9c75efef5a1e35748d7d9d1cd6047d2706dba514169db5191d7d8681d",
+      "bytes": 1375
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRaPhy/LoRaPathLossOulu.ned": {
+      "sha256": "b982ada4700e06a443eb4110ed6addc62604aaaf7c9d6b471903274e657cfa42",
+      "bytes": 1132
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRaPhy/LoRaPhyPreamble.msg": {
+      "sha256": "342dd59843341bfda550bd1e60d286773d992b9e3372e61fb9d5a0e73d0799c5",
+      "bytes": 1096
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRaPhy/LoRaRadioControlInfo.msg": {
+      "sha256": "c5b20b405a5e98ad3a15be4259f344ff6339ae88c10cfdd619d8086df3aa2078",
+      "bytes": 3294
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRaPhy/LoRaReceiver.cc": {
+      "sha256": "fa70f7d6851306a791934d6560039c16e8a868a7e7a9dd0efff07461d692478d",
+      "bytes": 17191
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRaPhy/LoRaReceiver.h": {
+      "sha256": "624ca7e984da76739cc8913add311e25c0f65e088ac18e0d540d924133c88673",
+      "bytes": 4700
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRaPhy/LoRaReceiver.ned": {
+      "sha256": "f0959cf23014b1421358a7ba917ecfb61dc8da68b8f011797adc4889eebda183",
+      "bytes": 1336
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRaPhy/LoRaReception.cc": {
+      "sha256": "f3aee6358f4bc211b320fa1f77ef25ba48cb9fecce4ca69e46da4fdfde8e101c",
+      "bytes": 864
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRaPhy/LoRaReception.h": {
+      "sha256": "3355dcf4d168feae6caa233b14b79ba14c359fe13f045626c6229ce4f060af21",
+      "bytes": 1210
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRaPhy/LoRaTransmission.cc": {
+      "sha256": "a9d4a0cb6926cc129021bd644430f474a3ab727b3b271dce45254716d14c082f",
+      "bytes": 1081
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRaPhy/LoRaTransmission.h": {
+      "sha256": "149eb545130338d14e9c404dc6f533c925bf0f6445e299d7bc7d22893fc7c6f5",
+      "bytes": 1723
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRaPhy/LoRaTransmitter.cc": {
+      "sha256": "f46bb9f56705859c326451ef18f53ce221918255d0a43ea86c7a72fb43bb73a4",
+      "bytes": 4578
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRaPhy/LoRaTransmitter.h": {
+      "sha256": "e2f0233e0ce994da8aaed92759ce954a2ed569df7035d11917c7be9c6c95ad82",
+      "bytes": 1501
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoRaPhy/LoRaTransmitter.ned": {
+      "sha256": "01a23f9af45eebdd8bd8e6cd2023245920b202448404ef9885bd044c21048d69",
+      "bytes": 1099
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoraNode/LoRaGW.ned": {
+      "sha256": "7421dece7c2895791761a01c991b7136e5fc199ed450dcee3e5fb9795dd55dd7",
+      "bytes": 6086
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/LoraNode/LoRaNode.ned": {
+      "sha256": "ab5750008d836f394e116f5d3baac5e2e3cd6d7fd8d204d55e1d988b92c94a76",
+      "bytes": 1820
+    },
+    "evidence/source-comparison/fuentes/flora-1.1/src/package.ned": {
+      "sha256": "cef89d70e0637296440d0dffd0dbc911212574f0b180ebb3f3f078dd3a9f5478",
+      "bytes": 52
+    },
+    "evidence/source-comparison/referencia-1.1/TOOLCHAIN.md": {
+      "sha256": "1fab69ae6f1d8cf728709c18fb731731714de7243b615469415a5d47278a74da",
+      "bytes": 2162
+    },
+    "evidence/source-comparison/referencia-1.1/campaign-manifest.json": {
+      "sha256": "f47ec9b319b88fd1ab2205f08f4e32261f3fd1e62b554dd41d9e10aa39ad2684",
+      "bytes": 1042920
+    },
+    "evidence/source-comparison/referencia-1.1/compact-provenance-n1000.json": {
+      "sha256": "e21c22a804a7b8dd3cd98101efc7a5e7aced14fa9a9f1351765f912808540ecc",
+      "bytes": 458
+    },
+    "evidence/source-comparison/referencia-1.1/coverage-through-n1000.csv": {
+      "sha256": "e73ec81abefcc3be91b0c5a8f72af678afece981417ff235c35ab9d571f8005d",
+      "bytes": 1486
+    },
+    "evidence/source-comparison/referencia-1.1/official-failures-n1000.csv": {
+      "sha256": "d19ab8706adcc0b75c3862117152a1ce54ad5303c13574b6dd8ffc59f58d7db6",
+      "bytes": 846
+    },
+    "evidence/source-comparison/referencia-1.1/official-legacy.ini": {
+      "sha256": "534fd7ad59fb2d63da4bcc52fdfa80a77e506bbb4356a4e9a8522211c915820c",
+      "bytes": 3978
+    },
+    "evidence/source-comparison/referencia-1.1/official-run-level-n1000.csv": {
+      "sha256": "9743fc4f47a31442c32244d9902b8f339f33f35cdb953fbe0395930477685f11",
+      "bytes": 20639
+    },
+    "evidence/source-comparison/referencia-1.1/survey-status.json": {
+      "sha256": "09dcf8373e486e3eef7f066b592a4b99584ef2b2907df6c015f795bdc7383d6e",
+      "bytes": 275
+    },
+    "release-assets.json": {
+      "sha256": "a1c6fdd9f13e5a7f078d874a275954796ce80517ef6f2754ab84dbf70fa8e5c1",
+      "bytes": 614
+    },
+    "simulator/.nedfolders": {
+      "sha256": "32366be646b3fa13dcedd85d7fbb883f87d9a18deebf72cf9d8b6d96dbd52f55",
+      "bytes": 16
+    },
+    "simulator/.oppbuildspec": {
+      "sha256": "ecd9512ac10101dc773e2b5ed6ee61ef9b88f1c2c1262f75e23ac60616207faa",
+      "bytes": 390
+    },
+    "simulator/.oppfeaturestate": {
+      "sha256": "0cd5fabb3492c7652696488c54a287ed5161ddfdb46fc4e2a80a7566c82dde52",
+      "bytes": 72
+    },
+    "simulator/.project": {
+      "sha256": "d4f96831d60f47bc5194f9697251f182b99e215b68aaa8bed587d2fb21460025",
+      "bytes": 1166
+    },
+    "simulator/ENHANCED-FLORA-VERSION": {
+      "sha256": "4e56bf3224ce22dbc420c45139015269f74b70d0da7a86fbd40ef77c9a5be899",
+      "bytes": 10
+    },
+    "simulator/FROZEN_SOURCE_IDENTITY.json": {
+      "sha256": "f8216336e00a65358c9699cf74334496778e95211500126249ae7aec60380af3",
+      "bytes": 12055
+    },
+    "simulator/LICENSE.md": {
+      "sha256": "1e950a32358912876fcd3ea0bdd975c9ea8a7822eddc3cda662817c3abe99b1c",
+      "bytes": 7642
+    },
+    "simulator/Makefile": {
+      "sha256": "2efb48c8882f073319e3fff6d9ce3a682f63946256c13fd5ede163410f0a02f0",
+      "bytes": 1069
+    },
+    "simulator/NOTICE.md": {
+      "sha256": "b3844ff60b5a755d55da92a88772f7e862448e78013af2f3b3be06eefd145bd7",
+      "bytes": 969
+    },
+    "simulator/UPSTREAM-BASE": {
+      "sha256": "b807af98dea3d9e43818fae6fea19432dc8dcca695cf3bbfe6c021c6ba63f7f5",
+      "bytes": 107
+    },
+    "simulator/analysis/adr_comparison_metrics.py": {
+      "sha256": "c56c57c736cc639ed4495316a10fca5d1b51d6649564d048b1698d2f778de7d3",
+      "bytes": 7281
+    },
+    "simulator/analysis/extract_fidelity_ablation_metrics.py": {
+      "sha256": "8dd1170bf23ca99f358acf138549e3e1c03197b4ba98228e1bf1ff8013666efd",
+      "bytes": 5209
+    },
+    "simulator/analysis/generate_cross_stack_context.py": {
+      "sha256": "0e9fcfd6b60caeab01fd6a897fe90527f033da6c3ba3220df866ba6d564aea10",
+      "bytes": 6105
+    },
+    "simulator/analysis/generate_fidelity_ablation_paper_artifacts.py": {
+      "sha256": "1e547c26debdd556cb0dd0d477c983e9a5c64a848c9799241c8ac0994f2c1771",
+      "bytes": 19382
+    },
+    "simulator/analysis/regenerate_official_reference.py": {
+      "sha256": "a434f5c5ed0b358a98eeed62af04db67aad1a43d8d536ea54cc97b069cfabac5",
+      "bytes": 5427
+    },
+    "simulator/analysis/summarize_fidelity_ablation.py": {
+      "sha256": "6ec6b0ac31a0d020576ad20a6a3303fc58b6feb69112cbaf979f3df8f1345e5f",
+      "bytes": 4486
+    },
+    "simulator/analysis/validate_fidelity_ablation_testbed.py": {
+      "sha256": "d1723492d49608c253b8ecd11ce83d1818693cb9e15f1733a9fa3eea76708576",
+      "bytes": 11113
+    },
+    "simulator/simulations/cloudDelays.xml": {
+      "sha256": "c8b35d93c83644c9b45b5ee142c6349f742add213a0d917843ce9ff2aef81ae9",
+      "bytes": 184
+    },
+    "simulator/simulations/energyConsumptionParameters.xml": {
+      "sha256": "e81b8f0290a842597a8a47b1cdd4d35c794b73e196aefe3026e17610a066c368",
+      "bytes": 1052
+    },
+    "simulator/simulations/examples/Analisis-fidelity-ablation.ini": {
+      "sha256": "b6f481e96606dfc56311cc317de5e4f9f37cb239139279362ff9e65fa3aebf9d",
+      "bytes": 13403
+    },
+    "simulator/simulations/examples/Analisis-mi-PROPOSAL-ADR.ini": {
+      "sha256": "cb7401e54b913be484b8e5246eabfcfa93be88ba0412ea6515551ec224c3780f",
+      "bytes": 15980
+    },
+    "simulator/simulations/examples/fidelity-ablation.ini": {
+      "sha256": "8f4e78d918ecdf750f55daf5dadd653945c450a24790be6a2be63ca5afc5abd9",
+      "bytes": 112
+    },
+    "simulator/simulations/package.ned": {
+      "sha256": "68e76f79bbe538d01697a5cabdad57e662b41b07263e3f455a065e23ae50669f",
+      "bytes": 2315
+    },
+    "simulator/src/LoRa/LoRaGWMac.cc": {
+      "sha256": "9e72c8dbfd5a8e16496b00a2866cf2cc2cdb8eefc80c07a86ac068a8befee052",
+      "bytes": 8526
+    },
+    "simulator/src/LoRa/LoRaGWMac.h": {
+      "sha256": "c3aea69ec39a9d9b428de258d54f2d7bd87e8793ac24aa26ff71e8f593bef3f2",
+      "bytes": 2587
+    },
+    "simulator/src/LoRa/LoRaGWMac.ned": {
+      "sha256": "537827eeee91941c35f746cea9c2d057506b6351ad1b736a939b25a105863757",
+      "bytes": 2623
+    },
+    "simulator/src/LoRa/LoRaGWNic.ned": {
+      "sha256": "2aefd2e8d070ee339fe02fa7c87bd7ab9d50e679ac87c0cf1b211731a14911e9",
+      "bytes": 1295
+    },
+    "simulator/src/LoRa/LoRaGWRadio.cc": {
+      "sha256": "fe15c7075c69eef2efe85a915df378848639b020048d6074a31e6a368a7f4db9",
+      "bytes": 12700
+    },
+    "simulator/src/LoRa/LoRaGWRadio.h": {
+      "sha256": "be533efef9145a5a1efb5dfe960a9e5313bef34e954157cb0de885d3b6b49c13",
+      "bytes": 2548
+    },
+    "simulator/src/LoRa/LoRaGWRadio.ned": {
+      "sha256": "788f1393afcccbc1b4f4628fde59853536e740f6d617cedc56a7a41c9848d9e9",
+      "bytes": 5207
+    },
+    "simulator/src/LoRa/LoRaMac.cc": {
+      "sha256": "d636bf12cfedde9f76805255b456a52ff03fd061a054fe33c26866787cc49a73",
+      "bytes": 18515
+    },
+    "simulator/src/LoRa/LoRaMac.h": {
+      "sha256": "7d0113708444d9b1e8a8699dd4c2544615c67c0e0a5364bd0fe1ad730bf4a094",
+      "bytes": 5170
+    },
+    "simulator/src/LoRa/LoRaMac.ned": {
+      "sha256": "f60a98f17e0bc7590912a14987432dc89fd04b4f129e1a110b6e12eb6f5a6664",
+      "bytes": 944
+    },
+    "simulator/src/LoRa/LoRaMacControlInfo.msg": {
+      "sha256": "19e186ec37df32601ab8565e05b20137aa7ba6ea173cf071c6b40d756055ac8b",
+      "bytes": 1149
+    },
+    "simulator/src/LoRa/LoRaMacControlInfo_m.cc": {
+      "sha256": "3e6f1bef6ebc770f7db2bbb8bc9dbd48d22d10475dace3519ed8c7a50521a4d9",
+      "bytes": 21424
+    },
+    "simulator/src/LoRa/LoRaMacControlInfo_m.h": {
+      "sha256": "a28a29827c443cfb0ff17950603a765d36661090324c8211e9b4fc91c31ece71",
+      "bytes": 3075
+    },
+    "simulator/src/LoRa/LoRaMacFrame.msg": {
+      "sha256": "8a5f6e2fbaf77b246dacf646de3d28fe1c066920b0cb4e82560feaf63ff98f30",
+      "bytes": 1415
+    },
+    "simulator/src/LoRa/LoRaMacFrame_m.cc": {
+      "sha256": "f3c9332597adc725b736538e2a26d177bbe4666a3b04f1eee8beb00839b86ed0",
+      "bytes": 25829
+    },
+    "simulator/src/LoRa/LoRaMacFrame_m.h": {
+      "sha256": "255b835b54dac5babd3b78d88941e5b9b7128fe85458840f218c2889f9235c73",
+      "bytes": 4505
+    },
+    "simulator/src/LoRa/LoRaNic.ned": {
+      "sha256": "5d48c2e745e438d15a558bc192c80b9c283322d318c5d58edfd6aa97d0401237",
+      "bytes": 1204
+    },
+    "simulator/src/LoRa/LoRaRadio.cc": {
+      "sha256": "bea7abfb95e4b8ea90af9a6d93de7d7d309fabfcf9c5fc6f3bbebf7d4cf72038",
+      "bytes": 22994
+    },
+    "simulator/src/LoRa/LoRaRadio.h": {
+      "sha256": "6b972dc93d1e1b68fcead27c4ad8ef2fd7fb6eba4f410d64a35747a015cd9a42",
+      "bytes": 5053
+    },
+    "simulator/src/LoRa/LoRaRadio.ned": {
+      "sha256": "718fcdd713cc2443e5fac204c110d9b28ee702a2d7402380a6a8dc0600db022b",
+      "bytes": 3923
+    },
+    "simulator/src/LoRa/LoRaTagInfo.msg": {
+      "sha256": "05bcf955185435e2ff95ad529f7f452a0d2098710c10199004602adacc11d68a",
+      "bytes": 1457
+    },
+    "simulator/src/LoRa/LoRaTagInfo_m.cc": {
+      "sha256": "e9b780bd7824f6824a999b516754d8dc6256f35ee947beb013a23849f05a528f",
+      "bytes": 22295
+    },
+    "simulator/src/LoRa/LoRaTagInfo_m.h": {
+      "sha256": "0179f02c937b1e2724adaf7211e9da1dd73e21245674291bcf65919bd900b382",
+      "bytes": 3575
+    },
+    "simulator/src/LoRa/NetworkServerApp.cc": {
+      "sha256": "78b9dada8e4e85babb3280c6f645f0d767ced39233df98ce86d2367db1b8fdd1",
+      "bytes": 51385
+    },
+    "simulator/src/LoRa/NetworkServerApp.h": {
+      "sha256": "c17cf51f8708e5423492673dc648cba3786af36792bf7cd4382461e97d78403e",
+      "bytes": 9205
+    },
+    "simulator/src/LoRa/NetworkServerApp.ned": {
+      "sha256": "961b99426d095736af1766cced661cc4f0b9d2187408c005256a36f773d84f1f",
+      "bytes": 4791
+    },
+    "simulator/src/LoRa/PacketForwarder.cc": {
+      "sha256": "ca69233d6526ceb4306a3a0e5978adae5f17b1f449a72ad83ec61f31366bdcd7",
+      "bytes": 2819
+    },
+    "simulator/src/LoRa/PacketForwarder.h": {
+      "sha256": "8a1e3bb3adf96fd3ec6f28441c531fbf3ba63f0f516b6b02ae6d74a82328130f",
+      "bytes": 1046
+    },
+    "simulator/src/LoRa/PacketForwarder.ned": {
+      "sha256": "63a1e7574ea810ad5fda74f5ceae24cfe669893fffac78d236f4e5a4083c3385",
+      "bytes": 1386
+    },
+    "simulator/src/LoRaApp/LoRaAppPacket.msg": {
+      "sha256": "da1edbbad88854c09e31c587c5fe46a00eaaf20282ee575579a8e7baf19111a0",
+      "bytes": 2070
+    },
+    "simulator/src/LoRaApp/LoRaAppPacket_m.cc": {
+      "sha256": "4d3d0f20d537fb8ddc8666bd58824e22c78755a092db5058bd1f5c95a04554c0",
+      "bytes": 41545
+    },
+    "simulator/src/LoRaApp/LoRaAppPacket_m.h": {
+      "sha256": "4c7e5df09ce32f79dc89608832e01d38da4bcd3e7d782405a83368b713f7bdf4",
+      "bytes": 7258
+    },
+    "simulator/src/LoRaApp/SimpleLoRaApp.cc": {
+      "sha256": "78bbbdbb5ba05c9b157d25cbfa85ad6146e00a139cec6322b889a4799f208013",
+      "bytes": 23201
+    },
+    "simulator/src/LoRaApp/SimpleLoRaApp.h": {
+      "sha256": "a1cf9b0d869910795b9527672cab1a609cb175f3e2ce209f7af0430d90a0a51a",
+      "bytes": 4760
+    },
+    "simulator/src/LoRaApp/SimpleLoRaApp.ned": {
+      "sha256": "5ae636b05595fb27d85937d404b16a4a6fd608fb270e1cc1a0b6881fd190a0b9",
+      "bytes": 3167
+    },
+    "simulator/src/LoRaEnergyModules/LoRaEnergyConsumer.cc": {
+      "sha256": "48d8f2330248c794f56d877b3acb1fe6c1b226a79655d737539054a8bd0d7852",
+      "bytes": 10649
+    },
+    "simulator/src/LoRaEnergyModules/LoRaEnergyConsumer.h": {
+      "sha256": "fd613a12e5d9517bf772c71197c34da9c063f80c984e8cb0053c59aec0aa9ae3",
+      "bytes": 2464
+    },
+    "simulator/src/LoRaEnergyModules/LoRaEnergyConsumer.ned": {
+      "sha256": "36f3f821bc9184794d853ab7744dd249cbb6e373e243c7822af6ff183952a268",
+      "bytes": 1066
+    },
+    "simulator/src/LoRaPhy/LoRaAirtimeCalculator.h": {
+      "sha256": "eda4fa64a55e16468a1f0bf6806a421bd027e851de487fbd9a85713f11c04e7b",
+      "bytes": 4188
+    },
+    "simulator/src/LoRaPhy/LoRaAnalogModel.cc": {
+      "sha256": "553d716cba0012f7fa49bf293dad4a31e9acce228dbec108e0200b40d791f3f5",
+      "bytes": 10784
+    },
+    "simulator/src/LoRaPhy/LoRaAnalogModel.h": {
+      "sha256": "9b694b5499d38976678906baf2510508a41aa73d5b0bba253edffe09df2136b9",
+      "bytes": 1895
+    },
+    "simulator/src/LoRaPhy/LoRaAnalogModel.ned": {
+      "sha256": "d6fa3bbac514646bed3525e243c5d3c112331234a16e835a64955ac1890a12f8",
+      "bytes": 1546
+    },
+    "simulator/src/LoRaPhy/LoRaBandListening.cc": {
+      "sha256": "080e93beb6f4d6fcffb6c2dad91157de6570cfa5dbef28e00ce20dc7cf5c1052",
+      "bytes": 1443
+    },
+    "simulator/src/LoRaPhy/LoRaBandListening.h": {
+      "sha256": "500cca6419de2d5f960e1c0c0bb3bd898ff14675dcfa951daed6028f33e6126c",
+      "bytes": 1721
+    },
+    "simulator/src/LoRaPhy/LoRaHataOkumura.cc": {
+      "sha256": "cbbe85093bb402fff3170ad6d596f0da12a9926d897d0ff4e6163d69ce4afb0e",
+      "bytes": 1378
+    },
+    "simulator/src/LoRaPhy/LoRaHataOkumura.h": {
+      "sha256": "b7525be06727c196d758484056895155011049bd6c7e2cda194bae55d8087d5d",
+      "bytes": 1415
+    },
+    "simulator/src/LoRaPhy/LoRaHataOkumura.ned": {
+      "sha256": "65d2cd04324f05dcc99a3b2277512b30755c10b00400d905536e368306e96e09",
+      "bytes": 989
+    },
+    "simulator/src/LoRaPhy/LoRaLogNormalShadowing.cc": {
+      "sha256": "65518010993ee321828ca9a2a248b836128ed895ddc5fbb3a54753d3ce10f3ec",
+      "bytes": 3363
+    },
+    "simulator/src/LoRaPhy/LoRaLogNormalShadowing.h": {
+      "sha256": "bd717498f818c04812866d63f8701e1b1edd0c6c9268b9f90001b54e9ee91cef",
+      "bytes": 1636
+    },
+    "simulator/src/LoRaPhy/LoRaLogNormalShadowing.ned": {
+      "sha256": "9b984c495beea9e1cb6d326b706a41cd2aa4a37858b1048d5cd6a91300be4109",
+      "bytes": 1546
+    },
+    "simulator/src/LoRaPhy/LoRaMedium.cc": {
+      "sha256": "f92bee7884c6260796f6e66ade0fc4e48c658f2810c4fefe6a55441867b8fd54",
+      "bytes": 4261
+    },
+    "simulator/src/LoRaPhy/LoRaMedium.h": {
+      "sha256": "da3bab3077b53008789076c84d09b49f51987b3f790df7b17f4fa25f2b222dc0",
+      "bytes": 2276
+    },
+    "simulator/src/LoRaPhy/LoRaMedium.ned": {
+      "sha256": "6384dadcef94c80ba80a5bb911655c4fc321842436364536bc27b16ef77ed234",
+      "bytes": 1414
+    },
+    "simulator/src/LoRaPhy/LoRaMediumCache.cc": {
+      "sha256": "3c0218fd364dafa9355e40b3f44be0eb517d7671bf7a2bdf9f8c12eca597301e",
+      "bytes": 8511
+    },
+    "simulator/src/LoRaPhy/LoRaMediumCache.h": {
+      "sha256": "5748c0e681732493c7d326cb248eceae1333e008b004bfc8bdd40ee8baa18095",
+      "bytes": 5670
+    },
+    "simulator/src/LoRaPhy/LoRaMediumCache.ned": {
+      "sha256": "0cea79c49394167c823fdc2eb6e8a697d2de3b6bc5d7b1cdf870e388c81c828e",
+      "bytes": 2238
+    },
+    "simulator/src/LoRaPhy/LoRaModulation.cc": {
+      "sha256": "f06568337f8e35f5eaf3784788701f7314d8c59c8e6f42c9f82c7fa98921eddb",
+      "bytes": 2978
+    },
+    "simulator/src/LoRaPhy/LoRaModulation.h": {
+      "sha256": "54429f35182925b5e6c172b34f2e46ed6d9b761264b2efb40aec4182532bd90b",
+      "bytes": 1758
+    },
+    "simulator/src/LoRaPhy/LoRaNeighborCache.cc": {
+      "sha256": "9f072216ffa0ea9012a8b27676b77e26b0e74d5eeecbd0de12b7b054a41e430f",
+      "bytes": 5219
+    },
+    "simulator/src/LoRaPhy/LoRaNeighborCache.h": {
+      "sha256": "d2bfbca69ada2c856c837d271ba8abed00f891248d4b3bcbcf6ad888fb935e7e",
+      "bytes": 2510
+    },
+    "simulator/src/LoRaPhy/LoRaNeighborCache.ned": {
+      "sha256": "f9853b2d88974bf625373dfdba4d0772f734681c890d0129bb1782c22db98794",
+      "bytes": 1143
+    },
+    "simulator/src/LoRaPhy/LoRaPathLossOulu.cc": {
+      "sha256": "8d69eb095019b28fcaeba9db46d129a1b4680c6cd3315dd846b6f77a883cc122",
+      "bytes": 1484
+    },
+    "simulator/src/LoRaPhy/LoRaPathLossOulu.h": {
+      "sha256": "de3d59b9c75efef5a1e35748d7d9d1cd6047d2706dba514169db5191d7d8681d",
+      "bytes": 1375
+    },
+    "simulator/src/LoRaPhy/LoRaPathLossOulu.ned": {
+      "sha256": "b982ada4700e06a443eb4110ed6addc62604aaaf7c9d6b471903274e657cfa42",
+      "bytes": 1132
+    },
+    "simulator/src/LoRaPhy/LoRaPhyPreamble.msg": {
+      "sha256": "5eb08e95edf97e5751a903f55907ea91d8810f05a1d2d267808d890cf239b266",
+      "bytes": 1185
+    },
+    "simulator/src/LoRaPhy/LoRaPhyPreamble_m.cc": {
+      "sha256": "1532958ffa57b55e63993afdd3e681ac477dc1061c562832cb5126531b56c9cd",
+      "bytes": 22904
+    },
+    "simulator/src/LoRaPhy/LoRaPhyPreamble_m.h": {
+      "sha256": "d02d5868ed11a543042814be93e932cb184cea3fed233afd031324eb417fe1e8",
+      "bytes": 3625
+    },
+    "simulator/src/LoRaPhy/LoRaRadioControlInfo.msg": {
+      "sha256": "c5b20b405a5e98ad3a15be4259f344ff6339ae88c10cfdd619d8086df3aa2078",
+      "bytes": 3294
+    },
+    "simulator/src/LoRaPhy/LoRaRadioControlInfo_m.cc": {
+      "sha256": "ae7aa86616e9f220ac61c5029dc6be953f357dab5ec670c3c4e3bd09fa147cc7",
+      "bytes": 48339
+    },
+    "simulator/src/LoRaPhy/LoRaRadioControlInfo_m.h": {
+      "sha256": "641eb59cd6f0c46288113d2126648e9e8a06ab9f2571f6cbe8c9382073b70346",
+      "bytes": 7952
+    },
+    "simulator/src/LoRaPhy/LoRaReceiver.cc": {
+      "sha256": "8bc68362d8f3b2f384d1244a68fd10cba78dc2136ddedd624f93f98569e387f1",
+      "bytes": 26370
+    },
+    "simulator/src/LoRaPhy/LoRaReceiver.h": {
+      "sha256": "2d302be819dee45bbe12ffb631d3f440f7f4ba2d5f081091e1be5926d176c1b1",
+      "bytes": 5883
+    },
+    "simulator/src/LoRaPhy/LoRaReceiver.ned": {
+      "sha256": "f5571f7ce18c77e316a1af37b319ed530db754c4c44b725ceb00570b5a0cc268",
+      "bytes": 2223
+    },
+    "simulator/src/LoRaPhy/LoRaReception.cc": {
+      "sha256": "f3aee6358f4bc211b320fa1f77ef25ba48cb9fecce4ca69e46da4fdfde8e101c",
+      "bytes": 864
+    },
+    "simulator/src/LoRaPhy/LoRaReception.h": {
+      "sha256": "3355dcf4d168feae6caa233b14b79ba14c359fe13f045626c6229ce4f060af21",
+      "bytes": 1210
+    },
+    "simulator/src/LoRaPhy/LoRaTransmission.cc": {
+      "sha256": "a9d4a0cb6926cc129021bd644430f474a3ab727b3b271dce45254716d14c082f",
+      "bytes": 1081
+    },
+    "simulator/src/LoRaPhy/LoRaTransmission.h": {
+      "sha256": "149eb545130338d14e9c404dc6f533c925bf0f6445e299d7bc7d22893fc7c6f5",
+      "bytes": 1723
+    },
+    "simulator/src/LoRaPhy/LoRaTransmitter.cc": {
+      "sha256": "e54626164577802140b56cbab4f28c48d9c5f0a861e80e55eb5c57df71477078",
+      "bytes": 5109
+    },
+    "simulator/src/LoRaPhy/LoRaTransmitter.h": {
+      "sha256": "424d8547a5d7fb7de59c333b755cec5887fd0694112b54dc89994119b28f84e2",
+      "bytes": 1438
+    },
+    "simulator/src/LoRaPhy/LoRaTransmitter.ned": {
+      "sha256": "2a69e9baf76018c9245e7efed8269347b1f6d41009a904d2a9606beeba224165",
+      "bytes": 1906
+    },
+    "simulator/src/LoraNode/LoRaGW.ned": {
+      "sha256": "8966c7d93c5725acf45455c7aaf3849f01a269eb2db35fef7530851ce92496ad",
+      "bytes": 3947
+    },
+    "simulator/src/LoraNode/LoRaNode.ned": {
+      "sha256": "7ce0eff5f844d7beca727f3b70247410ab500d23a774e464a4fbe3ae7d82227b",
+      "bytes": 2061
+    },
+    "simulator/src/Makefile": {
+      "sha256": "2b0be8f3ac76ab6383d078d5fcc6376c30333e4e9f6e1f2c6a70698f3e383377",
+      "bytes": 5701
+    },
+    "simulator/src/package.ned": {
+      "sha256": "cef89d70e0637296440d0dffd0dbc911212574f0b180ebb3f3f078dd3a9f5478",
+      "bytes": 52
+    },
+    "simulator/src/run_flora": {
+      "sha256": "5157c06a52a6ffa9de57fddc49aa208787fe49f062f0145bc2936ca5c5f8c32d",
+      "bytes": 169
+    },
+    "simulator/tests/0001-assert-one-mac-send-per-event.patch": {
+      "sha256": "71b7b334331363387302ddf75e8a523a6a685a21847c13d7fd90ca1d321eeb34",
+      "bytes": 651
+    },
+    "simulator/tests/evidence/mac-one-send-rc4.json": {
+      "sha256": "3d488a0c677d721d5285435fa559431a2c2b7bb9bef57e063c1b5f1e1617e465",
+      "bytes": 738
+    },
+    "simulator/tests/run_mac_one_send_regression.py": {
+      "sha256": "dc7238d8b131f523422e0a47c43a939c2b496b5b1a599fae382a113e12680e1c",
+      "bytes": 5122
+    },
+    "simulator/tools/regenerate_platform_paper.py": {
+      "sha256": "ba48f1b19656ce7ac17a2ab3e6529a02daa4f799c27480abbe0586907b441d54",
+      "bytes": 2893
+    },
+    "simulator/tools/rerun_corrected_release.py": {
+      "sha256": "c2cd642bd74cc9a730eef116aa332e630a464c84eeded28f02af024b7a0cd195",
+      "bytes": 8983
+    },
+    "simulator/tools/verify_corrected_release.py": {
+      "sha256": "5daa5057fc3770eb8b8a7b6c93b43b785c6bf5922ddde5463d46b8cf0adba08c",
+      "bytes": 10121
+    },
+    "tools/check_publication_contents.py": {
+      "sha256": "52d6062c869b707c639989e71b6b79b71a2097c57e3238bcc4de399e53482708",
+      "bytes": 2921
+    },
+    "tools/reproduce_tables.py": {
+      "sha256": "f08ee5cb8777c8cdd87749a794e6a554334c7bc2c3a834cdc7f18b3c901a698b",
+      "bytes": 4363
+    },
+    "tools/verify.py": {
+      "sha256": "ed54d096b8fe00363e2f945ddf3e1a0b236d7f6dfa7fb5c817c63b0d101499ef",
+      "bytes": 4608
+    }
+  }
+}

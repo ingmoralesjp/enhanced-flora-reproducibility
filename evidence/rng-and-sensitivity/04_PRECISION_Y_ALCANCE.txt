@@ -1,0 +1,25 @@
+P7 — qué se documenta, sin imponer requisitos adicionales
+Campaña original: num-rngs no se sobreescribe, y los sorteos no especifican
+otro índice; por los defaults del kernel fijado se comparte global RNG0.
+La fuente del kernel y movilidad se adjunta en rng-source/ desde el compendio,
+no desde otro entorno. rng-class=cMersenneTwister. seed-set toma runnumber:
+para N=100, seeds0–4; para N=1000,45–49. Se verifica en las 900 filas y 150
+bloques de seis etapas, no se usa seed como único identificador de pareja.
+La misma semilla comparte la inicialización del generador, pero cambios en
+eventos/consultas pueden redistribuir sus sorteos entre tráfico, movilidad y
+canal. No se garantiza identidad de las trayectorias exógenas. Los cuatro
+flujos separados pertenecen a la extensión factorial, no a esta campaña.
+
+03_PRECISION_PAREADA_ORIGINAL.csv entrega 300 contrastes adyacentes y
+acumulativos por población/densidad, cinco pares cada uno, efecto y extremos
+de IC95 puntual t con cuatro grados de libertad. No son 900 réplicas de un
+efecto ni intervalos simultáneos. Su anchura limita las afirmaciones; contener
+cero no demuestra equivalencia. No se recuperó una planificación prospectiva
+universal de n=5, y el análisis actual no se presenta como si lo fuera.
+
+La extensión existente tiene 320 celdas/80 bloques, diez repeticiones por
+condición en 500 estacionarios. Su objetivo de semiamplitud de 1 pp fue interno:
+3/8 condiciones lo alcanzan,5/8 no. La observación solicita reportar/justificar
+precisión, no obliga a alcanzar ese umbral. Esta entrega satisface la
+transparencia de precisión sin ocultar amplitudes ni ordenar nuevas corridas.
+La sensibilidad warm-up es acotada y no prueba equilibrio de todas las colas.

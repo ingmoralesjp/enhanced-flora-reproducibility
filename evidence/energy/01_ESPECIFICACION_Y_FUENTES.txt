@@ -1,0 +1,32 @@
+P5 — especificación energética completa de la campaña
+Modelo: radio de dispositivo genérico parametrizado, sin identificación de
+placa calibrada ni validación experimental. Fuente de los valores ejecutados:
+frozen/simulations/energyConsumptionParameters.xml, no datos de RiskBudget.
+No se inventa una referencia de hardware que el archivo no documenta.
+
+V=3.3 V. RX y BUSY: 9.7 mA. IDLE y SLEEP: 0.0001 mA.
+La tabla completa TX de 2 a 14 dBm está en 02_CORRIENTES_TX_mA.csv.
+Otros estados: OFF usa offPowerConsumption=0 mW; SWITCHING usa
+switchingPowerConsumption=1 mW, heredados del StateBasedEpEnergyConsumer.ned
+fijado que se adjunta. Son potencias, no nuevas corrientes XML ni calibración
+de CC2500: LoRaEnergyConsumer NO hereda SensorStateBasedEpEnergyConsumer.
+La ausencia de consumo other en una ejecución no elimina esos valores.
+
+Integración: E=Σ P_estado × Δt. Corrientes mA se convierten con V*mA=mW;
+la integral se almacena en J y puede multiplicarse por 1000 para mJ.
+En una transición se integra la potencia ANTERIOR hasta el timestamp y luego
+se actualiza el estado. finish() añade el intervalo final sin transición.
+Cada intervalo se recorta con max(inicio,warmup), hasta fin; la medida usa
+[2d,12d], mientras que otro acumulador guarda el horizonte completo.
+TX/RX/IDLE/SLEEP/OTHER son contribuciones; no sumar tiempos como si siempre
+fueran grupos exclusivos en modo transceiver. GW y servidor se excluyen.
+
+F5 cambia SOLO el selector TX. De W a mW, luego dBm y std::lround a entero;
+se busca coincidencia o calibración entera más cercana, con empate a inferior
+entre entradas tabuladas. El redondeo previo de media unidad dBm no es ese
+empate de tabla. F0–F4 usan búsqueda exacta en W. El integrador es común.
+
+Verificación: 73 potencias y cuatro integrales controladas (77 casos,
+tolerancia de energía 1e-12 J), y nueve reconstrucciones de intervalos nativos
+de las sondas. Estas últimas usan atol=1e-8 J y rtol=1e-10 según diccionario.
+No se sustituye esa reconstrucción por la mera suma de energías de nodos.

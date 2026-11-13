@@ -1,0 +1,212 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}\usepackage[T1]{fontenc}\usepackage{lmodern}
+\usepackage[margin=1.7cm]{geometry}\usepackage{longtable,booktabs,array,xurl,hyperref}
+\hypersetup{colorlinks=true,urlcolor=blue}\setlength{\parindent}{0pt}\setlength{\parskip}{5pt}
+\emergencystretch=3em
+\begin{document}
+\begin{center}\Large\bfseries P2: Cambios respecto a FLoRa 1.1\end{center}
+\textbf{Enhanced FLoRa — P2-20261108-v2.} 8 de noviembre de 2026.
+
+Se responde al alcance aclarado por el autor: nuestros cambios respecto a
+FLoRa 1.1, con código, funciones, opciones, pruebas y resultados. No se
+buscan ni comparan otros lanzamientos. Se conserva el PDF de observaciones.
+
+La base es el commit \path{51018f80fdafc562d8f9fa022e551f835c8969ee}.
+Enhanced es la fuente congelada 0.2.0-dev-rc11, tar SHA-256
+\path{544414b2c6d0f9a3954154f4bb06289b646c0f3a09326f3d0d50953ea9cb6bd0}.
+Las copias se identifican por SHA-256 en \path{FUENTES_SHA256.json}.
+
+\textbf{Contribución.} No se reivindican fórmulas LoRa nuevas: se aporta su
+implementación integrada, correcciones de comportamiento e instrumentación,
+comprobación y cuantificación de efectos. FLoRa 1.1 fija una base de código
+identificada y auditable para documentar exactamente qué cambia.
+
+\textbf{Separación de evidencia.} F0 es una base controlada dentro de Enhanced,
+no una ejecución pristine de FLoRa 1.1. F1--F5 cambian una opción por transición.
+Los cambios C1--C7 son comunes; no hay una ablación individual de cada uno.
+La exploración oficial permanece aparte: 100 intentos, 92 aceptados y ocho
+fallidos. No se atribuye PDR a los fallidos.
+
+\section*{Resumen de correspondencia}
+\small\begin{longtable}{@{}p{0.65cm}p{3.0cm}p{6.1cm}p{6.0cm}@{}}
+\toprule ID & Mecanismo & Base FLoRa 1.1 & Cambio en Enhanced\\\midrule\endhead
+
+F1 & Ruido de fondo & La potencia de ruido se obtiene de valores de sensibilidad indexados por SF y ancho de banda. & Se separa la sensibilidad del ruido de fondo: densidad -174 dBm/Hz + 10 log10(BW) + NF de 6 dB, con salida en W.\\[5pt]
+F2 & Decisión final de recepción SNIR & La aceptación final no aplica una comprobación independiente del SNIR mínimo requerido por SF, después de las comprobaciones previas de recepción y colisión. & Añade una puerta de SNIR por SF a la decisión final. Conserva la distinción entre sensibilidad, interferencia/captura y SNIR.\\[5pt]
+F3 & Tiempo en aire de la trama física & Duración calculada con 20 B fijos para ED y 15 B para GW; DE=0; reparto heredado de símbolos entre cabecera y payload. & Calculador común con bytes físicos efectivos, CRC, cabecera explícita/implícita, CR y DE automático a partir de la duración de símbolo. En el uplink ordinario de esta campaña: 20 B de aplicación + 17 B de MAC = 37 B.\\[5pt]
+F4 & Planificación y duty cycle del gateway & El gateway usa constantes de espera indexadas por SF, sin calcular la espera desde la longitud efectiva del downlink. & Calcula una separación entre inicios ToA/duty y contabiliza aceptación/rechazo. En esta campaña duty=0.01 y presupuesto global del GW, no un presupuesto independiente por frecuencia.\\[5pt]
+F5 & Selección de corriente TX & Búsqueda mediante comparación exacta de potencia en vatios contra valores convertidos de la tabla XML. & Conversión explícita a dBm, redondeo y selección de calibración cercana con límites; la alternativa heredada permanece seleccionable para el contraste.\\[5pt]
+C1 & MAC, reentrada de recepción y RX2 & El callback de cambio de recepción puede reentrar a la máquina de estados fuera de las ventanas de escucha. RX2 entrega el paquete sin la misma decapsulación aplicada en RX1. & Limita la entrada por comienzo de recepción a LISTENING\_1/LISTENING\_2 y entrega RX2 por decapsulate, como RX1. No introduce una cola radio que oculte transmisiones simultáneas.\\[5pt]
+C2 & Tráfico ofrecido independiente del SF & Vuelve a sortear timeToNextPacket hasta superar una constante dependiente del SF; por tanto el proceso ofrecido cambia al adaptarse el SF. & Programa el siguiente evento desde el sorteo configurado sin ese rechazo por SF. La campaña usa tráfico exponencial común entre etapas y mantiene heartbeat desactivado.\\[5pt]
+C3 & Política ADR y unidades de calidad & evaluateADR usa la lista SNIR suministrada, extrae max/avg y calcula round(margen/3). Tras insertar, elimina un elemento cuando el tamaño llega a 20. & La ruta lorawanReference recibe SNIR convertido a dB, mantiene hasta 20 observaciones y usa máximo, margen 15 dB y truncamiento hacia cero de margen/2.5. Mejora SF antes de reducir potencia; TP entre 2 y 14 dBm.\\[5pt]
+C4 & Recuperación local ADR & La recuperación local incrementa SF mediante increaseSFIfPossible, sin restaurar primero la potencia máxima. & Al entrar en recuperación restaura primero TP=14 dBm; en ciclos posteriores incrementa SF hasta SF12.\\[5pt]
+C5 & Integración energética y ventana de medida & El consumidor nativo mezcla cálculo de potencia/consumo y publica totalEnergyConsumed sin un acumulador separado, recortado a la misma ventana posterior al warm-up del PDR. & Emite potencia instantánea en W, integra energía en J hasta cada transición y hasta el final; mantiene un acumulador completo y otro recortado al warm-up, con desglose TX/RX/idle/sleep/otros.\\[5pt]
+C6 & Soporte de movilidad & La aplicación consulta posiciones mediante conversiones a StationaryMobility. & La consulta dinámica usa el contrato IMobility; los NED/INI permiten poblaciones estacionarias, RandomWaypoint y mixtas 50/50 sin cambiar la política ADR.\\[5pt]
+C7 & Anclaje de propagación configurable & El log-normal usa 127.41 dB como pérdida de referencia fija en su fórmula. & Permite calcular PL(d0) con Friis o proporcionar una referencia explícita. La campaña ancla Friis a d0=1000 m, gamma=2.32 y sigma=7.08 dB; conserva atenuación log-distance y shadowing.\\[5pt]
+\bottomrule\end{longtable}\normalsize
+\section*{F1 — Ruido de fondo}
+\textbf{Ámbito.} Ablación acumulativa F0$\to$F1
+
+\textbf{Opción/contrato.} backgroundNoiseModel: legacySensitivity $\to$ thermal
+
+\textbf{Prueba disponible.} P3: \path{resultados/native-components/component-comparison.csv}, grupo F1 (12 casos); \path{status.json.}
+
+\textbf{Interpretación y límite.} Verifica el contrato de ruido independiente de la sensibilidad. El contraste de PDR se entrega por población y densidad, con cinco pares e IC puntual; no implica una mejora de PDR ni validación de temperatura medida.
+
+\textbf{Base 1.1.} \path{fuentes/flora-1.1/src/LoRaPhy/LoRaAnalogModel.cc:34}; función \path{LoRaAnalogModel::getBackgroundNoisePower}.\par
+\textbf{Enhanced rc11.} \path{fuentes/enhanced-rc11/src/LoRaPhy/LoRaAnalogModel.cc:34}; función \path{LoRaAnalogModel::getBackgroundNoisePower}.\par
+\section*{F2 — Decisión final de recepción SNIR}
+\textbf{Ámbito.} Ablación acumulativa F1$\to$F2
+
+\textbf{Opción/contrato.} enforceRequiredSnr: false $\to$ true
+
+\textbf{Prueba disponible.} P3: \path{component-comparison.csv}, grupos F2\_SNIR, F2\_capture, F2\_interference\_SNIR, F2\_joint\_decision, F2\_power y F2\_sensitivity.
+
+\textbf{Interpretación y límite.} Casos por \path{debajo/encima} del umbral y captura determinista. Las igualdades exactas de umbral se reportan como observaciones de frontera, no como prueba bit a bit de las conversiones logarítmicas; no hay validación experimental de PER.
+
+\textbf{Base 1.1.} \path{fuentes/flora-1.1/src/LoRaPhy/LoRaReceiver.cc:254}; función \path{LoRaReceiver::computeIsReceptionSuccessful}.\par
+\textbf{Enhanced rc11.} \path{fuentes/enhanced-rc11/src/LoRaPhy/LoRaReceiver.cc:396}; función \path{LoRaReceiver::computeIsReceptionSuccessful}.\par
+\section*{F3 — Tiempo en aire de la trama física}
+\textbf{Ámbito.} Ablación acumulativa F2$\to$F3
+
+\textbf{Opción/contrato.} airtimeModel: legacyFixedPayload $\to$ semtech
+
+\textbf{Prueba disponible.} P3: \path{component-comparison.csv}, F3\_archived\_default (1008 casos, tolerancia 2 ps). F3 (6048 casos) corresponde al candidato ampliado, identificado por separado.
+
+\textbf{Interpretación y límite.} La diferencia de entrega y energía de F2$\to$F3 es un efecto del tratamiento en este simulador; no debe atribuirse exclusivamente a colisiones. Las sondas P8 distinguen transmisiones de paquetes pendientes en MAC.
+
+\textbf{Base 1.1.} \path{fuentes/flora-1.1/src/LoRaPhy/LoRaTransmitter.cc:57}; función \path{LoRaTransmitter::createTransmission}.\par
+\textbf{Enhanced rc11.} \path{fuentes/enhanced-rc11/src/LoRaPhy/LoRaAirtimeCalculator.h:30}; función \path{inline LoRaAirtime calculateLoRaAirtime(}.\par
+\section*{F4 — Planificación y duty cycle del gateway}
+\textbf{Ámbito.} Ablación acumulativa F3$\to$F4
+
+\textbf{Opción/contrato.} dutyCycleModel: legacySfConstants $\to$ toa; enforceDutyCycle=true; gatewayDutyCycle=0.01
+
+\textbf{Prueba disponible.} P3: \path{resultados/native-components/scheduler-comparison.csv} (108 intentos); P8: \path{gateway/REPORT.md} y auditorías RF de cuatro controles y 120 trazas factoriales.
+
+\textbf{Interpretación y límite.} La espera no es ocupación RF. El análisis separa solicitud, aceptación y emisión. Para ciertos frames implícitos el planificador usa duración explícita conservadora; esta limitación se conserva. No se incorpora aquí duty de ED ni el cambio futuro a 10\% de downlink.
+
+\textbf{Base 1.1.} \path{fuentes/flora-1.1/src/LoRa/LoRaGWMac.cc:100}; función \path{LoRaGWMac::handleUpperMessage}.\par
+\textbf{Enhanced rc11.} \path{fuentes/enhanced-rc11/src/LoRa/LoRaGWMac.cc:119}; función \path{LoRaGWMac::handleUpperMessage}.\par
+\section*{F5 — Selección de corriente TX}
+\textbf{Ámbito.} Ablación acumulativa F4$\to$F5
+
+\textbf{Opción/contrato.} txCurrentLookupModel: legacyExactWatts $\to$ dbmNearest
+
+\textbf{Prueba disponible.} P6: \path{F5-campaign-audit.json} (150 pares); P3: F5\_legacy (13 enteros), F5\_current y F5\_energy (73 casos cada grupo).
+
+\textbf{Interpretación y límite.} No produjo ahorro en las 900 ejecuciones: ambas búsquedas coinciden en el dominio entero utilizado de 2 a 14 dBm. La contribución es robustez y trazabilidad de la selección, no una mejora energética medida de F5.
+
+\textbf{Base 1.1.} \path{fuentes/flora-1.1/src/LoRaEnergyModules/LoRaEnergyConsumer.cc:163}; función \path{LoRaEnergyConsumer::getPowerConsumption}.\par
+\textbf{Enhanced rc11.} \path{fuentes/enhanced-rc11/src/LoRaEnergyModules/LoRaEnergyConsumer.cc:99}; función \path{LoRaEnergyConsumer::getTxSupplyCurrent}.\par
+\section*{C1 — MAC, reentrada de recepción y RX2}
+\textbf{Ámbito.} Corrección común a F0–F5; no es una etapa aislada
+
+\textbf{Opción/contrato.} Comportamiento de código común: LoRaMac::receiveSignal y handleWithFsm
+
+\textbf{Prueba disponible.} P2: \path{referencia-1.1/official-failures-n1000.csv} y \path{official-run-level-n1000.csv}; P8: \path{MAC_PROGRESS_FINDING.md}; P3: regresión MAC\_progress del candidato posterior, separada de rc11.
+
+\textbf{Interpretación y límite.} La exploración oficial tiene 92 aceptadas y ocho fallidas; no se asigna PDR a fallos. El camino de duplicación MAC se trazó en un caso, no en los ocho individualmente. Esta corrección no equivale a resolver el timeout WAIT\_DELAY\_2 hallado después: su candidato y pruebas no sustituyen la fuente de las 900.
+
+\textbf{Base 1.1.} \path{fuentes/flora-1.1/src/LoRa/LoRaMac.cc:384}; función \path{LoRaMac::receiveSignal}.\par
+\textbf{Enhanced rc11.} \path{fuentes/enhanced-rc11/src/LoRa/LoRaMac.cc:350}; función \path{LoRaMac::receiveSignal}.\par
+\section*{C2 — Tráfico ofrecido independiente del SF}
+\textbf{Ámbito.} Modelo común a F0–F5; no es una etapa aislada
+
+\textbf{Opción/contrato.} timeToNextPacket en INI heredado; heartbeatInterval=0s
+
+\textbf{Prueba disponible.} P4: INI heredados y código; P7: \path{prepare_factorial.py} y verificaciones de huellas de tráfico de la extensión factorial.
+
+\textbf{Interpretación y límite.} Elimina una dependencia artificial de la carga ofrecida respecto al SF. No representa un regulador de duty del ED ni prueba sincronización de todos los sorteos de las 900 después de divergir sus eventos.
+
+\textbf{Base 1.1.} \path{fuentes/flora-1.1/src/LoRaApp/SimpleLoRaApp.cc:110}; función \path{SimpleLoRaApp::handleMessage(}.\par
+\textbf{Enhanced rc11.} \path{fuentes/enhanced-rc11/src/LoRaApp/SimpleLoRaApp.cc:148}; función \path{SimpleLoRaApp::handleMessage(}.\par
+\section*{C3 — Política ADR y unidades de calidad}
+\textbf{Ámbito.} Política común a todas las poblaciones y etapas
+
+\textbf{Opción/contrato.} adrAlgorithm=lorawanReference; adrMethod=max; adrWindowSize=20; adrDeviceMargin=15; adrStepSize=2.5dB
+
+\textbf{Prueba disponible.} P4: \path{fidelity-ablation.ini}, \path{Analisis-fidelity-ablation.ini} y \path{NetworkServerApp.cc}; P1: validación de \path{rutas/recibos} y fuente completa congelada.
+
+\textbf{Interpretación y límite.} Es una variante operativa explícita, no el ADR upstream idéntico. Los 900 casos no comparan BADR contra legacy: lorawanReference se aplica también a móviles y mixtos. F0 es una base controlada dentro de Enhanced, no FLoRa 1.1 sin cambios.
+
+\textbf{Base 1.1.} \path{fuentes/flora-1.1/src/LoRa/NetworkServerApp.cc:300}; función \path{NetworkServerApp::evaluateADR(}.\par
+\textbf{Enhanced rc11.} \path{fuentes/enhanced-rc11/src/LoRa/NetworkServerApp.cc:383}; función \path{NetworkServerApp::evaluateLoRaWanReferenceAdrCommand(}.\par
+\section*{C4 — Recuperación local ADR}
+\textbf{Ámbito.} Corrección común a F0–F5; no es una etapa aislada
+
+\textbf{Opción/contrato.} applyAdrRecoveryStep; contadores \path{ADR_ACK_LIMIT/ADR_ACK_DELAY} configurados en la aplicación
+
+\textbf{Prueba disponible.} P4: \path{SimpleLoRaApp.cc/.h/.ned}; P1: fuente y validación de configuración. No hay un contraste de campaña que aísle esta corrección.
+
+\textbf{Interpretación y límite.} El orden de recuperación es verificable en código. No se atribuye a este cambio por sí solo la diferencia de PDR entre stacks ni el efecto acumulativo de F1–F5.
+
+\textbf{Base 1.1.} \path{fuentes/flora-1.1/src/LoRaApp/SimpleLoRaApp.cc:238}; función \path{SimpleLoRaApp::increaseSFIfPossible(}.\par
+\textbf{Enhanced rc11.} \path{fuentes/enhanced-rc11/src/LoRaApp/SimpleLoRaApp.cc:335}; función \path{SimpleLoRaApp::applyAdrRecoveryStep(}.\par
+\section*{C5 — Integración energética y ventana de medida}
+\textbf{Ámbito.} Instrumentación común a F0–F5; distinta del selector F5
+
+\textbf{Opción/contrato.} warmup-period=2d; sim-time-limit=12d; measurementEnergyConsumed; modelo genérico 3.3 V y XML
+
+\textbf{Prueba disponible.} P5: \path{native-energy/native-energy-comparison.csv} (77 casos); \path{packet-probes/run-summary.csv} (nueve reconstrucciones); P1: diccionario de contadores.
+
+\textbf{Interpretación y límite.} Permite comparar energía y entregas sobre los mismos diez días y recomponer el total por dispositivo. Excluye \path{GW/servidor}; no es hardware calibrado. Menor energía total no implica mayor eficiencia si también cambia el número de transmisiones o entregas.
+
+\textbf{Base 1.1.} \path{fuentes/flora-1.1/src/LoRaEnergyModules/LoRaEnergyConsumer.cc:140}; función \path{LoRaEnergyConsumer::receiveSignal(}.\par
+\textbf{Enhanced rc11.} \path{fuentes/enhanced-rc11/src/LoRaEnergyModules/LoRaEnergyConsumer.cc:180}; función \path{LoRaEnergyConsumer::integrateEnergyUntil(}.\par
+\section*{C6 — Soporte de movilidad}
+\textbf{Ámbito.} Capacidad común y tres poblaciones de la campaña
+
+\textbf{Opción/contrato.} mobile; mixedMobility; mobileNodeFraction=0.5; parámetros RandomWaypoint en INI heredado
+
+\textbf{Prueba disponible.} P4: \path{NED/INI} heredados y \path{defaults-INET/RandomWaypointMobility.ned}; campaña con 300 ejecuciones por población.
+
+\textbf{Interpretación y límite.} La capacidad de movilidad y sus distribuciones son inspeccionables. Los dominios estacionario y móvil no son idénticos; la comparación entre poblaciones no aísla causalmente el movimiento de la distribución espacial.
+
+\textbf{Base 1.1.} \path{fuentes/flora-1.1/src/LoRaApp/SimpleLoRaApp.cc:97}; función \path{SimpleLoRaApp::finish(}.\par
+\textbf{Enhanced rc11.} \path{fuentes/enhanced-rc11/src/LoRaApp/SimpleLoRaApp.cc:135}; función \path{SimpleLoRaApp::getCurrentPosition(}.\par
+\section*{C7 — Anclaje de propagación configurable}
+\textbf{Ámbito.} Modelo común a F0–F5; no es una etapa aislada
+
+\textbf{Opción/contrato.} useFriisReference=true; d0; gamma; sigma; referenceFrequency
+
+\textbf{Prueba disponible.} P4: \path{PARAMETERS.md}, \path{Analisis-mi-PROPOSAL-ADR.ini} y \path{LoRaLogNormalShadowing.cc}; P7: sensibilidad de propagación acotada.
+
+\textbf{Interpretación y límite.} Explicita el vínculo \path{frecuencia/distancia/referencia} en lugar de una constante fija. No se describe como Friis puro ni se adjudica a este cambio un efecto aislado de las etapas F1–F5.
+
+\textbf{Base 1.1.} \path{fuentes/flora-1.1/src/LoRaPhy/LoRaLogNormalShadowing.cc:47}; función \path{LoRaLogNormalShadowing::computePathLoss(}.\par
+\textbf{Enhanced rc11.} \path{fuentes/enhanced-rc11/src/LoRaPhy/LoRaLogNormalShadowing.cc:23}; función \path{LoRaLogNormalShadowing::initialize(}.\par
+\section*{Efectos medidos y alcance de la interpretación}
+Las diferencias siguientes se copian de los contrastes pareados existentes, sin simular. Son cambios frente a la etapa anterior, en puntos porcentuales de PDR, para 1000 ED y cinco pares. Se incluye semiamplitud de IC 95\% puntual; no hay ajuste de multiplicidad.
+
+\begin{longtable}{llll}\toprule Cambio & Población & $\Delta$ PDR (pp) & Semiamplitud IC95 (pp)\\\midrule\endhead
+F0$\to$F1 & static & +0.002 & 0.005\\
+F1$\to$F2 & static & -0.977 & 2.577\\
+F2$\to$F3 & static & -6.354 & 1.123\\
+F3$\to$F4 & static & -4.086 & 2.430\\
+F4$\to$F5 & static & +0.000 & 0.000\\
+F0$\to$F1 & mobile & -0.014 & 0.040\\
+F1$\to$F2 & mobile & -0.726 & 1.427\\
+F2$\to$F3 & mobile & -5.873 & 1.458\\
+F3$\to$F4 & mobile & -4.107 & 1.290\\
+F4$\to$F5 & mobile & +0.000 & 0.000\\
+F0$\to$F1 & mixed & -0.239 & 0.664\\
+F1$\to$F2 & mixed & -0.278 & 2.966\\
+F2$\to$F3 & mixed & -5.471 & 1.477\\
+F3$\to$F4 & mixed & -3.914 & 1.533\\
+F4$\to$F5 & mixed & +0.000 & 0.000\\
+\bottomrule\end{longtable}
+La contribución es hacer explícitos y verificables los mecanismos que alteran
+la evaluación, no demostrar que mayor fidelidad eleva PDR. Los contrastes
+completos, energía y demás métricas están en los CSV de evidencia. No se
+infiere que toda diferencia de PDR sea pérdida PHY: las sondas P8 también
+identifican pendientes y progreso MAC. F5 es neutro en el dominio entero
+utilizado, aunque sus dos funciones no son idénticas en general.
+
+Las pruebas posteriores tienen su fecha y revisión propias. En particular,
+el candidato de progreso MAC y el calculador ampliado no sustituyen la fuente
+histórica. La documentación P1 conserva los límites de procedencia de las
+900 corridas; no se fabrica un registro original de compilación.
+
+Carpeta de entrega: \url{https://drive.google.com/drive/folders/1wNcPlaLiJdkw6Ba3CtFr9I4NisYPuXAN}.
+\end{document}

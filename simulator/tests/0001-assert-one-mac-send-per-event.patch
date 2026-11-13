@@ -1,0 +1,14 @@
+--- src/LoRa/LoRaMac.cc
++++ src/LoRa/LoRaMac.cc
+@@ -26,1 +26,3 @@
+ #include "inet/linklayer/common/InterfaceTag_m.h"
++#include <set>
++#include <tuple>
+@@ -430,1 +432,7 @@
+     auto macHeader = frameCopy->peekAtFront<LoRaMacFrame>();
++    static std::set<std::tuple<int, int, long long>> sentInEvent;
++    const int sequence = macHeader->getSequenceNumber();
++    const long long event = static_cast<long long>(getSimulation()->getEventNumber());
++    if (!sentInEvent.emplace(getId(), sequence, event).second)
++        throw cRuntimeError("Duplicate MAC send: module=%d sequence=%d event=%lld",
++                            getId(), sequence, event);

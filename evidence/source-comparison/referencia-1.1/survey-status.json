@@ -1,0 +1,11 @@
+{
+  "accepted": 92,
+  "expected": 100,
+  "failed": 8,
+  "last": null,
+  "manifest_sha256": "f47ec9b319b88fd1ab2205f08f4e32261f3fd1e62b554dd41d9e10aa39ad2684",
+  "pending": 0,
+  "running": [],
+  "state": "COMPLETE_WITH_FAILURES",
+  "updated_at": "2026-10-12T00:56:10-07:00"
+}

@@ -1,0 +1,18 @@
+{
+  "version": "P2-20261108-v2",
+  "baseline": {
+    "tag": "v1.1.0",
+    "commit": "51018f80fdafc562d8f9fa022e551f835c8969ee"
+  },
+  "enhanced": {
+    "version": "0.2.0-dev-rc11",
+    "source_archive_sha256": "544414b2c6d0f9a3954154f4bb06289b646c0f3a09326f3d0d50953ea9cb6bd0",
+    "historical_library_sha256": "a83fbfd8ee4c9557fd1b0491fb390ceaf880eeed1bd7cbd4d95108cee4bbfcb5"
+  },
+  "scope": "Nuestros cambios respecto a FLoRa 1.1, conforme a la aclaración del autor. No se buscan ni comparan otros lanzamientos.",
+  "new_simulations": 0,
+  "paper_modified": false,
+  "original_request_pdf_modified": false,
+  "historical_provenance_limits": "P1/reproduccion/observation-1/PROVENANCE_LIMITS.md; no se recuperaron todos los registros originales de compilación de las 900.",
+  "supersedes": "P2 v1: se retira el pendiente de cotejo con lanzamientos posteriores y se sustituye la antigua matriz comparativa con otra snapshot por un cotejo directo de rc11. P1 y P3–P8 permanecen byte a byte."
+}

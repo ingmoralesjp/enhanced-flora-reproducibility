@@ -1,0 +1,6249 @@
+{
+  "version": "sensitivity-20261030-v1",
+  "source_parent": "observation-3 factorial source; same known MAC progress limitation, no silent mixing with item-4 corrected candidate",
+  "parent_library_sha256": "c3d66a190e41c6bb4ada42da8559c30f01dd196a5b0657119f72765d07b534f7",
+  "parent_sources_sha256": {
+    "simulations/cloudDelays.xml": "c8b35d93c83644c9b45b5ee142c6349f742add213a0d917843ce9ff2aef81ae9",
+    "simulations/package.ned": "68e76f79bbe538d01697a5cabdad57e662b41b07263e3f455a065e23ae50669f",
+    "simulations/energyConsumptionParameters.xml": "e81b8f0290a842597a8a47b1cdd4d35c794b73e196aefe3026e17610a066c368",
+    "src/package.ned": "cef89d70e0637296440d0dffd0dbc911212574f0b180ebb3f3f078dd3a9f5478",
+    "src/AuditTrace.cc": "bb78bee1b24675a0aa08728f7abe777dbe2d068b353c2ecc3deb363a7988363b",
+    "src/AuditTrace.h": "13b0bd346fbc3549cd8ec2d153d9a76ad493204e39d596cda1dda1e4bc53715a",
+    "src/LoraNode/LoRaNode.ned": "7ce0eff5f844d7beca727f3b70247410ab500d23a774e464a4fbe3ae7d82227b",
+    "src/LoraNode/LoRaGW.ned": "8966c7d93c5725acf45455c7aaf3849f01a269eb2db35fef7530851ce92496ad",
+    "src/LoRaEnergyModules/LoRaEnergyConsumer.cc": "6a5c3fdafed4dd3f59bd06dabbb82fce456cafd7b6081c6d4030430e20b6e5eb",
+    "src/LoRaEnergyModules/LoRaEnergyConsumer.ned": "36f3f821bc9184794d853ab7744dd249cbb6e373e243c7822af6ff183952a268",
+    "src/LoRaEnergyModules/LoRaEnergyConsumer.h": "fd613a12e5d9517bf772c71197c34da9c063f80c984e8cb0053c59aec0aa9ae3",
+    "src/LoRaPhy/LoRaReceiver.h": "2d302be819dee45bbe12ffb631d3f440f7f4ba2d5f081091e1be5926d176c1b1",
+    "src/LoRaPhy/LoRaLogNormalShadowing.ned": "9b984c495beea9e1cb6d326b706a41cd2aa4a37858b1048d5cd6a91300be4109",
+    "src/LoRaPhy/LoRaMediumCache.cc": "3c0218fd364dafa9355e40b3f44be0eb517d7671bf7a2bdf9f8c12eca597301e",
+    "src/LoRaPhy/LoRaMedium.ned": "6384dadcef94c80ba80a5bb911655c4fc321842436364536bc27b16ef77ed234",
+    "src/LoRaPhy/LoRaReception.cc": "f3aee6358f4bc211b320fa1f77ef25ba48cb9fecce4ca69e46da4fdfde8e101c",
+    "src/LoRaPhy/LoRaRadioControlInfo_m.h": "641eb59cd6f0c46288113d2126648e9e8a06ab9f2571f6cbe8c9382073b70346",
+    "src/LoRaPhy/LoRaTransmission.h": "149eb545130338d14e9c404dc6f533c925bf0f6445e299d7bc7d22893fc7c6f5",
+    "src/LoRaPhy/LoRaBandListening.h": "500cca6419de2d5f960e1c0c0bb3bd898ff14675dcfa951daed6028f33e6126c",
+    "src/LoRaPhy/LoRaTransmission.cc": "a9d4a0cb6926cc129021bd644430f474a3ab727b3b271dce45254716d14c082f",
+    "src/LoRaPhy/LoRaNeighborCache.cc": "9f072216ffa0ea9012a8b27676b77e26b0e74d5eeecbd0de12b7b054a41e430f",
+    "src/LoRaPhy/LoRaTransmitter.cc": "56dc777d96ceff265ff75d1d3785dfb64162fff029bd49f4e7e75445caaad78f",
+    "src/LoRaPhy/LoRaTransmitter.h": "f3cd2e2d7da9c96cba08c9b4cdfe4dd9fb495972ded6327c94be07c8575a971b",
+    "src/LoRaPhy/LoRaReceiver.cc": "2e29189708a7094c12b9158ad00abb4b2c3f099d8bc1f0e348960367a057e494",
+    "src/LoRaPhy/LoRaPathLossOulu.cc": "8d69eb095019b28fcaeba9db46d129a1b4680c6cd3315dd846b6f77a883cc122",
+    "src/LoRaPhy/LoRaPhyPreamble.msg": "5eb08e95edf97e5751a903f55907ea91d8810f05a1d2d267808d890cf239b266",
+    "src/LoRaPhy/LoRaHataOkumura.ned": "65d2cd04324f05dcc99a3b2277512b30755c10b00400d905536e368306e96e09",
+    "src/LoRaPhy/LoRaNeighborCache.h": "d2bfbca69ada2c856c837d271ba8abed00f891248d4b3bcbcf6ad888fb935e7e",
+    "src/LoRaPhy/LoRaBandListening.cc": "080e93beb6f4d6fcffb6c2dad91157de6570cfa5dbef28e00ce20dc7cf5c1052",
+    "src/LoRaPhy/LoRaReception.h": "3355dcf4d168feae6caa233b14b79ba14c359fe13f045626c6229ce4f060af21",
+    "src/LoRaPhy/LoRaPathLossOulu.ned": "b982ada4700e06a443eb4110ed6addc62604aaaf7c9d6b471903274e657cfa42",
+    "src/LoRaPhy/LoRaMedium.h": "da3bab3077b53008789076c84d09b49f51987b3f790df7b17f4fa25f2b222dc0",
+    "src/LoRaPhy/LoRaMediumCache.ned": "0cea79c49394167c823fdc2eb6e8a697d2de3b6bc5d7b1cdf870e388c81c828e",
+    "src/LoRaPhy/LoRaHataOkumura.h": "b7525be06727c196d758484056895155011049bd6c7e2cda194bae55d8087d5d",
+    "src/LoRaPhy/LoRaAirtimeCalculator.h": "eda4fa64a55e16468a1f0bf6806a421bd027e851de487fbd9a85713f11c04e7b",
+    "src/LoRaPhy/LoRaPhyPreamble_m.h": "d02d5868ed11a543042814be93e932cb184cea3fed233afd031324eb417fe1e8",
+    "src/LoRaPhy/LoRaReceiver.ned": "f5571f7ce18c77e316a1af37b319ed530db754c4c44b725ceb00570b5a0cc268",
+    "src/LoRaPhy/LoRaAnalogModel.h": "9b694b5499d38976678906baf2510508a41aa73d5b0bba253edffe09df2136b9",
+    "src/LoRaPhy/LoRaHataOkumura.cc": "cbbe85093bb402fff3170ad6d596f0da12a9926d897d0ff4e6163d69ce4afb0e",
+    "src/LoRaPhy/LoRaTransmitter.ned": "2a69e9baf76018c9245e7efed8269347b1f6d41009a904d2a9606beeba224165",
+    "src/LoRaPhy/LoRaModulation.cc": "f06568337f8e35f5eaf3784788701f7314d8c59c8e6f42c9f82c7fa98921eddb",
+    "src/LoRaPhy/LoRaMedium.cc": "f92bee7884c6260796f6e66ade0fc4e48c658f2810c4fefe6a55441867b8fd54",
+    "src/LoRaPhy/LoRaNeighborCache.ned": "f9853b2d88974bf625373dfdba4d0772f734681c890d0129bb1782c22db98794",
+    "src/LoRaPhy/LoRaModulation.h": "54429f35182925b5e6c172b34f2e46ed6d9b761264b2efb40aec4182532bd90b",
+    "src/LoRaPhy/LoRaPhyPreamble_m.cc": "1532958ffa57b55e63993afdd3e681ac477dc1061c562832cb5126531b56c9cd",
+    "src/LoRaPhy/LoRaPathLossOulu.h": "de3d59b9c75efef5a1e35748d7d9d1cd6047d2706dba514169db5191d7d8681d",
+    "src/LoRaPhy/LoRaAnalogModel.cc": "553d716cba0012f7fa49bf293dad4a31e9acce228dbec108e0200b40d791f3f5",
+    "src/LoRaPhy/LoRaRadioControlInfo_m.cc": "ae7aa86616e9f220ac61c5029dc6be953f357dab5ec670c3c4e3bd09fa147cc7",
+    "src/LoRaPhy/LoRaAnalogModel.ned": "d6fa3bbac514646bed3525e243c5d3c112331234a16e835a64955ac1890a12f8",
+    "src/LoRaPhy/LoRaRadioControlInfo.msg": "c5b20b405a5e98ad3a15be4259f344ff6339ae88c10cfdd619d8086df3aa2078",
+    "src/LoRaPhy/LoRaMediumCache.h": "5748c0e681732493c7d326cb248eceae1333e008b004bfc8bdd40ee8baa18095",
+    "src/LoRaPhy/LoRaLogNormalShadowing.cc": "65518010993ee321828ca9a2a248b836128ed895ddc5fbb3a54753d3ce10f3ec",
+    "src/LoRaPhy/LoRaLogNormalShadowing.h": "bd717498f818c04812866d63f8701e1b1edd0c6c9268b9f90001b54e9ee91cef",
+    "src/LoRaApp/LoRaAppPacket_m.h": "4c7e5df09ce32f79dc89608832e01d38da4bcd3e7d782405a83368b713f7bdf4",
+    "src/LoRaApp/LoRaAppPacket.msg": "da1edbbad88854c09e31c587c5fe46a00eaaf20282ee575579a8e7baf19111a0",
+    "src/LoRaApp/LoRaAppPacket_m.cc": "4d3d0f20d537fb8ddc8666bd58824e22c78755a092db5058bd1f5c95a04554c0",
+    "src/LoRaApp/SimpleLoRaApp.ned": "5ae636b05595fb27d85937d404b16a4a6fd608fb270e1cc1a0b6881fd190a0b9",
+    "src/LoRaApp/SimpleLoRaApp.cc": "f77507bf352c94286fd57501e4b4c65570f67a73938535d1b61fbb21e3c5dd86",
+    "src/LoRaApp/SimpleLoRaApp.h": "a1cf9b0d869910795b9527672cab1a609cb175f3e2ce209f7af0430d90a0a51a",
+    "src/LoRa/NetworkServerApp.h": "c17cf51f8708e5423492673dc648cba3786af36792bf7cd4382461e97d78403e",
+    "src/LoRa/LoRaMacFrame_m.cc": "f3c9332597adc725b736538e2a26d177bbe4666a3b04f1eee8beb00839b86ed0",
+    "src/LoRa/NetworkServerApp.cc": "ad88bfd43a2aec3f2dd846323f41bac12b4a6e2ef99172442bda7c60238a9f3c",
+    "src/LoRa/LoRaGWRadio.cc": "301abde16660835f38bf86e421e23c126bdf98b5f1b9259cfe5ccf35eeea0b92",
+    "src/LoRa/LoRaMacControlInfo_m.cc": "3e6f1bef6ebc770f7db2bbb8bc9dbd48d22d10475dace3519ed8c7a50521a4d9",
+    "src/LoRa/LoRaGWMac.h": "c3aea69ec39a9d9b428de258d54f2d7bd87e8793ac24aa26ff71e8f593bef3f2",
+    "src/LoRa/LoRaTagInfo.msg": "05bcf955185435e2ff95ad529f7f452a0d2098710c10199004602adacc11d68a",
+    "src/LoRa/LoRaGWMac.cc": "bb91e8b712310e7dd77e90ad60855d1c88e8586b0ec7745a167654e66c0e51e6",
+    "src/LoRa/LoRaMacControlInfo.msg": "19e186ec37df32601ab8565e05b20137aa7ba6ea173cf071c6b40d756055ac8b",
+    "src/LoRa/LoRaGWMac.ned": "537827eeee91941c35f746cea9c2d057506b6351ad1b736a939b25a105863757",
+    "src/LoRa/LoRaMac.h": "7d0113708444d9b1e8a8699dd4c2544615c67c0e0a5364bd0fe1ad730bf4a094",
+    "src/LoRa/LoRaGWNic.ned": "2aefd2e8d070ee339fe02fa7c87bd7ab9d50e679ac87c0cf1b211731a14911e9",
+    "src/LoRa/LoRaNic.ned": "5d48c2e745e438d15a558bc192c80b9c283322d318c5d58edfd6aa97d0401237",
+    "src/LoRa/LoRaGWRadio.ned": "788f1393afcccbc1b4f4628fde59853536e740f6d617cedc56a7a41c9848d9e9",
+    "src/LoRa/LoRaGWRadio.h": "be533efef9145a5a1efb5dfe960a9e5313bef34e954157cb0de885d3b6b49c13",
+    "src/LoRa/LoRaRadio.h": "6b972dc93d1e1b68fcead27c4ad8ef2fd7fb6eba4f410d64a35747a015cd9a42",
+    "src/LoRa/LoRaRadio.cc": "7a699dbe78b19d0ad3cbf5b03c3710aa04f65202ba9ca01d4c377f3da79f7a47",
+    "src/LoRa/PacketForwarder.h": "8a1e3bb3adf96fd3ec6f28441c531fbf3ba63f0f516b6b02ae6d74a82328130f",
+    "src/LoRa/PacketForwarder.cc": "220c7b4673e5f8d9f814d246059c1f1af3b716b18d3d7c1786b7a1cf6c5da18f",
+    "src/LoRa/NetworkServerApp.ned": "961b99426d095736af1766cced661cc4f0b9d2187408c005256a36f773d84f1f",
+    "src/LoRa/LoRaMac.cc": "162c61b40d1d00be6c49fe6e8d44adf577b6a20db2e1983a7ffee2e281eaa58e",
+    "src/LoRa/LoRaMacControlInfo_m.h": "a28a29827c443cfb0ff17950603a765d36661090324c8211e9b4fc91c31ece71",
+    "src/LoRa/LoRaMacFrame_m.h": "255b835b54dac5babd3b78d88941e5b9b7128fe85458840f218c2889f9235c73",
+    "src/LoRa/LoRaRadio.ned": "718fcdd713cc2443e5fac204c110d9b28ee702a2d7402380a6a8dc0600db022b",
+    "src/LoRa/LoRaMac.ned": "f60a98f17e0bc7590912a14987432dc89fd04b4f129e1a110b6e12eb6f5a6664",
+    "src/LoRa/PacketForwarder.ned": "63a1e7574ea810ad5fda74f5ceae24cfe669893fffac78d236f4e5a4083c3385",
+    "src/LoRa/LoRaTagInfo_m.h": "0179f02c937b1e2724adaf7211e9da1dd73e21245674291bcf65919bd900b382",
+    "src/LoRa/LoRaTagInfo_m.cc": "e9b780bd7824f6824a999b516754d8dc6256f35ee947beb013a23849f05a528f",
+    "src/LoRa/LoRaMacFrame.msg": "8a5f6e2fbaf77b246dacf646de3d28fe1c066920b0cb4e82560feaf63ff98f30",
+    "simulations/examples/Analisis-fidelity-ablation.ini": "b6f481e96606dfc56311cc317de5e4f9f37cb239139279362ff9e65fa3aebf9d",
+    "simulations/examples/Analisis-mi-PROPOSAL-ADR.ini": "cb7401e54b913be484b8e5246eabfcfa93be88ba0412ea6515551ec224c3780f",
+    "simulations/examples/reviewer-factorial.ini": "b1c9089fc26c875628c8e3d48205cdc86833b613091e0f30f0ba02c455c84850",
+    "simulations/examples/fidelity-ablation.ini": "8f4e78d918ecdf750f55daf5dadd653945c450a24790be6a2be63ca5afc5abd9"
+  },
+  "config_sha256": "3b7019d17a83c8b9245c62ba66a2d94a02f099c97eef67a227d2cfdedc8e6f69",
+  "nodes": 500,
+  "gateways": 1,
+  "repetitions_fixed": 10,
+  "horizon_days": 12,
+  "conditions": {
+    "baseline": {
+      "mean_interval_s": 1000,
+      "gamma": 2.32,
+      "sigma_dB": 7.08,
+      "warmup_days": 2
+    },
+    "load_lower": {
+      "mean_interval_s": 2000,
+      "gamma": 2.32,
+      "sigma_dB": 7.08,
+      "warmup_days": 2
+    },
+    "load_higher": {
+      "mean_interval_s": 500,
+      "gamma": 2.32,
+      "sigma_dB": 7.08,
+      "warmup_days": 2
+    },
+    "gamma_lower": {
+      "mean_interval_s": 1000,
+      "gamma": 2.0,
+      "sigma_dB": 7.08,
+      "warmup_days": 2
+    },
+    "gamma_higher": {
+      "mean_interval_s": 1000,
+      "gamma": 2.7,
+      "sigma_dB": 7.08,
+      "warmup_days": 2
+    },
+    "warmup_0d": {
+      "mean_interval_s": 1000,
+      "gamma": 2.32,
+      "sigma_dB": 7.08,
+      "warmup_days": 0
+    },
+    "warmup_1d": {
+      "mean_interval_s": 1000,
+      "gamma": 2.32,
+      "sigma_dB": 7.08,
+      "warmup_days": 1
+    },
+    "warmup_3d": {
+      "mean_interval_s": 1000,
+      "gamma": 2.32,
+      "sigma_dB": 7.08,
+      "warmup_days": 3
+    }
+  },
+  "total_cells": 320,
+  "reused_accepted_runs": 20,
+  "new_native_runs": 300,
+  "parallel_jobs_limit": 8,
+  "planning": {
+    "primary_contrast": "Gateway G averaged over two A conditions, ADR enabled; airtime A and AG are additional contrasts",
+    "useful_target_PDR_half_width_pp": 1.0,
+    "prior_n": 5,
+    "prior_G_SD_pp": 1.866363059279248,
+    "predicted_half_width_at_10_pp": 1.33511570347018,
+    "normal_approx_required_n_for_1pp": 14,
+    "decision": "Fix n=10 before new runs, respect user ceiling even if the 1pp target is not reached. No sequential significance-based stopping; report achieved precision and unresolved signs."
+  },
+  "jobs": [
+    {
+      "run_id": "baseline-A0G0-n500-r0",
+      "scenario": "baseline",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 0,
+      "seed": 0,
+      "native_run": 40,
+      "config": "Sens_baseline_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": true
+    },
+    {
+      "run_id": "baseline-A0G0-n500-r1",
+      "scenario": "baseline",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 1,
+      "seed": 1,
+      "native_run": 41,
+      "config": "Sens_baseline_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": true
+    },
+    {
+      "run_id": "baseline-A0G0-n500-r2",
+      "scenario": "baseline",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 2,
+      "seed": 2,
+      "native_run": 42,
+      "config": "Sens_baseline_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": true
+    },
+    {
+      "run_id": "baseline-A0G0-n500-r3",
+      "scenario": "baseline",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 3,
+      "seed": 3,
+      "native_run": 43,
+      "config": "Sens_baseline_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": true
+    },
+    {
+      "run_id": "baseline-A0G0-n500-r4",
+      "scenario": "baseline",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 4,
+      "seed": 4,
+      "native_run": 44,
+      "config": "Sens_baseline_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": true
+    },
+    {
+      "run_id": "baseline-A0G0-n500-r5",
+      "scenario": "baseline",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 5,
+      "seed": 5,
+      "native_run": 45,
+      "config": "Sens_baseline_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "baseline-A0G0-n500-r6",
+      "scenario": "baseline",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 6,
+      "seed": 6,
+      "native_run": 46,
+      "config": "Sens_baseline_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "baseline-A0G0-n500-r7",
+      "scenario": "baseline",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 7,
+      "seed": 7,
+      "native_run": 47,
+      "config": "Sens_baseline_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "baseline-A0G0-n500-r8",
+      "scenario": "baseline",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 8,
+      "seed": 8,
+      "native_run": 48,
+      "config": "Sens_baseline_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "baseline-A0G0-n500-r9",
+      "scenario": "baseline",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 9,
+      "seed": 9,
+      "native_run": 49,
+      "config": "Sens_baseline_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "baseline-A0G1-n500-r0",
+      "scenario": "baseline",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 0,
+      "seed": 0,
+      "native_run": 40,
+      "config": "Sens_baseline_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": true
+    },
+    {
+      "run_id": "baseline-A0G1-n500-r1",
+      "scenario": "baseline",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 1,
+      "seed": 1,
+      "native_run": 41,
+      "config": "Sens_baseline_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": true
+    },
+    {
+      "run_id": "baseline-A0G1-n500-r2",
+      "scenario": "baseline",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 2,
+      "seed": 2,
+      "native_run": 42,
+      "config": "Sens_baseline_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": true
+    },
+    {
+      "run_id": "baseline-A0G1-n500-r3",
+      "scenario": "baseline",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 3,
+      "seed": 3,
+      "native_run": 43,
+      "config": "Sens_baseline_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": true
+    },
+    {
+      "run_id": "baseline-A0G1-n500-r4",
+      "scenario": "baseline",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 4,
+      "seed": 4,
+      "native_run": 44,
+      "config": "Sens_baseline_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": true
+    },
+    {
+      "run_id": "baseline-A0G1-n500-r5",
+      "scenario": "baseline",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 5,
+      "seed": 5,
+      "native_run": 45,
+      "config": "Sens_baseline_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "baseline-A0G1-n500-r6",
+      "scenario": "baseline",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 6,
+      "seed": 6,
+      "native_run": 46,
+      "config": "Sens_baseline_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "baseline-A0G1-n500-r7",
+      "scenario": "baseline",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 7,
+      "seed": 7,
+      "native_run": 47,
+      "config": "Sens_baseline_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "baseline-A0G1-n500-r8",
+      "scenario": "baseline",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 8,
+      "seed": 8,
+      "native_run": 48,
+      "config": "Sens_baseline_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "baseline-A0G1-n500-r9",
+      "scenario": "baseline",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 9,
+      "seed": 9,
+      "native_run": 49,
+      "config": "Sens_baseline_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "baseline-A1G0-n500-r0",
+      "scenario": "baseline",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 0,
+      "seed": 0,
+      "native_run": 40,
+      "config": "Sens_baseline_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": true
+    },
+    {
+      "run_id": "baseline-A1G0-n500-r1",
+      "scenario": "baseline",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 1,
+      "seed": 1,
+      "native_run": 41,
+      "config": "Sens_baseline_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": true
+    },
+    {
+      "run_id": "baseline-A1G0-n500-r2",
+      "scenario": "baseline",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 2,
+      "seed": 2,
+      "native_run": 42,
+      "config": "Sens_baseline_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": true
+    },
+    {
+      "run_id": "baseline-A1G0-n500-r3",
+      "scenario": "baseline",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 3,
+      "seed": 3,
+      "native_run": 43,
+      "config": "Sens_baseline_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": true
+    },
+    {
+      "run_id": "baseline-A1G0-n500-r4",
+      "scenario": "baseline",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 4,
+      "seed": 4,
+      "native_run": 44,
+      "config": "Sens_baseline_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": true
+    },
+    {
+      "run_id": "baseline-A1G0-n500-r5",
+      "scenario": "baseline",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 5,
+      "seed": 5,
+      "native_run": 45,
+      "config": "Sens_baseline_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "baseline-A1G0-n500-r6",
+      "scenario": "baseline",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 6,
+      "seed": 6,
+      "native_run": 46,
+      "config": "Sens_baseline_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "baseline-A1G0-n500-r7",
+      "scenario": "baseline",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 7,
+      "seed": 7,
+      "native_run": 47,
+      "config": "Sens_baseline_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "baseline-A1G0-n500-r8",
+      "scenario": "baseline",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 8,
+      "seed": 8,
+      "native_run": 48,
+      "config": "Sens_baseline_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "baseline-A1G0-n500-r9",
+      "scenario": "baseline",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 9,
+      "seed": 9,
+      "native_run": 49,
+      "config": "Sens_baseline_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "baseline-A1G1-n500-r0",
+      "scenario": "baseline",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 0,
+      "seed": 0,
+      "native_run": 40,
+      "config": "Sens_baseline_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": true
+    },
+    {
+      "run_id": "baseline-A1G1-n500-r1",
+      "scenario": "baseline",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 1,
+      "seed": 1,
+      "native_run": 41,
+      "config": "Sens_baseline_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": true
+    },
+    {
+      "run_id": "baseline-A1G1-n500-r2",
+      "scenario": "baseline",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 2,
+      "seed": 2,
+      "native_run": 42,
+      "config": "Sens_baseline_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": true
+    },
+    {
+      "run_id": "baseline-A1G1-n500-r3",
+      "scenario": "baseline",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 3,
+      "seed": 3,
+      "native_run": 43,
+      "config": "Sens_baseline_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": true
+    },
+    {
+      "run_id": "baseline-A1G1-n500-r4",
+      "scenario": "baseline",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 4,
+      "seed": 4,
+      "native_run": 44,
+      "config": "Sens_baseline_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": true
+    },
+    {
+      "run_id": "baseline-A1G1-n500-r5",
+      "scenario": "baseline",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 5,
+      "seed": 5,
+      "native_run": 45,
+      "config": "Sens_baseline_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "baseline-A1G1-n500-r6",
+      "scenario": "baseline",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 6,
+      "seed": 6,
+      "native_run": 46,
+      "config": "Sens_baseline_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "baseline-A1G1-n500-r7",
+      "scenario": "baseline",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 7,
+      "seed": 7,
+      "native_run": 47,
+      "config": "Sens_baseline_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "baseline-A1G1-n500-r8",
+      "scenario": "baseline",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 8,
+      "seed": 8,
+      "native_run": 48,
+      "config": "Sens_baseline_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "baseline-A1G1-n500-r9",
+      "scenario": "baseline",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 9,
+      "seed": 9,
+      "native_run": 49,
+      "config": "Sens_baseline_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_lower-A0G0-n500-r0",
+      "scenario": "load_lower",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 0,
+      "seed": 0,
+      "native_run": 40,
+      "config": "Sens_load_lower_A0G0",
+      "settings": {
+        "mean_interval_s": 2000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_lower-A0G0-n500-r1",
+      "scenario": "load_lower",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 1,
+      "seed": 1,
+      "native_run": 41,
+      "config": "Sens_load_lower_A0G0",
+      "settings": {
+        "mean_interval_s": 2000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_lower-A0G0-n500-r2",
+      "scenario": "load_lower",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 2,
+      "seed": 2,
+      "native_run": 42,
+      "config": "Sens_load_lower_A0G0",
+      "settings": {
+        "mean_interval_s": 2000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_lower-A0G0-n500-r3",
+      "scenario": "load_lower",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 3,
+      "seed": 3,
+      "native_run": 43,
+      "config": "Sens_load_lower_A0G0",
+      "settings": {
+        "mean_interval_s": 2000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_lower-A0G0-n500-r4",
+      "scenario": "load_lower",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 4,
+      "seed": 4,
+      "native_run": 44,
+      "config": "Sens_load_lower_A0G0",
+      "settings": {
+        "mean_interval_s": 2000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_lower-A0G0-n500-r5",
+      "scenario": "load_lower",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 5,
+      "seed": 5,
+      "native_run": 45,
+      "config": "Sens_load_lower_A0G0",
+      "settings": {
+        "mean_interval_s": 2000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_lower-A0G0-n500-r6",
+      "scenario": "load_lower",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 6,
+      "seed": 6,
+      "native_run": 46,
+      "config": "Sens_load_lower_A0G0",
+      "settings": {
+        "mean_interval_s": 2000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_lower-A0G0-n500-r7",
+      "scenario": "load_lower",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 7,
+      "seed": 7,
+      "native_run": 47,
+      "config": "Sens_load_lower_A0G0",
+      "settings": {
+        "mean_interval_s": 2000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_lower-A0G0-n500-r8",
+      "scenario": "load_lower",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 8,
+      "seed": 8,
+      "native_run": 48,
+      "config": "Sens_load_lower_A0G0",
+      "settings": {
+        "mean_interval_s": 2000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_lower-A0G0-n500-r9",
+      "scenario": "load_lower",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 9,
+      "seed": 9,
+      "native_run": 49,
+      "config": "Sens_load_lower_A0G0",
+      "settings": {
+        "mean_interval_s": 2000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_lower-A0G1-n500-r0",
+      "scenario": "load_lower",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 0,
+      "seed": 0,
+      "native_run": 40,
+      "config": "Sens_load_lower_A0G1",
+      "settings": {
+        "mean_interval_s": 2000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_lower-A0G1-n500-r1",
+      "scenario": "load_lower",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 1,
+      "seed": 1,
+      "native_run": 41,
+      "config": "Sens_load_lower_A0G1",
+      "settings": {
+        "mean_interval_s": 2000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_lower-A0G1-n500-r2",
+      "scenario": "load_lower",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 2,
+      "seed": 2,
+      "native_run": 42,
+      "config": "Sens_load_lower_A0G1",
+      "settings": {
+        "mean_interval_s": 2000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_lower-A0G1-n500-r3",
+      "scenario": "load_lower",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 3,
+      "seed": 3,
+      "native_run": 43,
+      "config": "Sens_load_lower_A0G1",
+      "settings": {
+        "mean_interval_s": 2000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_lower-A0G1-n500-r4",
+      "scenario": "load_lower",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 4,
+      "seed": 4,
+      "native_run": 44,
+      "config": "Sens_load_lower_A0G1",
+      "settings": {
+        "mean_interval_s": 2000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_lower-A0G1-n500-r5",
+      "scenario": "load_lower",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 5,
+      "seed": 5,
+      "native_run": 45,
+      "config": "Sens_load_lower_A0G1",
+      "settings": {
+        "mean_interval_s": 2000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_lower-A0G1-n500-r6",
+      "scenario": "load_lower",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 6,
+      "seed": 6,
+      "native_run": 46,
+      "config": "Sens_load_lower_A0G1",
+      "settings": {
+        "mean_interval_s": 2000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_lower-A0G1-n500-r7",
+      "scenario": "load_lower",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 7,
+      "seed": 7,
+      "native_run": 47,
+      "config": "Sens_load_lower_A0G1",
+      "settings": {
+        "mean_interval_s": 2000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_lower-A0G1-n500-r8",
+      "scenario": "load_lower",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 8,
+      "seed": 8,
+      "native_run": 48,
+      "config": "Sens_load_lower_A0G1",
+      "settings": {
+        "mean_interval_s": 2000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_lower-A0G1-n500-r9",
+      "scenario": "load_lower",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 9,
+      "seed": 9,
+      "native_run": 49,
+      "config": "Sens_load_lower_A0G1",
+      "settings": {
+        "mean_interval_s": 2000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_lower-A1G0-n500-r0",
+      "scenario": "load_lower",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 0,
+      "seed": 0,
+      "native_run": 40,
+      "config": "Sens_load_lower_A1G0",
+      "settings": {
+        "mean_interval_s": 2000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_lower-A1G0-n500-r1",
+      "scenario": "load_lower",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 1,
+      "seed": 1,
+      "native_run": 41,
+      "config": "Sens_load_lower_A1G0",
+      "settings": {
+        "mean_interval_s": 2000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_lower-A1G0-n500-r2",
+      "scenario": "load_lower",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 2,
+      "seed": 2,
+      "native_run": 42,
+      "config": "Sens_load_lower_A1G0",
+      "settings": {
+        "mean_interval_s": 2000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_lower-A1G0-n500-r3",
+      "scenario": "load_lower",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 3,
+      "seed": 3,
+      "native_run": 43,
+      "config": "Sens_load_lower_A1G0",
+      "settings": {
+        "mean_interval_s": 2000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_lower-A1G0-n500-r4",
+      "scenario": "load_lower",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 4,
+      "seed": 4,
+      "native_run": 44,
+      "config": "Sens_load_lower_A1G0",
+      "settings": {
+        "mean_interval_s": 2000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_lower-A1G0-n500-r5",
+      "scenario": "load_lower",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 5,
+      "seed": 5,
+      "native_run": 45,
+      "config": "Sens_load_lower_A1G0",
+      "settings": {
+        "mean_interval_s": 2000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_lower-A1G0-n500-r6",
+      "scenario": "load_lower",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 6,
+      "seed": 6,
+      "native_run": 46,
+      "config": "Sens_load_lower_A1G0",
+      "settings": {
+        "mean_interval_s": 2000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_lower-A1G0-n500-r7",
+      "scenario": "load_lower",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 7,
+      "seed": 7,
+      "native_run": 47,
+      "config": "Sens_load_lower_A1G0",
+      "settings": {
+        "mean_interval_s": 2000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_lower-A1G0-n500-r8",
+      "scenario": "load_lower",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 8,
+      "seed": 8,
+      "native_run": 48,
+      "config": "Sens_load_lower_A1G0",
+      "settings": {
+        "mean_interval_s": 2000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_lower-A1G0-n500-r9",
+      "scenario": "load_lower",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 9,
+      "seed": 9,
+      "native_run": 49,
+      "config": "Sens_load_lower_A1G0",
+      "settings": {
+        "mean_interval_s": 2000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_lower-A1G1-n500-r0",
+      "scenario": "load_lower",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 0,
+      "seed": 0,
+      "native_run": 40,
+      "config": "Sens_load_lower_A1G1",
+      "settings": {
+        "mean_interval_s": 2000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_lower-A1G1-n500-r1",
+      "scenario": "load_lower",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 1,
+      "seed": 1,
+      "native_run": 41,
+      "config": "Sens_load_lower_A1G1",
+      "settings": {
+        "mean_interval_s": 2000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_lower-A1G1-n500-r2",
+      "scenario": "load_lower",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 2,
+      "seed": 2,
+      "native_run": 42,
+      "config": "Sens_load_lower_A1G1",
+      "settings": {
+        "mean_interval_s": 2000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_lower-A1G1-n500-r3",
+      "scenario": "load_lower",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 3,
+      "seed": 3,
+      "native_run": 43,
+      "config": "Sens_load_lower_A1G1",
+      "settings": {
+        "mean_interval_s": 2000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_lower-A1G1-n500-r4",
+      "scenario": "load_lower",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 4,
+      "seed": 4,
+      "native_run": 44,
+      "config": "Sens_load_lower_A1G1",
+      "settings": {
+        "mean_interval_s": 2000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_lower-A1G1-n500-r5",
+      "scenario": "load_lower",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 5,
+      "seed": 5,
+      "native_run": 45,
+      "config": "Sens_load_lower_A1G1",
+      "settings": {
+        "mean_interval_s": 2000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_lower-A1G1-n500-r6",
+      "scenario": "load_lower",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 6,
+      "seed": 6,
+      "native_run": 46,
+      "config": "Sens_load_lower_A1G1",
+      "settings": {
+        "mean_interval_s": 2000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_lower-A1G1-n500-r7",
+      "scenario": "load_lower",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 7,
+      "seed": 7,
+      "native_run": 47,
+      "config": "Sens_load_lower_A1G1",
+      "settings": {
+        "mean_interval_s": 2000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_lower-A1G1-n500-r8",
+      "scenario": "load_lower",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 8,
+      "seed": 8,
+      "native_run": 48,
+      "config": "Sens_load_lower_A1G1",
+      "settings": {
+        "mean_interval_s": 2000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_lower-A1G1-n500-r9",
+      "scenario": "load_lower",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 9,
+      "seed": 9,
+      "native_run": 49,
+      "config": "Sens_load_lower_A1G1",
+      "settings": {
+        "mean_interval_s": 2000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_higher-A0G0-n500-r0",
+      "scenario": "load_higher",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 0,
+      "seed": 0,
+      "native_run": 40,
+      "config": "Sens_load_higher_A0G0",
+      "settings": {
+        "mean_interval_s": 500,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_higher-A0G0-n500-r1",
+      "scenario": "load_higher",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 1,
+      "seed": 1,
+      "native_run": 41,
+      "config": "Sens_load_higher_A0G0",
+      "settings": {
+        "mean_interval_s": 500,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_higher-A0G0-n500-r2",
+      "scenario": "load_higher",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 2,
+      "seed": 2,
+      "native_run": 42,
+      "config": "Sens_load_higher_A0G0",
+      "settings": {
+        "mean_interval_s": 500,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_higher-A0G0-n500-r3",
+      "scenario": "load_higher",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 3,
+      "seed": 3,
+      "native_run": 43,
+      "config": "Sens_load_higher_A0G0",
+      "settings": {
+        "mean_interval_s": 500,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_higher-A0G0-n500-r4",
+      "scenario": "load_higher",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 4,
+      "seed": 4,
+      "native_run": 44,
+      "config": "Sens_load_higher_A0G0",
+      "settings": {
+        "mean_interval_s": 500,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_higher-A0G0-n500-r5",
+      "scenario": "load_higher",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 5,
+      "seed": 5,
+      "native_run": 45,
+      "config": "Sens_load_higher_A0G0",
+      "settings": {
+        "mean_interval_s": 500,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_higher-A0G0-n500-r6",
+      "scenario": "load_higher",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 6,
+      "seed": 6,
+      "native_run": 46,
+      "config": "Sens_load_higher_A0G0",
+      "settings": {
+        "mean_interval_s": 500,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_higher-A0G0-n500-r7",
+      "scenario": "load_higher",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 7,
+      "seed": 7,
+      "native_run": 47,
+      "config": "Sens_load_higher_A0G0",
+      "settings": {
+        "mean_interval_s": 500,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_higher-A0G0-n500-r8",
+      "scenario": "load_higher",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 8,
+      "seed": 8,
+      "native_run": 48,
+      "config": "Sens_load_higher_A0G0",
+      "settings": {
+        "mean_interval_s": 500,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_higher-A0G0-n500-r9",
+      "scenario": "load_higher",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 9,
+      "seed": 9,
+      "native_run": 49,
+      "config": "Sens_load_higher_A0G0",
+      "settings": {
+        "mean_interval_s": 500,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_higher-A0G1-n500-r0",
+      "scenario": "load_higher",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 0,
+      "seed": 0,
+      "native_run": 40,
+      "config": "Sens_load_higher_A0G1",
+      "settings": {
+        "mean_interval_s": 500,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_higher-A0G1-n500-r1",
+      "scenario": "load_higher",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 1,
+      "seed": 1,
+      "native_run": 41,
+      "config": "Sens_load_higher_A0G1",
+      "settings": {
+        "mean_interval_s": 500,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_higher-A0G1-n500-r2",
+      "scenario": "load_higher",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 2,
+      "seed": 2,
+      "native_run": 42,
+      "config": "Sens_load_higher_A0G1",
+      "settings": {
+        "mean_interval_s": 500,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_higher-A0G1-n500-r3",
+      "scenario": "load_higher",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 3,
+      "seed": 3,
+      "native_run": 43,
+      "config": "Sens_load_higher_A0G1",
+      "settings": {
+        "mean_interval_s": 500,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_higher-A0G1-n500-r4",
+      "scenario": "load_higher",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 4,
+      "seed": 4,
+      "native_run": 44,
+      "config": "Sens_load_higher_A0G1",
+      "settings": {
+        "mean_interval_s": 500,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_higher-A0G1-n500-r5",
+      "scenario": "load_higher",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 5,
+      "seed": 5,
+      "native_run": 45,
+      "config": "Sens_load_higher_A0G1",
+      "settings": {
+        "mean_interval_s": 500,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_higher-A0G1-n500-r6",
+      "scenario": "load_higher",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 6,
+      "seed": 6,
+      "native_run": 46,
+      "config": "Sens_load_higher_A0G1",
+      "settings": {
+        "mean_interval_s": 500,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_higher-A0G1-n500-r7",
+      "scenario": "load_higher",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 7,
+      "seed": 7,
+      "native_run": 47,
+      "config": "Sens_load_higher_A0G1",
+      "settings": {
+        "mean_interval_s": 500,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_higher-A0G1-n500-r8",
+      "scenario": "load_higher",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 8,
+      "seed": 8,
+      "native_run": 48,
+      "config": "Sens_load_higher_A0G1",
+      "settings": {
+        "mean_interval_s": 500,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_higher-A0G1-n500-r9",
+      "scenario": "load_higher",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 9,
+      "seed": 9,
+      "native_run": 49,
+      "config": "Sens_load_higher_A0G1",
+      "settings": {
+        "mean_interval_s": 500,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_higher-A1G0-n500-r0",
+      "scenario": "load_higher",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 0,
+      "seed": 0,
+      "native_run": 40,
+      "config": "Sens_load_higher_A1G0",
+      "settings": {
+        "mean_interval_s": 500,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_higher-A1G0-n500-r1",
+      "scenario": "load_higher",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 1,
+      "seed": 1,
+      "native_run": 41,
+      "config": "Sens_load_higher_A1G0",
+      "settings": {
+        "mean_interval_s": 500,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_higher-A1G0-n500-r2",
+      "scenario": "load_higher",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 2,
+      "seed": 2,
+      "native_run": 42,
+      "config": "Sens_load_higher_A1G0",
+      "settings": {
+        "mean_interval_s": 500,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_higher-A1G0-n500-r3",
+      "scenario": "load_higher",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 3,
+      "seed": 3,
+      "native_run": 43,
+      "config": "Sens_load_higher_A1G0",
+      "settings": {
+        "mean_interval_s": 500,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_higher-A1G0-n500-r4",
+      "scenario": "load_higher",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 4,
+      "seed": 4,
+      "native_run": 44,
+      "config": "Sens_load_higher_A1G0",
+      "settings": {
+        "mean_interval_s": 500,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_higher-A1G0-n500-r5",
+      "scenario": "load_higher",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 5,
+      "seed": 5,
+      "native_run": 45,
+      "config": "Sens_load_higher_A1G0",
+      "settings": {
+        "mean_interval_s": 500,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_higher-A1G0-n500-r6",
+      "scenario": "load_higher",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 6,
+      "seed": 6,
+      "native_run": 46,
+      "config": "Sens_load_higher_A1G0",
+      "settings": {
+        "mean_interval_s": 500,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_higher-A1G0-n500-r7",
+      "scenario": "load_higher",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 7,
+      "seed": 7,
+      "native_run": 47,
+      "config": "Sens_load_higher_A1G0",
+      "settings": {
+        "mean_interval_s": 500,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_higher-A1G0-n500-r8",
+      "scenario": "load_higher",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 8,
+      "seed": 8,
+      "native_run": 48,
+      "config": "Sens_load_higher_A1G0",
+      "settings": {
+        "mean_interval_s": 500,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_higher-A1G0-n500-r9",
+      "scenario": "load_higher",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 9,
+      "seed": 9,
+      "native_run": 49,
+      "config": "Sens_load_higher_A1G0",
+      "settings": {
+        "mean_interval_s": 500,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_higher-A1G1-n500-r0",
+      "scenario": "load_higher",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 0,
+      "seed": 0,
+      "native_run": 40,
+      "config": "Sens_load_higher_A1G1",
+      "settings": {
+        "mean_interval_s": 500,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_higher-A1G1-n500-r1",
+      "scenario": "load_higher",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 1,
+      "seed": 1,
+      "native_run": 41,
+      "config": "Sens_load_higher_A1G1",
+      "settings": {
+        "mean_interval_s": 500,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_higher-A1G1-n500-r2",
+      "scenario": "load_higher",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 2,
+      "seed": 2,
+      "native_run": 42,
+      "config": "Sens_load_higher_A1G1",
+      "settings": {
+        "mean_interval_s": 500,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_higher-A1G1-n500-r3",
+      "scenario": "load_higher",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 3,
+      "seed": 3,
+      "native_run": 43,
+      "config": "Sens_load_higher_A1G1",
+      "settings": {
+        "mean_interval_s": 500,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_higher-A1G1-n500-r4",
+      "scenario": "load_higher",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 4,
+      "seed": 4,
+      "native_run": 44,
+      "config": "Sens_load_higher_A1G1",
+      "settings": {
+        "mean_interval_s": 500,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_higher-A1G1-n500-r5",
+      "scenario": "load_higher",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 5,
+      "seed": 5,
+      "native_run": 45,
+      "config": "Sens_load_higher_A1G1",
+      "settings": {
+        "mean_interval_s": 500,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_higher-A1G1-n500-r6",
+      "scenario": "load_higher",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 6,
+      "seed": 6,
+      "native_run": 46,
+      "config": "Sens_load_higher_A1G1",
+      "settings": {
+        "mean_interval_s": 500,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_higher-A1G1-n500-r7",
+      "scenario": "load_higher",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 7,
+      "seed": 7,
+      "native_run": 47,
+      "config": "Sens_load_higher_A1G1",
+      "settings": {
+        "mean_interval_s": 500,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_higher-A1G1-n500-r8",
+      "scenario": "load_higher",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 8,
+      "seed": 8,
+      "native_run": 48,
+      "config": "Sens_load_higher_A1G1",
+      "settings": {
+        "mean_interval_s": 500,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "load_higher-A1G1-n500-r9",
+      "scenario": "load_higher",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 9,
+      "seed": 9,
+      "native_run": 49,
+      "config": "Sens_load_higher_A1G1",
+      "settings": {
+        "mean_interval_s": 500,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_lower-A0G0-n500-r0",
+      "scenario": "gamma_lower",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 0,
+      "seed": 0,
+      "native_run": 40,
+      "config": "Sens_gamma_lower_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.0,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_lower-A0G0-n500-r1",
+      "scenario": "gamma_lower",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 1,
+      "seed": 1,
+      "native_run": 41,
+      "config": "Sens_gamma_lower_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.0,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_lower-A0G0-n500-r2",
+      "scenario": "gamma_lower",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 2,
+      "seed": 2,
+      "native_run": 42,
+      "config": "Sens_gamma_lower_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.0,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_lower-A0G0-n500-r3",
+      "scenario": "gamma_lower",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 3,
+      "seed": 3,
+      "native_run": 43,
+      "config": "Sens_gamma_lower_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.0,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_lower-A0G0-n500-r4",
+      "scenario": "gamma_lower",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 4,
+      "seed": 4,
+      "native_run": 44,
+      "config": "Sens_gamma_lower_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.0,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_lower-A0G0-n500-r5",
+      "scenario": "gamma_lower",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 5,
+      "seed": 5,
+      "native_run": 45,
+      "config": "Sens_gamma_lower_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.0,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_lower-A0G0-n500-r6",
+      "scenario": "gamma_lower",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 6,
+      "seed": 6,
+      "native_run": 46,
+      "config": "Sens_gamma_lower_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.0,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_lower-A0G0-n500-r7",
+      "scenario": "gamma_lower",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 7,
+      "seed": 7,
+      "native_run": 47,
+      "config": "Sens_gamma_lower_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.0,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_lower-A0G0-n500-r8",
+      "scenario": "gamma_lower",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 8,
+      "seed": 8,
+      "native_run": 48,
+      "config": "Sens_gamma_lower_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.0,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_lower-A0G0-n500-r9",
+      "scenario": "gamma_lower",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 9,
+      "seed": 9,
+      "native_run": 49,
+      "config": "Sens_gamma_lower_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.0,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_lower-A0G1-n500-r0",
+      "scenario": "gamma_lower",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 0,
+      "seed": 0,
+      "native_run": 40,
+      "config": "Sens_gamma_lower_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.0,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_lower-A0G1-n500-r1",
+      "scenario": "gamma_lower",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 1,
+      "seed": 1,
+      "native_run": 41,
+      "config": "Sens_gamma_lower_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.0,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_lower-A0G1-n500-r2",
+      "scenario": "gamma_lower",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 2,
+      "seed": 2,
+      "native_run": 42,
+      "config": "Sens_gamma_lower_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.0,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_lower-A0G1-n500-r3",
+      "scenario": "gamma_lower",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 3,
+      "seed": 3,
+      "native_run": 43,
+      "config": "Sens_gamma_lower_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.0,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_lower-A0G1-n500-r4",
+      "scenario": "gamma_lower",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 4,
+      "seed": 4,
+      "native_run": 44,
+      "config": "Sens_gamma_lower_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.0,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_lower-A0G1-n500-r5",
+      "scenario": "gamma_lower",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 5,
+      "seed": 5,
+      "native_run": 45,
+      "config": "Sens_gamma_lower_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.0,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_lower-A0G1-n500-r6",
+      "scenario": "gamma_lower",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 6,
+      "seed": 6,
+      "native_run": 46,
+      "config": "Sens_gamma_lower_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.0,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_lower-A0G1-n500-r7",
+      "scenario": "gamma_lower",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 7,
+      "seed": 7,
+      "native_run": 47,
+      "config": "Sens_gamma_lower_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.0,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_lower-A0G1-n500-r8",
+      "scenario": "gamma_lower",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 8,
+      "seed": 8,
+      "native_run": 48,
+      "config": "Sens_gamma_lower_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.0,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_lower-A0G1-n500-r9",
+      "scenario": "gamma_lower",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 9,
+      "seed": 9,
+      "native_run": 49,
+      "config": "Sens_gamma_lower_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.0,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_lower-A1G0-n500-r0",
+      "scenario": "gamma_lower",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 0,
+      "seed": 0,
+      "native_run": 40,
+      "config": "Sens_gamma_lower_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.0,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_lower-A1G0-n500-r1",
+      "scenario": "gamma_lower",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 1,
+      "seed": 1,
+      "native_run": 41,
+      "config": "Sens_gamma_lower_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.0,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_lower-A1G0-n500-r2",
+      "scenario": "gamma_lower",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 2,
+      "seed": 2,
+      "native_run": 42,
+      "config": "Sens_gamma_lower_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.0,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_lower-A1G0-n500-r3",
+      "scenario": "gamma_lower",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 3,
+      "seed": 3,
+      "native_run": 43,
+      "config": "Sens_gamma_lower_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.0,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_lower-A1G0-n500-r4",
+      "scenario": "gamma_lower",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 4,
+      "seed": 4,
+      "native_run": 44,
+      "config": "Sens_gamma_lower_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.0,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_lower-A1G0-n500-r5",
+      "scenario": "gamma_lower",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 5,
+      "seed": 5,
+      "native_run": 45,
+      "config": "Sens_gamma_lower_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.0,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_lower-A1G0-n500-r6",
+      "scenario": "gamma_lower",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 6,
+      "seed": 6,
+      "native_run": 46,
+      "config": "Sens_gamma_lower_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.0,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_lower-A1G0-n500-r7",
+      "scenario": "gamma_lower",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 7,
+      "seed": 7,
+      "native_run": 47,
+      "config": "Sens_gamma_lower_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.0,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_lower-A1G0-n500-r8",
+      "scenario": "gamma_lower",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 8,
+      "seed": 8,
+      "native_run": 48,
+      "config": "Sens_gamma_lower_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.0,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_lower-A1G0-n500-r9",
+      "scenario": "gamma_lower",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 9,
+      "seed": 9,
+      "native_run": 49,
+      "config": "Sens_gamma_lower_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.0,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_lower-A1G1-n500-r0",
+      "scenario": "gamma_lower",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 0,
+      "seed": 0,
+      "native_run": 40,
+      "config": "Sens_gamma_lower_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.0,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_lower-A1G1-n500-r1",
+      "scenario": "gamma_lower",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 1,
+      "seed": 1,
+      "native_run": 41,
+      "config": "Sens_gamma_lower_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.0,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_lower-A1G1-n500-r2",
+      "scenario": "gamma_lower",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 2,
+      "seed": 2,
+      "native_run": 42,
+      "config": "Sens_gamma_lower_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.0,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_lower-A1G1-n500-r3",
+      "scenario": "gamma_lower",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 3,
+      "seed": 3,
+      "native_run": 43,
+      "config": "Sens_gamma_lower_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.0,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_lower-A1G1-n500-r4",
+      "scenario": "gamma_lower",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 4,
+      "seed": 4,
+      "native_run": 44,
+      "config": "Sens_gamma_lower_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.0,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_lower-A1G1-n500-r5",
+      "scenario": "gamma_lower",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 5,
+      "seed": 5,
+      "native_run": 45,
+      "config": "Sens_gamma_lower_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.0,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_lower-A1G1-n500-r6",
+      "scenario": "gamma_lower",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 6,
+      "seed": 6,
+      "native_run": 46,
+      "config": "Sens_gamma_lower_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.0,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_lower-A1G1-n500-r7",
+      "scenario": "gamma_lower",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 7,
+      "seed": 7,
+      "native_run": 47,
+      "config": "Sens_gamma_lower_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.0,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_lower-A1G1-n500-r8",
+      "scenario": "gamma_lower",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 8,
+      "seed": 8,
+      "native_run": 48,
+      "config": "Sens_gamma_lower_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.0,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_lower-A1G1-n500-r9",
+      "scenario": "gamma_lower",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 9,
+      "seed": 9,
+      "native_run": 49,
+      "config": "Sens_gamma_lower_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.0,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_higher-A0G0-n500-r0",
+      "scenario": "gamma_higher",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 0,
+      "seed": 0,
+      "native_run": 40,
+      "config": "Sens_gamma_higher_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.7,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_higher-A0G0-n500-r1",
+      "scenario": "gamma_higher",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 1,
+      "seed": 1,
+      "native_run": 41,
+      "config": "Sens_gamma_higher_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.7,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_higher-A0G0-n500-r2",
+      "scenario": "gamma_higher",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 2,
+      "seed": 2,
+      "native_run": 42,
+      "config": "Sens_gamma_higher_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.7,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_higher-A0G0-n500-r3",
+      "scenario": "gamma_higher",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 3,
+      "seed": 3,
+      "native_run": 43,
+      "config": "Sens_gamma_higher_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.7,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_higher-A0G0-n500-r4",
+      "scenario": "gamma_higher",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 4,
+      "seed": 4,
+      "native_run": 44,
+      "config": "Sens_gamma_higher_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.7,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_higher-A0G0-n500-r5",
+      "scenario": "gamma_higher",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 5,
+      "seed": 5,
+      "native_run": 45,
+      "config": "Sens_gamma_higher_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.7,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_higher-A0G0-n500-r6",
+      "scenario": "gamma_higher",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 6,
+      "seed": 6,
+      "native_run": 46,
+      "config": "Sens_gamma_higher_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.7,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_higher-A0G0-n500-r7",
+      "scenario": "gamma_higher",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 7,
+      "seed": 7,
+      "native_run": 47,
+      "config": "Sens_gamma_higher_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.7,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_higher-A0G0-n500-r8",
+      "scenario": "gamma_higher",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 8,
+      "seed": 8,
+      "native_run": 48,
+      "config": "Sens_gamma_higher_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.7,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_higher-A0G0-n500-r9",
+      "scenario": "gamma_higher",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 9,
+      "seed": 9,
+      "native_run": 49,
+      "config": "Sens_gamma_higher_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.7,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_higher-A0G1-n500-r0",
+      "scenario": "gamma_higher",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 0,
+      "seed": 0,
+      "native_run": 40,
+      "config": "Sens_gamma_higher_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.7,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_higher-A0G1-n500-r1",
+      "scenario": "gamma_higher",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 1,
+      "seed": 1,
+      "native_run": 41,
+      "config": "Sens_gamma_higher_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.7,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_higher-A0G1-n500-r2",
+      "scenario": "gamma_higher",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 2,
+      "seed": 2,
+      "native_run": 42,
+      "config": "Sens_gamma_higher_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.7,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_higher-A0G1-n500-r3",
+      "scenario": "gamma_higher",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 3,
+      "seed": 3,
+      "native_run": 43,
+      "config": "Sens_gamma_higher_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.7,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_higher-A0G1-n500-r4",
+      "scenario": "gamma_higher",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 4,
+      "seed": 4,
+      "native_run": 44,
+      "config": "Sens_gamma_higher_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.7,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_higher-A0G1-n500-r5",
+      "scenario": "gamma_higher",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 5,
+      "seed": 5,
+      "native_run": 45,
+      "config": "Sens_gamma_higher_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.7,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_higher-A0G1-n500-r6",
+      "scenario": "gamma_higher",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 6,
+      "seed": 6,
+      "native_run": 46,
+      "config": "Sens_gamma_higher_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.7,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_higher-A0G1-n500-r7",
+      "scenario": "gamma_higher",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 7,
+      "seed": 7,
+      "native_run": 47,
+      "config": "Sens_gamma_higher_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.7,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_higher-A0G1-n500-r8",
+      "scenario": "gamma_higher",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 8,
+      "seed": 8,
+      "native_run": 48,
+      "config": "Sens_gamma_higher_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.7,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_higher-A0G1-n500-r9",
+      "scenario": "gamma_higher",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 9,
+      "seed": 9,
+      "native_run": 49,
+      "config": "Sens_gamma_higher_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.7,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_higher-A1G0-n500-r0",
+      "scenario": "gamma_higher",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 0,
+      "seed": 0,
+      "native_run": 40,
+      "config": "Sens_gamma_higher_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.7,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_higher-A1G0-n500-r1",
+      "scenario": "gamma_higher",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 1,
+      "seed": 1,
+      "native_run": 41,
+      "config": "Sens_gamma_higher_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.7,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_higher-A1G0-n500-r2",
+      "scenario": "gamma_higher",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 2,
+      "seed": 2,
+      "native_run": 42,
+      "config": "Sens_gamma_higher_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.7,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_higher-A1G0-n500-r3",
+      "scenario": "gamma_higher",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 3,
+      "seed": 3,
+      "native_run": 43,
+      "config": "Sens_gamma_higher_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.7,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_higher-A1G0-n500-r4",
+      "scenario": "gamma_higher",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 4,
+      "seed": 4,
+      "native_run": 44,
+      "config": "Sens_gamma_higher_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.7,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_higher-A1G0-n500-r5",
+      "scenario": "gamma_higher",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 5,
+      "seed": 5,
+      "native_run": 45,
+      "config": "Sens_gamma_higher_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.7,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_higher-A1G0-n500-r6",
+      "scenario": "gamma_higher",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 6,
+      "seed": 6,
+      "native_run": 46,
+      "config": "Sens_gamma_higher_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.7,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_higher-A1G0-n500-r7",
+      "scenario": "gamma_higher",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 7,
+      "seed": 7,
+      "native_run": 47,
+      "config": "Sens_gamma_higher_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.7,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_higher-A1G0-n500-r8",
+      "scenario": "gamma_higher",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 8,
+      "seed": 8,
+      "native_run": 48,
+      "config": "Sens_gamma_higher_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.7,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_higher-A1G0-n500-r9",
+      "scenario": "gamma_higher",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 9,
+      "seed": 9,
+      "native_run": 49,
+      "config": "Sens_gamma_higher_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.7,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_higher-A1G1-n500-r0",
+      "scenario": "gamma_higher",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 0,
+      "seed": 0,
+      "native_run": 40,
+      "config": "Sens_gamma_higher_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.7,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_higher-A1G1-n500-r1",
+      "scenario": "gamma_higher",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 1,
+      "seed": 1,
+      "native_run": 41,
+      "config": "Sens_gamma_higher_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.7,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_higher-A1G1-n500-r2",
+      "scenario": "gamma_higher",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 2,
+      "seed": 2,
+      "native_run": 42,
+      "config": "Sens_gamma_higher_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.7,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_higher-A1G1-n500-r3",
+      "scenario": "gamma_higher",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 3,
+      "seed": 3,
+      "native_run": 43,
+      "config": "Sens_gamma_higher_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.7,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_higher-A1G1-n500-r4",
+      "scenario": "gamma_higher",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 4,
+      "seed": 4,
+      "native_run": 44,
+      "config": "Sens_gamma_higher_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.7,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_higher-A1G1-n500-r5",
+      "scenario": "gamma_higher",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 5,
+      "seed": 5,
+      "native_run": 45,
+      "config": "Sens_gamma_higher_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.7,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_higher-A1G1-n500-r6",
+      "scenario": "gamma_higher",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 6,
+      "seed": 6,
+      "native_run": 46,
+      "config": "Sens_gamma_higher_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.7,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_higher-A1G1-n500-r7",
+      "scenario": "gamma_higher",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 7,
+      "seed": 7,
+      "native_run": 47,
+      "config": "Sens_gamma_higher_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.7,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_higher-A1G1-n500-r8",
+      "scenario": "gamma_higher",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 8,
+      "seed": 8,
+      "native_run": 48,
+      "config": "Sens_gamma_higher_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.7,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "gamma_higher-A1G1-n500-r9",
+      "scenario": "gamma_higher",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 9,
+      "seed": 9,
+      "native_run": 49,
+      "config": "Sens_gamma_higher_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.7,
+        "sigma_dB": 7.08,
+        "warmup_days": 2
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_0d-A0G0-n500-r0",
+      "scenario": "warmup_0d",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 0,
+      "seed": 0,
+      "native_run": 40,
+      "config": "Sens_warmup_0d_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 0
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_0d-A0G0-n500-r1",
+      "scenario": "warmup_0d",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 1,
+      "seed": 1,
+      "native_run": 41,
+      "config": "Sens_warmup_0d_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 0
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_0d-A0G0-n500-r2",
+      "scenario": "warmup_0d",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 2,
+      "seed": 2,
+      "native_run": 42,
+      "config": "Sens_warmup_0d_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 0
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_0d-A0G0-n500-r3",
+      "scenario": "warmup_0d",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 3,
+      "seed": 3,
+      "native_run": 43,
+      "config": "Sens_warmup_0d_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 0
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_0d-A0G0-n500-r4",
+      "scenario": "warmup_0d",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 4,
+      "seed": 4,
+      "native_run": 44,
+      "config": "Sens_warmup_0d_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 0
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_0d-A0G0-n500-r5",
+      "scenario": "warmup_0d",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 5,
+      "seed": 5,
+      "native_run": 45,
+      "config": "Sens_warmup_0d_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 0
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_0d-A0G0-n500-r6",
+      "scenario": "warmup_0d",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 6,
+      "seed": 6,
+      "native_run": 46,
+      "config": "Sens_warmup_0d_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 0
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_0d-A0G0-n500-r7",
+      "scenario": "warmup_0d",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 7,
+      "seed": 7,
+      "native_run": 47,
+      "config": "Sens_warmup_0d_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 0
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_0d-A0G0-n500-r8",
+      "scenario": "warmup_0d",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 8,
+      "seed": 8,
+      "native_run": 48,
+      "config": "Sens_warmup_0d_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 0
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_0d-A0G0-n500-r9",
+      "scenario": "warmup_0d",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 9,
+      "seed": 9,
+      "native_run": 49,
+      "config": "Sens_warmup_0d_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 0
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_0d-A0G1-n500-r0",
+      "scenario": "warmup_0d",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 0,
+      "seed": 0,
+      "native_run": 40,
+      "config": "Sens_warmup_0d_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 0
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_0d-A0G1-n500-r1",
+      "scenario": "warmup_0d",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 1,
+      "seed": 1,
+      "native_run": 41,
+      "config": "Sens_warmup_0d_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 0
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_0d-A0G1-n500-r2",
+      "scenario": "warmup_0d",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 2,
+      "seed": 2,
+      "native_run": 42,
+      "config": "Sens_warmup_0d_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 0
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_0d-A0G1-n500-r3",
+      "scenario": "warmup_0d",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 3,
+      "seed": 3,
+      "native_run": 43,
+      "config": "Sens_warmup_0d_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 0
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_0d-A0G1-n500-r4",
+      "scenario": "warmup_0d",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 4,
+      "seed": 4,
+      "native_run": 44,
+      "config": "Sens_warmup_0d_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 0
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_0d-A0G1-n500-r5",
+      "scenario": "warmup_0d",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 5,
+      "seed": 5,
+      "native_run": 45,
+      "config": "Sens_warmup_0d_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 0
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_0d-A0G1-n500-r6",
+      "scenario": "warmup_0d",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 6,
+      "seed": 6,
+      "native_run": 46,
+      "config": "Sens_warmup_0d_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 0
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_0d-A0G1-n500-r7",
+      "scenario": "warmup_0d",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 7,
+      "seed": 7,
+      "native_run": 47,
+      "config": "Sens_warmup_0d_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 0
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_0d-A0G1-n500-r8",
+      "scenario": "warmup_0d",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 8,
+      "seed": 8,
+      "native_run": 48,
+      "config": "Sens_warmup_0d_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 0
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_0d-A0G1-n500-r9",
+      "scenario": "warmup_0d",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 9,
+      "seed": 9,
+      "native_run": 49,
+      "config": "Sens_warmup_0d_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 0
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_0d-A1G0-n500-r0",
+      "scenario": "warmup_0d",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 0,
+      "seed": 0,
+      "native_run": 40,
+      "config": "Sens_warmup_0d_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 0
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_0d-A1G0-n500-r1",
+      "scenario": "warmup_0d",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 1,
+      "seed": 1,
+      "native_run": 41,
+      "config": "Sens_warmup_0d_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 0
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_0d-A1G0-n500-r2",
+      "scenario": "warmup_0d",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 2,
+      "seed": 2,
+      "native_run": 42,
+      "config": "Sens_warmup_0d_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 0
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_0d-A1G0-n500-r3",
+      "scenario": "warmup_0d",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 3,
+      "seed": 3,
+      "native_run": 43,
+      "config": "Sens_warmup_0d_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 0
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_0d-A1G0-n500-r4",
+      "scenario": "warmup_0d",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 4,
+      "seed": 4,
+      "native_run": 44,
+      "config": "Sens_warmup_0d_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 0
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_0d-A1G0-n500-r5",
+      "scenario": "warmup_0d",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 5,
+      "seed": 5,
+      "native_run": 45,
+      "config": "Sens_warmup_0d_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 0
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_0d-A1G0-n500-r6",
+      "scenario": "warmup_0d",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 6,
+      "seed": 6,
+      "native_run": 46,
+      "config": "Sens_warmup_0d_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 0
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_0d-A1G0-n500-r7",
+      "scenario": "warmup_0d",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 7,
+      "seed": 7,
+      "native_run": 47,
+      "config": "Sens_warmup_0d_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 0
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_0d-A1G0-n500-r8",
+      "scenario": "warmup_0d",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 8,
+      "seed": 8,
+      "native_run": 48,
+      "config": "Sens_warmup_0d_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 0
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_0d-A1G0-n500-r9",
+      "scenario": "warmup_0d",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 9,
+      "seed": 9,
+      "native_run": 49,
+      "config": "Sens_warmup_0d_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 0
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_0d-A1G1-n500-r0",
+      "scenario": "warmup_0d",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 0,
+      "seed": 0,
+      "native_run": 40,
+      "config": "Sens_warmup_0d_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 0
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_0d-A1G1-n500-r1",
+      "scenario": "warmup_0d",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 1,
+      "seed": 1,
+      "native_run": 41,
+      "config": "Sens_warmup_0d_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 0
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_0d-A1G1-n500-r2",
+      "scenario": "warmup_0d",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 2,
+      "seed": 2,
+      "native_run": 42,
+      "config": "Sens_warmup_0d_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 0
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_0d-A1G1-n500-r3",
+      "scenario": "warmup_0d",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 3,
+      "seed": 3,
+      "native_run": 43,
+      "config": "Sens_warmup_0d_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 0
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_0d-A1G1-n500-r4",
+      "scenario": "warmup_0d",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 4,
+      "seed": 4,
+      "native_run": 44,
+      "config": "Sens_warmup_0d_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 0
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_0d-A1G1-n500-r5",
+      "scenario": "warmup_0d",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 5,
+      "seed": 5,
+      "native_run": 45,
+      "config": "Sens_warmup_0d_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 0
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_0d-A1G1-n500-r6",
+      "scenario": "warmup_0d",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 6,
+      "seed": 6,
+      "native_run": 46,
+      "config": "Sens_warmup_0d_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 0
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_0d-A1G1-n500-r7",
+      "scenario": "warmup_0d",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 7,
+      "seed": 7,
+      "native_run": 47,
+      "config": "Sens_warmup_0d_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 0
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_0d-A1G1-n500-r8",
+      "scenario": "warmup_0d",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 8,
+      "seed": 8,
+      "native_run": 48,
+      "config": "Sens_warmup_0d_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 0
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_0d-A1G1-n500-r9",
+      "scenario": "warmup_0d",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 9,
+      "seed": 9,
+      "native_run": 49,
+      "config": "Sens_warmup_0d_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 0
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_1d-A0G0-n500-r0",
+      "scenario": "warmup_1d",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 0,
+      "seed": 0,
+      "native_run": 40,
+      "config": "Sens_warmup_1d_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 1
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_1d-A0G0-n500-r1",
+      "scenario": "warmup_1d",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 1,
+      "seed": 1,
+      "native_run": 41,
+      "config": "Sens_warmup_1d_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 1
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_1d-A0G0-n500-r2",
+      "scenario": "warmup_1d",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 2,
+      "seed": 2,
+      "native_run": 42,
+      "config": "Sens_warmup_1d_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 1
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_1d-A0G0-n500-r3",
+      "scenario": "warmup_1d",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 3,
+      "seed": 3,
+      "native_run": 43,
+      "config": "Sens_warmup_1d_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 1
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_1d-A0G0-n500-r4",
+      "scenario": "warmup_1d",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 4,
+      "seed": 4,
+      "native_run": 44,
+      "config": "Sens_warmup_1d_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 1
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_1d-A0G0-n500-r5",
+      "scenario": "warmup_1d",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 5,
+      "seed": 5,
+      "native_run": 45,
+      "config": "Sens_warmup_1d_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 1
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_1d-A0G0-n500-r6",
+      "scenario": "warmup_1d",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 6,
+      "seed": 6,
+      "native_run": 46,
+      "config": "Sens_warmup_1d_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 1
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_1d-A0G0-n500-r7",
+      "scenario": "warmup_1d",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 7,
+      "seed": 7,
+      "native_run": 47,
+      "config": "Sens_warmup_1d_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 1
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_1d-A0G0-n500-r8",
+      "scenario": "warmup_1d",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 8,
+      "seed": 8,
+      "native_run": 48,
+      "config": "Sens_warmup_1d_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 1
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_1d-A0G0-n500-r9",
+      "scenario": "warmup_1d",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 9,
+      "seed": 9,
+      "native_run": 49,
+      "config": "Sens_warmup_1d_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 1
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_1d-A0G1-n500-r0",
+      "scenario": "warmup_1d",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 0,
+      "seed": 0,
+      "native_run": 40,
+      "config": "Sens_warmup_1d_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 1
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_1d-A0G1-n500-r1",
+      "scenario": "warmup_1d",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 1,
+      "seed": 1,
+      "native_run": 41,
+      "config": "Sens_warmup_1d_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 1
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_1d-A0G1-n500-r2",
+      "scenario": "warmup_1d",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 2,
+      "seed": 2,
+      "native_run": 42,
+      "config": "Sens_warmup_1d_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 1
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_1d-A0G1-n500-r3",
+      "scenario": "warmup_1d",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 3,
+      "seed": 3,
+      "native_run": 43,
+      "config": "Sens_warmup_1d_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 1
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_1d-A0G1-n500-r4",
+      "scenario": "warmup_1d",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 4,
+      "seed": 4,
+      "native_run": 44,
+      "config": "Sens_warmup_1d_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 1
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_1d-A0G1-n500-r5",
+      "scenario": "warmup_1d",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 5,
+      "seed": 5,
+      "native_run": 45,
+      "config": "Sens_warmup_1d_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 1
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_1d-A0G1-n500-r6",
+      "scenario": "warmup_1d",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 6,
+      "seed": 6,
+      "native_run": 46,
+      "config": "Sens_warmup_1d_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 1
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_1d-A0G1-n500-r7",
+      "scenario": "warmup_1d",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 7,
+      "seed": 7,
+      "native_run": 47,
+      "config": "Sens_warmup_1d_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 1
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_1d-A0G1-n500-r8",
+      "scenario": "warmup_1d",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 8,
+      "seed": 8,
+      "native_run": 48,
+      "config": "Sens_warmup_1d_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 1
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_1d-A0G1-n500-r9",
+      "scenario": "warmup_1d",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 9,
+      "seed": 9,
+      "native_run": 49,
+      "config": "Sens_warmup_1d_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 1
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_1d-A1G0-n500-r0",
+      "scenario": "warmup_1d",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 0,
+      "seed": 0,
+      "native_run": 40,
+      "config": "Sens_warmup_1d_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 1
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_1d-A1G0-n500-r1",
+      "scenario": "warmup_1d",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 1,
+      "seed": 1,
+      "native_run": 41,
+      "config": "Sens_warmup_1d_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 1
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_1d-A1G0-n500-r2",
+      "scenario": "warmup_1d",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 2,
+      "seed": 2,
+      "native_run": 42,
+      "config": "Sens_warmup_1d_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 1
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_1d-A1G0-n500-r3",
+      "scenario": "warmup_1d",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 3,
+      "seed": 3,
+      "native_run": 43,
+      "config": "Sens_warmup_1d_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 1
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_1d-A1G0-n500-r4",
+      "scenario": "warmup_1d",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 4,
+      "seed": 4,
+      "native_run": 44,
+      "config": "Sens_warmup_1d_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 1
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_1d-A1G0-n500-r5",
+      "scenario": "warmup_1d",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 5,
+      "seed": 5,
+      "native_run": 45,
+      "config": "Sens_warmup_1d_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 1
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_1d-A1G0-n500-r6",
+      "scenario": "warmup_1d",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 6,
+      "seed": 6,
+      "native_run": 46,
+      "config": "Sens_warmup_1d_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 1
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_1d-A1G0-n500-r7",
+      "scenario": "warmup_1d",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 7,
+      "seed": 7,
+      "native_run": 47,
+      "config": "Sens_warmup_1d_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 1
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_1d-A1G0-n500-r8",
+      "scenario": "warmup_1d",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 8,
+      "seed": 8,
+      "native_run": 48,
+      "config": "Sens_warmup_1d_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 1
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_1d-A1G0-n500-r9",
+      "scenario": "warmup_1d",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 9,
+      "seed": 9,
+      "native_run": 49,
+      "config": "Sens_warmup_1d_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 1
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_1d-A1G1-n500-r0",
+      "scenario": "warmup_1d",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 0,
+      "seed": 0,
+      "native_run": 40,
+      "config": "Sens_warmup_1d_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 1
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_1d-A1G1-n500-r1",
+      "scenario": "warmup_1d",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 1,
+      "seed": 1,
+      "native_run": 41,
+      "config": "Sens_warmup_1d_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 1
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_1d-A1G1-n500-r2",
+      "scenario": "warmup_1d",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 2,
+      "seed": 2,
+      "native_run": 42,
+      "config": "Sens_warmup_1d_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 1
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_1d-A1G1-n500-r3",
+      "scenario": "warmup_1d",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 3,
+      "seed": 3,
+      "native_run": 43,
+      "config": "Sens_warmup_1d_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 1
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_1d-A1G1-n500-r4",
+      "scenario": "warmup_1d",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 4,
+      "seed": 4,
+      "native_run": 44,
+      "config": "Sens_warmup_1d_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 1
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_1d-A1G1-n500-r5",
+      "scenario": "warmup_1d",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 5,
+      "seed": 5,
+      "native_run": 45,
+      "config": "Sens_warmup_1d_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 1
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_1d-A1G1-n500-r6",
+      "scenario": "warmup_1d",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 6,
+      "seed": 6,
+      "native_run": 46,
+      "config": "Sens_warmup_1d_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 1
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_1d-A1G1-n500-r7",
+      "scenario": "warmup_1d",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 7,
+      "seed": 7,
+      "native_run": 47,
+      "config": "Sens_warmup_1d_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 1
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_1d-A1G1-n500-r8",
+      "scenario": "warmup_1d",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 8,
+      "seed": 8,
+      "native_run": 48,
+      "config": "Sens_warmup_1d_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 1
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_1d-A1G1-n500-r9",
+      "scenario": "warmup_1d",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 9,
+      "seed": 9,
+      "native_run": 49,
+      "config": "Sens_warmup_1d_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 1
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_3d-A0G0-n500-r0",
+      "scenario": "warmup_3d",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 0,
+      "seed": 0,
+      "native_run": 40,
+      "config": "Sens_warmup_3d_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 3
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_3d-A0G0-n500-r1",
+      "scenario": "warmup_3d",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 1,
+      "seed": 1,
+      "native_run": 41,
+      "config": "Sens_warmup_3d_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 3
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_3d-A0G0-n500-r2",
+      "scenario": "warmup_3d",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 2,
+      "seed": 2,
+      "native_run": 42,
+      "config": "Sens_warmup_3d_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 3
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_3d-A0G0-n500-r3",
+      "scenario": "warmup_3d",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 3,
+      "seed": 3,
+      "native_run": 43,
+      "config": "Sens_warmup_3d_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 3
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_3d-A0G0-n500-r4",
+      "scenario": "warmup_3d",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 4,
+      "seed": 4,
+      "native_run": 44,
+      "config": "Sens_warmup_3d_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 3
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_3d-A0G0-n500-r5",
+      "scenario": "warmup_3d",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 5,
+      "seed": 5,
+      "native_run": 45,
+      "config": "Sens_warmup_3d_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 3
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_3d-A0G0-n500-r6",
+      "scenario": "warmup_3d",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 6,
+      "seed": 6,
+      "native_run": 46,
+      "config": "Sens_warmup_3d_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 3
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_3d-A0G0-n500-r7",
+      "scenario": "warmup_3d",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 7,
+      "seed": 7,
+      "native_run": 47,
+      "config": "Sens_warmup_3d_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 3
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_3d-A0G0-n500-r8",
+      "scenario": "warmup_3d",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 8,
+      "seed": 8,
+      "native_run": 48,
+      "config": "Sens_warmup_3d_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 3
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_3d-A0G0-n500-r9",
+      "scenario": "warmup_3d",
+      "A": 0,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 9,
+      "seed": 9,
+      "native_run": 49,
+      "config": "Sens_warmup_3d_A0G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 3
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_3d-A0G1-n500-r0",
+      "scenario": "warmup_3d",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 0,
+      "seed": 0,
+      "native_run": 40,
+      "config": "Sens_warmup_3d_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 3
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_3d-A0G1-n500-r1",
+      "scenario": "warmup_3d",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 1,
+      "seed": 1,
+      "native_run": 41,
+      "config": "Sens_warmup_3d_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 3
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_3d-A0G1-n500-r2",
+      "scenario": "warmup_3d",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 2,
+      "seed": 2,
+      "native_run": 42,
+      "config": "Sens_warmup_3d_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 3
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_3d-A0G1-n500-r3",
+      "scenario": "warmup_3d",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 3,
+      "seed": 3,
+      "native_run": 43,
+      "config": "Sens_warmup_3d_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 3
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_3d-A0G1-n500-r4",
+      "scenario": "warmup_3d",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 4,
+      "seed": 4,
+      "native_run": 44,
+      "config": "Sens_warmup_3d_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 3
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_3d-A0G1-n500-r5",
+      "scenario": "warmup_3d",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 5,
+      "seed": 5,
+      "native_run": 45,
+      "config": "Sens_warmup_3d_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 3
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_3d-A0G1-n500-r6",
+      "scenario": "warmup_3d",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 6,
+      "seed": 6,
+      "native_run": 46,
+      "config": "Sens_warmup_3d_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 3
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_3d-A0G1-n500-r7",
+      "scenario": "warmup_3d",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 7,
+      "seed": 7,
+      "native_run": 47,
+      "config": "Sens_warmup_3d_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 3
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_3d-A0G1-n500-r8",
+      "scenario": "warmup_3d",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 8,
+      "seed": 8,
+      "native_run": 48,
+      "config": "Sens_warmup_3d_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 3
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_3d-A0G1-n500-r9",
+      "scenario": "warmup_3d",
+      "A": 0,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 9,
+      "seed": 9,
+      "native_run": 49,
+      "config": "Sens_warmup_3d_A0G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 3
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_3d-A1G0-n500-r0",
+      "scenario": "warmup_3d",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 0,
+      "seed": 0,
+      "native_run": 40,
+      "config": "Sens_warmup_3d_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 3
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_3d-A1G0-n500-r1",
+      "scenario": "warmup_3d",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 1,
+      "seed": 1,
+      "native_run": 41,
+      "config": "Sens_warmup_3d_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 3
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_3d-A1G0-n500-r2",
+      "scenario": "warmup_3d",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 2,
+      "seed": 2,
+      "native_run": 42,
+      "config": "Sens_warmup_3d_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 3
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_3d-A1G0-n500-r3",
+      "scenario": "warmup_3d",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 3,
+      "seed": 3,
+      "native_run": 43,
+      "config": "Sens_warmup_3d_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 3
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_3d-A1G0-n500-r4",
+      "scenario": "warmup_3d",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 4,
+      "seed": 4,
+      "native_run": 44,
+      "config": "Sens_warmup_3d_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 3
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_3d-A1G0-n500-r5",
+      "scenario": "warmup_3d",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 5,
+      "seed": 5,
+      "native_run": 45,
+      "config": "Sens_warmup_3d_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 3
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_3d-A1G0-n500-r6",
+      "scenario": "warmup_3d",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 6,
+      "seed": 6,
+      "native_run": 46,
+      "config": "Sens_warmup_3d_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 3
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_3d-A1G0-n500-r7",
+      "scenario": "warmup_3d",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 7,
+      "seed": 7,
+      "native_run": 47,
+      "config": "Sens_warmup_3d_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 3
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_3d-A1G0-n500-r8",
+      "scenario": "warmup_3d",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 8,
+      "seed": 8,
+      "native_run": 48,
+      "config": "Sens_warmup_3d_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 3
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_3d-A1G0-n500-r9",
+      "scenario": "warmup_3d",
+      "A": 1,
+      "G": 0,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 9,
+      "seed": 9,
+      "native_run": 49,
+      "config": "Sens_warmup_3d_A1G0",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 3
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_3d-A1G1-n500-r0",
+      "scenario": "warmup_3d",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 0,
+      "seed": 0,
+      "native_run": 40,
+      "config": "Sens_warmup_3d_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 3
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_3d-A1G1-n500-r1",
+      "scenario": "warmup_3d",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 1,
+      "seed": 1,
+      "native_run": 41,
+      "config": "Sens_warmup_3d_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 3
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_3d-A1G1-n500-r2",
+      "scenario": "warmup_3d",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 2,
+      "seed": 2,
+      "native_run": 42,
+      "config": "Sens_warmup_3d_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 3
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_3d-A1G1-n500-r3",
+      "scenario": "warmup_3d",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 3,
+      "seed": 3,
+      "native_run": 43,
+      "config": "Sens_warmup_3d_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 3
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_3d-A1G1-n500-r4",
+      "scenario": "warmup_3d",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 4,
+      "seed": 4,
+      "native_run": 44,
+      "config": "Sens_warmup_3d_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 3
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_3d-A1G1-n500-r5",
+      "scenario": "warmup_3d",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 5,
+      "seed": 5,
+      "native_run": 45,
+      "config": "Sens_warmup_3d_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 3
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_3d-A1G1-n500-r6",
+      "scenario": "warmup_3d",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 6,
+      "seed": 6,
+      "native_run": 46,
+      "config": "Sens_warmup_3d_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 3
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_3d-A1G1-n500-r7",
+      "scenario": "warmup_3d",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 7,
+      "seed": 7,
+      "native_run": 47,
+      "config": "Sens_warmup_3d_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 3
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_3d-A1G1-n500-r8",
+      "scenario": "warmup_3d",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 8,
+      "seed": 8,
+      "native_run": 48,
+      "config": "Sens_warmup_3d_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 3
+      },
+      "reuse_original": false
+    },
+    {
+      "run_id": "warmup_3d-A1G1-n500-r9",
+      "scenario": "warmup_3d",
+      "A": 1,
+      "G": 1,
+      "D": 1,
+      "nodes": 500,
+      "repetition": 9,
+      "seed": 9,
+      "native_run": 49,
+      "config": "Sens_warmup_3d_A1G1",
+      "settings": {
+        "mean_interval_s": 1000,
+        "gamma": 2.32,
+        "sigma_dB": 7.08,
+        "warmup_days": 3
+      },
+      "reuse_original": false
+    }
+  ]
+}

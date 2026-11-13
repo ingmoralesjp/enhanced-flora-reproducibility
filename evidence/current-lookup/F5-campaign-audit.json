@@ -1,0 +1,2572 @@
+{
+  "status": "PASS",
+  "pairs": 150,
+  "device_records": 165000,
+  "observed_initial_final_powers_dBm": [
+    2.0,
+    4.0,
+    6.0,
+    8.0,
+    10.0,
+    12.0,
+    14.0
+  ],
+  "sha256": {
+    "samples/flora/experiments/enhanced-flora-platform/reviewer-response/observation-4/results/F5-inputs-checkpoint-metrics.csv": "e3b2870ec481afee1f0437fc2c65b22ca5a81d60e42abf4912de48455fcf0786",
+    "samples/flora/experiments/enhanced-flora-platform/reviewer-response/observation-4/results/F5-inputs-device-summary.csv": "718eb3b4c152010006edf5871f2140254675d7a9029a9753f8da8e3889656f5b",
+    "/home/juan/omnetpp-6.0pre11/samples/flora/experiments/enhanced-flora-platform/reviewer-response/observation-4/audit_F5_campaign.py": "45872d4dfaf11ab78efd8e6d89336ca82fd4689d47ea6727aabafc87f5ce4fd2"
+  },
+  "boundary": "Initial/final states are observed; integer-only ADR code supplies the invariant between them, not a recovered event-by-event history.",
+  "checks": [
+    {
+      "pair": "mixed-n100-r0",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mixed-n100-r1",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mixed-n100-r2",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mixed-n100-r3",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mixed-n100-r4",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mixed-n1000-r0",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mixed-n1000-r1",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mixed-n1000-r2",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mixed-n1000-r3",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mixed-n1000-r4",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mixed-n200-r0",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mixed-n200-r1",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mixed-n200-r2",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mixed-n200-r3",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mixed-n200-r4",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mixed-n300-r0",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mixed-n300-r1",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mixed-n300-r2",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mixed-n300-r3",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mixed-n300-r4",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mixed-n400-r0",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mixed-n400-r1",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mixed-n400-r2",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mixed-n400-r3",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mixed-n400-r4",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mixed-n500-r0",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mixed-n500-r1",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mixed-n500-r2",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mixed-n500-r3",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mixed-n500-r4",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mixed-n600-r0",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mixed-n600-r1",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mixed-n600-r2",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mixed-n600-r3",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mixed-n600-r4",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mixed-n700-r0",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mixed-n700-r1",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mixed-n700-r2",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mixed-n700-r3",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mixed-n700-r4",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mixed-n800-r0",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mixed-n800-r1",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mixed-n800-r2",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mixed-n800-r3",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mixed-n800-r4",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mixed-n900-r0",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mixed-n900-r1",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mixed-n900-r2",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mixed-n900-r3",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mixed-n900-r4",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mobile-n100-r0",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mobile-n100-r1",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mobile-n100-r2",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mobile-n100-r3",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mobile-n100-r4",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mobile-n1000-r0",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mobile-n1000-r1",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mobile-n1000-r2",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mobile-n1000-r3",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mobile-n1000-r4",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mobile-n200-r0",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mobile-n200-r1",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mobile-n200-r2",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mobile-n200-r3",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mobile-n200-r4",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mobile-n300-r0",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mobile-n300-r1",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mobile-n300-r2",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mobile-n300-r3",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mobile-n300-r4",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mobile-n400-r0",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mobile-n400-r1",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mobile-n400-r2",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mobile-n400-r3",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mobile-n400-r4",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mobile-n500-r0",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mobile-n500-r1",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mobile-n500-r2",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mobile-n500-r3",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mobile-n500-r4",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mobile-n600-r0",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mobile-n600-r1",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mobile-n600-r2",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mobile-n600-r3",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mobile-n600-r4",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mobile-n700-r0",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mobile-n700-r1",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mobile-n700-r2",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mobile-n700-r3",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mobile-n700-r4",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mobile-n800-r0",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mobile-n800-r1",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mobile-n800-r2",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mobile-n800-r3",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mobile-n800-r4",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mobile-n900-r0",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mobile-n900-r1",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mobile-n900-r2",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mobile-n900-r3",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "mobile-n900-r4",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "static-n100-r0",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "static-n100-r1",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "static-n100-r2",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "static-n100-r3",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "static-n100-r4",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "static-n1000-r0",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "static-n1000-r1",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "static-n1000-r2",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "static-n1000-r3",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "static-n1000-r4",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "static-n200-r0",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "static-n200-r1",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "static-n200-r2",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "static-n200-r3",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "static-n200-r4",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "static-n300-r0",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "static-n300-r1",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "static-n300-r2",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "static-n300-r3",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "static-n300-r4",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "static-n400-r0",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "static-n400-r1",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "static-n400-r2",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "static-n400-r3",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "static-n400-r4",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "static-n500-r0",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "static-n500-r1",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "static-n500-r2",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "static-n500-r3",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "static-n500-r4",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "static-n600-r0",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "static-n600-r1",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "static-n600-r2",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "static-n600-r3",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "static-n600-r4",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "static-n700-r0",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "static-n700-r1",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "static-n700-r2",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "static-n700-r3",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "static-n700-r4",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "static-n800-r0",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "static-n800-r1",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "static-n800-r2",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "static-n800-r3",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "static-n800-r4",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "static-n900-r0",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "static-n900-r1",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "static-n900-r2",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "static-n900-r3",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    },
+    {
+      "pair": "static-n900-r4",
+      "equal": {
+        "sent_data": true,
+        "received_data": true,
+        "pdr": true,
+        "measurement_energy_j": true,
+        "measurement_tx_energy_j": true,
+        "measurement_rx_energy_j": true,
+        "measurement_sleep_energy_j": true
+      },
+      "lookup_codes": [
+        0.0,
+        1.0
+      ],
+      "energy_delta_J": 0.0
+    }
+  ]
+}

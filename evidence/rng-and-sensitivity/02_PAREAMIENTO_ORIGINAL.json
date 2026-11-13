@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "rows": 900,
+  "six_stage_blocks": 150,
+  "seed_set_equals_run_number_in_all_rows": true,
+  "seed_formula": "5*(nodes/100-1)+repetition",
+  "seeds_at_n100": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "seeds_at_n1000": [
+    45,
+    46,
+    47,
+    48,
+    49
+  ],
+  "stream_mapping": "No num-rngs/rng-k override in archived chain: one global RNG, default local0→global0",
+  "what_is_preserved": "Configuration, population/nodes/repetition block and initial seed identity; not guaranteed event-by-event exogenous draws after divergence",
+  "input_sha256": "e3b2870ec481afee1f0437fc2c65b22ca5a81d60e42abf4912de48455fcf0786",
+  "new_simulations": 0
+}

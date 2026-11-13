@@ -1,0 +1,9 @@
+P4 — aclaración de ganancias de antena (20261108-v4)
+Los parámetros transmitterGain=1 y receiverGain=1 se documentan como dBi en
+LoRaLogNormalShadowing.ned y se restan del path loss en dB en el código rc11.
+Por tanto, representan 1dBi cada uno (2dB conjuntos), no factores lineales
+unitarios de 0dBi. Se corrige 'unit antenna gains' en la síntesis PARAMETERS.md
+de esta nueva entrega; las fuentes originales y resultados no se modifican.
+La prueba de P3 compara (0,0), (1,1), (2,-1)dBi y pérdidas0/3/10dB contra el
+oráculo independiente. Véanse gains_system en los CSV de propagacion-rc11-v1.
+Referencia de configuración completa: 01_CONFIGURACION_EFECTIVA.csv.

@@ -1,0 +1,14 @@
+{
+  "version": "platform-paper-mechanisms-v1",
+  "rows": 900,
+  "input_sha256": {
+    "enhanced-runs.csv": "adba4ab132f064c9756c272d432b2467b1fb1f8986e3034b6ca9d33d6e8340bf",
+    "enhanced-device-summary.csv": "b5af6c5b65b1d91df66411430247e7afcbdb5479dde9c52879bbe011afdc0033",
+    "run-metrics.csv": "e3b2870ec481afee1f0437fc2c65b22ca5a81d60e42abf4912de48455fcf0786",
+    "campaign-manifest.json": "1bab8d90da8df01458c65a939a7f2c5ac6d769b54185272bcb471848f774dc3a"
+  },
+  "output_sha256": {
+    "enhanced-mechanisms.csv": "9d89c8d5aad847f58896696aebaacf4684e4630fdebbe90856e0f55e90e2a065"
+  },
+  "exporter_sha256": "761be4b0b62304d08d514df242b47a03bae660724bb9a824322029b44b58b270"
+}

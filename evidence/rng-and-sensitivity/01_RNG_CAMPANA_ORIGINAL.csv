@@ -1,0 +1,7 @@
+process,draw,source,local_rng,global_rng,scope
+Tráfico,exponential(1000s) en parámetros de aplicación,Analisis-mi-PROPOSAL-ADR.ini; SimpleLoRaApp::handleMessage,0,0,Original 900; not the later four-stream factorial
+SF/TP/canal inicial,intuniform y elección de arrays,SimpleLoRaApp::initialize,0,0,Original 900; not the later four-stream factorial
+Despliegue estático,uniform radio² y ángulo,SimpleLoRaApp::generateUniformCircleCoordinates,0,0,Original 900; not the later four-stream factorial
+Movilidad inicial y destinos,uniform en área y velocidad/espera volatile,RandomWaypointMobility.ned/.cc; MobilityBase.cc,0,0,Original 900; not the later four-stream factorial
+Canal/shadowing,"normal(0,sigma) por consulta de propagación",LoRaLogNormalShadowing::computePathLoss,0,0,Original 900; not the later four-stream factorial
+Valor de medición en payload,"intuniform(0,INT_MAX)",SimpleLoRaApp::sendUplink,0,0,Original 900; not the later four-stream factorial

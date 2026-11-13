@@ -1,0 +1,38 @@
+{
+  "enhanced": {
+    "rows": 900,
+    "pairs": 150,
+    "cells": 180,
+    "manifest_sha256": "1bab8d90da8df01458c65a939a7f2c5ac6d769b54185272bcb471848f774dc3a",
+    "device_rows": 495000
+  },
+  "official": {
+    "rows": 100,
+    "accepted": 92,
+    "failed": 8,
+    "manifest_sha256": "f47ec9b319b88fd1ab2205f08f4e32261f3fd1e62b554dd41d9e10aa39ad2684"
+  },
+  "outputs": {
+    "enhanced-runs.csv": {
+      "sha256": "adba4ab132f064c9756c272d432b2467b1fb1f8986e3034b6ca9d33d6e8340bf",
+      "bytes": 732010
+    },
+    "enhanced-downlink-counters.csv": {
+      "sha256": "a175c900b9837d6b8a76ae205881fb4560bfc3140d20ff8707ef4956a6e1e662",
+      "bytes": 43298
+    },
+    "official-flora-1.1-runs.csv": {
+      "sha256": "9600fb659b60624b0aa5625075a9bf0c033e12aa79dcf9cb5dbf7360f751876b",
+      "bytes": 76734
+    },
+    "enhanced-device-summary.csv": {
+      "sha256": "b5af6c5b65b1d91df66411430247e7afcbdb5479dde9c52879bbe011afdc0033",
+      "bytes": 32208416
+    }
+  },
+  "export_files_sha256": {
+    "export_paper_data.py": "b0a6d0fee1fe160127b60e83628e2e21d7149f154576aeecd3bbb16a4d0ea808",
+    "export_device_summary.py": "fa88d7c59d52ba618e8be471ce95be5c2b8ec45abcc5fb67d4d870790acf879d",
+    "DATA_DICTIONARY.md": "81e7742dc13a88ac89c1a4f13a7f9b7530bc52813d742b0005efbc3fc77c9fe7"
+  }
+}
